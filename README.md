@@ -1,4 +1,6 @@
-<div>CyberShell dots v0.1.0</div>
+<div align="center">
+  <h1>CyberShell Dots v0.1.0</h1>
+</div>
 
 ## Dependencies
 
