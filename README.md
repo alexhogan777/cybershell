@@ -2,13 +2,10 @@
 
 ## Dependencies
 
-- Hyprland
-  Plugins:
-
+- Hyprland and Hyprland plugins:
   - hyprspace
   - hyprchroma
   - hyprland-plugins
   - dynamic-cursors
-
 - Astal / AGS
 - Kitty
