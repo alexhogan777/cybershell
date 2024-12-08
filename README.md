@@ -16,4 +16,12 @@
 - SWWW
 - Astal / AGS
 - Kitty
+- fish
+- blueberry
 - KDEConnect (For phone integration)
+- Fonts
+  - JetBrains Mono
+  - SAIBA-45
+  - digital-7
+  - Material Symbols (NOT Material Icons)
+- sox
