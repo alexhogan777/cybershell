@@ -25,3 +25,4 @@
   - digital-7
   - Material Symbols (NOT Material Icons)
 - sox
+- gnome-polkit
