@@ -1,0 +1,47 @@
+.notification {
+  @include surface-dark;
+  @include corners-all;
+  padding: $paddingMedium;
+
+  &.hover {
+    @include hover;
+  }
+
+  .notification-title {
+    font-weight: bold;
+    font-size: 1.125em;
+  }
+  .notification-time {
+    color: #cccccc;
+  }
+  .notification-content {
+    padding: 0em 0.5em 0.5em 0.5em;
+  }
+  .notification-action {
+    @include transparent;
+
+    &:hover {
+      @include hover;
+    }
+    &:active {
+      @include fg;
+    }
+  }
+
+  .notification-actions {
+    margin-top: 4px;
+    .notification-action {
+      @include surface;
+      @include corners-all;
+      padding: $paddingSmall;
+      font-weight: bold;
+
+      &:hover {
+        @include hover;
+      }
+      &:active {
+        @include fg;
+      }
+    }
+  }
+}

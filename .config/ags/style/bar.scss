@@ -1,0 +1,73 @@
+.Bar {
+  font-family: $body;
+  .icon-material {
+    font-weight: bold;
+  }
+  .Workspaces {
+    @include bg;
+    @include corners-all;
+    padding: $paddingMedium;
+    font-weight: bold;
+    // min-width: 1.6em;
+
+    button {
+      all: unset;
+      @include corners-circle;
+      min-width: $paddingSmall * 8;
+      min-height: $paddingSmall * 8;
+
+      &.real {
+        background-color: $surfaceDark;
+      }
+      &.focused {
+        background-color: $surface_trans;
+      }
+      &:hover {
+        background-color: $hover;
+      }
+      &:active {
+        background-color: $surface;
+      }
+    }
+  }
+
+  .Clock {
+    min-width: $paddingSmall * 10.75;
+    font-weight: bold;
+    .time {
+      padding-top: 4px;
+      font-family: $digital;
+      font-size: $digitalMedium;
+      .am-pm {
+        color: $surface;
+      }
+    }
+    .date {
+      font-size: 0.73em;
+      color: $fg;
+    }
+  }
+  .Sys-Tray {
+    button {
+      min-width: $paddingSmall * 9.5;
+      min-height: $paddingSmall * 9.5;
+    }
+  }
+  .Sys-Monitor {
+    @include bg;
+    @include corners-all;
+    padding: $paddingMedium;
+
+    .resource {
+      background-color: $surface;
+      color: $fg;
+      font-size: 3px;
+      min-width: 8em;
+      min-height: 8em;
+    }
+    button {
+      @include transparent;
+      padding: 0em;
+    }
+  }
+}

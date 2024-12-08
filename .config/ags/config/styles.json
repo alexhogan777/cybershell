@@ -1,0 +1,13 @@
+{
+  "transparency": 0.85,
+  "bg": "34,0,34",
+  "surface_dark": "68,0,68",
+  "surface": "136,0,136",
+  "fg": "255,0,136",
+  "hover": "200,0,111",
+  "text": "255,255,255",
+  "error": "255,0,34",
+  "borderWidth": 2,
+  "cornerRounding": 4,
+  "paddingBase": 5
+}

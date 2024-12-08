@@ -1,0 +1,157 @@
+@import './style/astal.scss';
+@import './style/fonts.scss';
+
+$paddingSmall: 0.2em;
+$paddingMedium: 0.3em;
+$paddingLarge: 0.5em;
+
+$corners: 0.5em 0em 0.5em 0em;
+$cornersReversed: 0em 0.5em 0em 0.5em;
+
+* {
+  all: unset;
+}
+
+@mixin corners-all {
+  border-radius: $brv;
+}
+@mixin corners-square {
+  border-radius: 0em;
+}
+@mixin corners-circle {
+  border-radius: 50%;
+}
+@mixin corners-top {
+  border-radius: $brv $brv 0em 0em;
+}
+@mixin corners-right {
+  border-radius: 0em $brv $brv 0em;
+}
+@mixin corners-bottom {
+  border-radius: 0em 0em $brv $brv;
+}
+@mixin corners-left {
+  border-radius: $brv 0em 0em $brv;
+}
+
+@mixin transparent {
+  background-color: transparent;
+  border: $borderWidth solid transparent;
+}
+@mixin bg {
+  background-color: $bg_trans;
+  border: $borderWidth solid $bg;
+}
+@mixin surface-dark {
+  background-color: $surfaceDark_trans;
+  border: $borderWidth solid $surfaceDark;
+}
+@mixin surface {
+  background-color: $surface_trans;
+  border: $borderWidth solid $surface;
+}
+@mixin hover {
+  background-color: $hover_trans;
+  border: $borderWidth solid $hover;
+}
+@mixin fg {
+  background-color: $fg;
+  border: $borderWidth solid $fg;
+}
+
+tooltip {
+  @include bg;
+  @include corners-all;
+  padding: $paddingSmall;
+}
+
+.icon-material {
+  font-family: 'MaterialSymbolsOutlined';
+  // font-weight: bold;
+}
+
+.h1 {
+  font-family: $title;
+  font-weight: bold;
+  font-size: 2em;
+}
+.h2 {
+  font-family: $title;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+.h3 {
+  font-family: $title;
+  font-weight: normal;
+  font-size: 1.25em;
+}
+.body {
+  font-weight: normal;
+  font-size: 1em;
+}
+
+button {
+  @include bg;
+  @include corners-all;
+  padding: $paddingSmall;
+  &:hover {
+    @include hover;
+  }
+  &:active {
+    @include fg;
+  }
+}
+menu {
+  @include bg;
+  @include corners-all;
+  padding: $paddingMedium;
+
+  menuitem {
+    @include transparent;
+    @include corners-all;
+
+    &:hover {
+      @include hover;
+    }
+    &:active {
+      @include fg;
+    }
+  }
+}
+
+.dropdown {
+  @include bg;
+  @include corners-all;
+
+  .dropdown-option {
+    @include transparent;
+    @include corners-all;
+  }
+  .dropdown-option.selected {
+    border-radius: $corners;
+  }
+  .dropdown-option:hover {
+    background-color: $hover_trans;
+    border-color: $hover;
+  }
+  .dropdown-option.selected:hover {
+    background-color: $surface_trans;
+    border-color: $surface;
+  }
+}
+.dropdown.expanded {
+  border-radius: 0.5em 0em 0em 0.5em;
+  .dropdown-option.selected {
+    background-color: $surface_trans;
+    border-color: $surface;
+    margin-bottom: 4px;
+  }
+  .dropdown-option.selected:hover {
+    background-color: $hover_trans;
+    border-color: $hover;
+  }
+}
+
+@import './style/bar.scss';
+@import './style/panel.scss';
+@import './style/notification.scss';

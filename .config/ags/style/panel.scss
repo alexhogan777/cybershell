@@ -1,0 +1,276 @@
+.Panel {
+  @include bg;
+  @include corners-all;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20em;
+  background-blend-mode: darken;
+
+  .panel-container {
+    // min-width: 10em;
+    padding: $paddingLarge;
+  }
+  .panel-section {
+    @include transparent;
+    @include corners-all;
+    &.hover {
+      @include hover;
+    }
+    &.active {
+      @include fg;
+    }
+    &.notifications {
+      @include transparent;
+    }
+
+    .title-bar {
+      @include transparent;
+      padding: $paddingSmall;
+
+      // font-weight: bold;
+      font-size: 1.5em;
+
+      .title {
+        font-family: $title;
+      }
+
+      #searchbox {
+        @include surface-dark;
+        @include corners-all;
+        padding: $paddingSmall;
+
+        font-size: 0.67em;
+        font-weight: normal;
+      }
+      #searchbox selection {
+        background-color: $hover;
+        font-weight: bold;
+      }
+
+      .section-actions {
+        button {
+          @include transparent;
+          font-size: 0.75em;
+
+          &:hover {
+            @include hover;
+          }
+          &:active {
+            @include fg;
+          }
+        }
+      }
+    }
+
+    .section-content {
+      padding: $paddingMedium;
+
+      .quick-settings {
+        @include surface-dark;
+        @include corners-all;
+        padding: $paddingMedium;
+
+        .quick-setting {
+          @include transparent;
+          @include corners-circle;
+          min-width: 2.12em;
+
+          &:hover {
+            @include hover;
+            @include corners-all;
+          }
+          &.active {
+            @include surface;
+          }
+
+          .name {
+            margin-left: 4px;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .subsection-selector {
+        @include surface-dark;
+        @include corners-all;
+        padding: $paddingMedium;
+
+        .subsection-button {
+          @include transparent;
+          @include corners-circle;
+          min-width: 2.4em;
+
+          &:hover {
+            @include hover;
+          }
+          &.active {
+            @include surface;
+          }
+        }
+      }
+
+      .subsection {
+        button {
+          @include surface-dark;
+          @include corners-all;
+          padding: $paddingLarge;
+          &:hover {
+            @include hover;
+          }
+          &:active {
+            @include fg;
+          }
+        }
+
+        .mute-button {
+          border-radius: $brv 0em 0em 0em;
+          padding: 0em 0.25em 0em 0.25em;
+          @include surface-dark;
+          &:hover {
+            @include hover;
+          }
+          &:active {
+            @include fg;
+          }
+          border-right-color: transparent;
+        }
+        scale.volume-slider {
+          padding: 0em;
+          // margin-top: 0.125em;
+          trough {
+            border-radius: 0em $brv 0em 0em;
+            @include surface-dark;
+            min-height: 2em;
+          }
+
+          highlight {
+            background-color: $surface;
+            border-radius: 0em $brv 0em 0em;
+            padding: 0em $brv 0em 0em;
+            &:hover {
+              background-color: $hover;
+            }
+          }
+
+          slider {
+            all: unset;
+          }
+        }
+        .dropdown {
+          @include surface-dark;
+          @include corners-bottom;
+          border-top-color: transparent;
+
+          .dropdown-option {
+            @include transparent;
+            @include corners-all;
+            padding: $paddingSmall;
+
+            &.selected {
+              @include corners-bottom;
+            }
+            &:hover {
+              @include hover;
+            }
+          }
+        }
+        .dropdown.expanded {
+          .dropdown-option.selected {
+            @include surface;
+            margin-bottom: 4px;
+            &:hover {
+              @include hover;
+            }
+          }
+        }
+      }
+    }
+
+    .search-result {
+      @include transparent;
+      &.selected {
+        @include hover;
+      }
+
+      .title {
+        font-size: 1.25em;
+        font-weight: bold;
+
+        &.with-description {
+          font-size: 1em;
+        }
+      }
+      .description {
+        font-size: 0.75em;
+        font-weight: normal;
+      }
+    }
+
+    .search-results-section {
+      .section-title {
+        font-family: $title;
+        font-size: 1.25em;
+      }
+    }
+
+    .media-player {
+      @include surface-dark;
+      @include corners-all;
+      padding: $paddingLarge;
+      background-blend-mode: multiply;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+
+      .cover-art {
+        @include corners-all;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        min-height: 7.5em;
+        min-width: 7.5em;
+      }
+      .metadata-label {
+        font-weight: bold;
+        font-size: 1.125em;
+      }
+
+      .player-control {
+        @include transparent;
+        @include corners-circle;
+        min-width: 1.5em;
+        &.active {
+          @include surface;
+        }
+        &:hover {
+          @include hover;
+        }
+        &:active {
+          @include fg;
+        }
+      }
+      scale.position-slider {
+        padding: 0em;
+        trough {
+          @include corners-all;
+          @include bg;
+          min-height: 1em;
+        }
+
+        highlight {
+          background-color: $surface;
+          @include corners-all;
+          padding: 0em $brv 0em $brv;
+          &:hover {
+            background-color: $hover;
+          }
+        }
+
+        slider {
+          all: unset;
+        }
+      }
+    }
+  }
+}
