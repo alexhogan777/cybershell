@@ -13,6 +13,10 @@
   - dynamic-cursors
   - hyprlock
   - hypridle
+  - hyprgrass (for touch gestures)
+  - iio-hyprland
+  - hyprsunset
+- squeekboard (for osk support)
 - SWWW
 - Astal / AGS
 - Kitty
