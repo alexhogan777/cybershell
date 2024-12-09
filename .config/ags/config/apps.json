@@ -9,7 +9,7 @@
   "terminalAlt": "foot",
   "webBrowser": "floorp",
   "webBrowserAlt": "firefox",
-  "fileManager": "thunar",
+  "fileManager": "nautilus",
   "fileManagerAlt": "ranger",
   "textEditor": "gnome-text-editor --new-window",
   "codeEditor": "code"
