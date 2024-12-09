@@ -22,7 +22,7 @@ export const SysMonitor = ({ monitorInt }: { monitorInt: number }) => {
       <Audio />
       <NetworkMonitor />
       <BatteryMonitor />
-      <Resources />
+      {/* <Resources /> */}
     </box>
   );
 };
