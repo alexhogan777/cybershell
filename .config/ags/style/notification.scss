@@ -44,4 +44,19 @@
       }
     }
   }
+  .notification-action-title {
+    @include transparent;
+    @include corners-circle;
+    padding: 0px $paddingSmall / 2 0px $paddingSmall / 2;
+    min-width: $buttonSize / 2;
+    min-height: $buttonSize / 2;
+    font-weight: bold;
+
+    &:hover {
+      @include hover;
+    }
+    &:active {
+      @include fg;
+    }
+  }
 }

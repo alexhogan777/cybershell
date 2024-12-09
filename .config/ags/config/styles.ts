@@ -1,5 +1,7 @@
 import { execAsync, readFile, writeFile } from 'astal';
 import { configPath, HOME } from './user_config';
+import Hyprland from 'gi://AstalHyprland';
+const hypr = Hyprland.get_default();
 
 const STYLES = JSON.parse(readFile(`${configPath}/styles.json`));
 const APPS = JSON.parse(readFile(`${configPath}/apps.json`));
@@ -32,8 +34,10 @@ function applySCSS() {
     $text: rgb(${STYLES.text});
     $error: rgb(${STYLES.error});
 
+    $paddingBase: ${STYLES.paddingBase}px;
     $borderWidth: ${STYLES.borderWidth}px;
     $brv: ${STYLES.cornerRounding}px;
+    $buttonSize: ${STYLES.buttonSize}px;
     `
   );
 }

@@ -1,9 +1,9 @@
 @import './style/astal.scss';
 @import './style/fonts.scss';
 
-$paddingSmall: 0.2em;
-$paddingMedium: 0.3em;
-$paddingLarge: 0.5em;
+$paddingSmall: $paddingBase / 2;
+$paddingMedium: $paddingSmall * 1.5;
+$paddingLarge: $paddingMedium + $paddingBase;
 
 $corners: 0.5em 0em 0.5em 0em;
 $cornersReversed: 0em 0.5em 0em 0.5em;
@@ -95,6 +95,8 @@ button {
   @include bg;
   @include corners-all;
   padding: $paddingSmall;
+  min-width: $buttonSize;
+  min-height: $buttonSize;
   &:hover {
     @include hover;
   }

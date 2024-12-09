@@ -9,5 +9,6 @@
   "error": "255,0,34",
   "borderWidth": 2,
   "cornerRounding": 4,
-  "paddingBase": 5
+  "paddingBase": 4,
+  "buttonSize": 32
 }

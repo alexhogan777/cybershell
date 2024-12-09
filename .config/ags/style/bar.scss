@@ -6,15 +6,15 @@
   .Workspaces {
     @include bg;
     @include corners-all;
-    padding: $paddingMedium;
     font-weight: bold;
-    // min-width: 1.6em;
+    padding: $paddingSmall;
+    min-width: $buttonSize;
 
     button {
       all: unset;
       @include corners-circle;
-      min-width: $paddingSmall * 8;
-      min-height: $paddingSmall * 8;
+      min-width: $buttonSize - $paddingSmall;
+      min-height: $buttonSize - $paddingSmall;
 
       &.real {
         background-color: $surfaceDark;
@@ -32,7 +32,7 @@
   }
 
   .Clock {
-    min-width: $paddingSmall * 10.75;
+    min-width: $buttonSize + $paddingSmall * 2;
     font-weight: bold;
     .time {
       padding-top: 4px;
@@ -49,22 +49,23 @@
   }
   .Sys-Tray {
     button {
-      min-width: $paddingSmall * 9.5;
-      min-height: $paddingSmall * 9.5;
+      min-width: $buttonSize;
+      min-height: $buttonSize;
     }
   }
   .Sys-Monitor {
     @include bg;
     @include corners-all;
-    padding: $paddingMedium;
+    // padding: $paddingMedium;
+    min-width: $buttonSize;
 
-    .resource {
-      background-color: $surface;
-      color: $fg;
-      font-size: 3px;
-      min-width: 8em;
-      min-height: 8em;
-    }
+    // .resource {
+    //   background-color: $surface;
+    //   color: $fg;
+    //   font-size: 3px;
+    //   min-width: 8em;
+    //   min-height: 8em;
+    // }
     button {
       @include transparent;
       padding: 0em;

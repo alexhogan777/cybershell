@@ -52,6 +52,7 @@
         button {
           @include transparent;
           font-size: 0.75em;
+          padding: 0px $paddingSmall 0px $paddingSmall;
 
           &:hover {
             @include hover;
@@ -74,7 +75,9 @@
         .quick-setting {
           @include transparent;
           @include corners-circle;
-          min-width: 2.12em;
+          min-width: $buttonSize;
+          min-height: $buttonSize;
+          padding: $paddingSmall;
 
           &:hover {
             @include hover;
@@ -99,7 +102,11 @@
         .subsection-button {
           @include transparent;
           @include corners-circle;
-          min-width: 2.4em;
+          min-width: $buttonSize;
+          min-height: $buttonSize;
+          padding: 0px $paddingSmall 0px $paddingSmall;
+          // padding: $paddingSmall / 2 $paddingSmall $paddingSmall / 2
+          //   $paddingSmall;
 
           &:hover {
             @include hover;
@@ -125,7 +132,7 @@
 
         .mute-button {
           border-radius: $brv 0em 0em 0em;
-          padding: 0em 0.25em 0em 0.25em;
+          padding: 0px;
           @include surface-dark;
           &:hover {
             @include hover;
@@ -141,7 +148,7 @@
           trough {
             border-radius: 0em $brv 0em 0em;
             @include surface-dark;
-            min-height: 2em;
+            min-height: $buttonSize;
           }
 
           highlight {
@@ -239,7 +246,7 @@
       .player-control {
         @include transparent;
         @include corners-circle;
-        min-width: 1.5em;
+        // min-width: ;
         &.active {
           @include surface;
         }

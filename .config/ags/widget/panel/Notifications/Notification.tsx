@@ -66,8 +66,7 @@ export const Notification = (notif: Notifd.Notification) => {
   const DropdownButton = () => {
     return (
       <XButton
-        className='notification-action'
-        css='min-width: 1.25em; border-radius: 50%;'
+        className='notification-action-title'
         valign={Gtk.Align.CENTER}
         iconObj={{
           icon: bind(expanded).as((e) =>
@@ -86,8 +85,7 @@ export const Notification = (notif: Notifd.Notification) => {
       <XButton
         iconObj={{ icon: 'close' }}
         valign={Gtk.Align.CENTER}
-        className='notification-action'
-        css='min-width: 1.25em; border-radius: 50%;'
+        className='notification-action-title'
         onClick={() => dismissNotif(notif)}
       />
     );

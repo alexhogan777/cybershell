@@ -20,11 +20,7 @@ export const BarButton = ({
       iconObj={{ icon: icon, size: 1.5 }}
       halign={Gtk.Align.CENTER}
       spacing={spacing}
-      css={`
-        padding-left: 0.375em;
-        padding-right: 0.375em;
-        ${css}
-      `}
+      css={css}
       {...props}
       onClick={
         onClick
