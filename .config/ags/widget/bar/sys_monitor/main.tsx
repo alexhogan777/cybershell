@@ -18,8 +18,8 @@ export const SysMonitor = ({ monitorInt }: { monitorInt: number }) => {
       halign={Gtk.Align.CENTER}
       valign={Gtk.Align.END}
     >
-      <BluetoothMonitor />
       <Audio />
+      <BluetoothMonitor />
       <NetworkMonitor />
       <BatteryMonitor />
       {/* <Resources /> */}
