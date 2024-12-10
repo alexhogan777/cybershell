@@ -58,6 +58,8 @@
     @include corners-all;
     // padding: $paddingMedium;
     min-width: $buttonSize;
+    padding-top: $paddingSmall;
+    padding-bottom: $paddingSmall;
 
     // .resource {
     //   background-color: $surface;
@@ -68,7 +70,8 @@
     // }
     button {
       @include transparent;
-      padding: 0em;
+      padding: 0px;
+      min-height: 20px;
     }
   }
 }

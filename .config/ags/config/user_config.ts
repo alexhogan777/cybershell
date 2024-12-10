@@ -62,7 +62,7 @@ export const userConfig = {
     },
   },
   sounds: {
-    enabled: false, // Enable/disable all sounds.
+    enabled: true, // Enable/disable all sounds.
 
     startup: `${soundsPath}/startup.wav`,
     startupEnabled: false,
