@@ -105,6 +105,13 @@ export const userConfig = {
     popups: {
       enabled: true,
       // Enable/disable notification popups. If sounds are enabled, will still send notif sounds.
+      duration: 1500,
+      showOn: <string | number[]>'active',
+      // Options:
+      // 'active': show on active monitor (default)
+      // 'all': show on every monitor
+      // 'bar': show on any monitor with a bar
+      // int[]: show on specified monitor(s)
     },
   },
   programs: {

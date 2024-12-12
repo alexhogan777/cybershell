@@ -30,7 +30,7 @@ App.start({
     SystemSounds();
     App.get_monitors().map(Bar);
     App.get_monitors().map(ClickCloseRegion);
-    // App.get_monitors().map(Popups);
+    App.get_monitors().map(Popups);
     App.get_monitors().map(Panel);
   },
   requestHandler(request: string, res: (response: any) => void) {
