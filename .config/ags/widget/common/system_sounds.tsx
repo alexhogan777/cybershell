@@ -1,9 +1,8 @@
 import { App } from 'astal/gtk3';
 import { Variable } from 'astal';
 import Hyprland from 'gi://AstalHyprland';
-import { playSound } from '../utils/play_sound';
-import { userConfig } from '../config/user_config';
-import { applySCSS } from '../config/styles';
+import { playSound } from '../../utils/play_sound';
+import { userConfig } from '../../config/user_config';
 const hyprland = Hyprland.get_default();
 
 export const SystemSounds = () => {

@@ -10,6 +10,10 @@ import { XButton } from '../../common/XButton';
 import { toggleMute, volumeDown, volumeUp } from '../../bar/sys_monitor/Audio';
 import { expandedSection, togglePanel } from '../main';
 import { execAsyncClose } from '../../../utils/execClose';
+import {
+  defaultSpeaker,
+  defaultSpeakerVolume,
+} from '../../../state/WirePlumber';
 const audio = Wp.get_default()?.audio;
 
 export const Audio = () => {
@@ -53,12 +57,12 @@ export const Audio = () => {
             <box>
               <XButton
                 iconObj={{
-                  icon: bind(audio.defaultSpeaker, 'volume').as((v) => {
+                  icon: bind(defaultSpeakerVolume).as((v) => {
+                    if (!v) return 'no_sound';
                     if (v === 0) return 'no_sound';
                     if (v === 1) return 'volume_up';
                     if (v < 0.5) return 'volume_mute';
                     if (v >= 0.5) return 'volume_down';
-                    return '';
                   }),
                   size: 1.5,
                 }}

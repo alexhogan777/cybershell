@@ -122,9 +122,4 @@ export const userConfig = {
     bluetoothSettings: APPS.bluetoothSettings,
     systemMonitor: APPS.systemMonitor,
   },
-  display: {
-    nightLight: {
-      temperature: 4500,
-    },
-  },
 };

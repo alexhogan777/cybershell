@@ -2,7 +2,7 @@ import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable, GLib, bind, Binding, execAsync } from 'astal';
 import { userConfig } from '../../../config/user_config';
 
-import { executeCCR } from '../../click_close_region';
+import { executeCCR } from '../../common/click_close_region';
 
 import Apps from 'gi://AstalApps';
 

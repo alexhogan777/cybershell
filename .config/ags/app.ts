@@ -1,22 +1,21 @@
+// Astal
 import { App } from 'astal/gtk3';
-import style from './style.scss';
-import { Bar } from './widget/bar/main';
-import { ClickCloseRegion } from './widget/click_close_region';
-import { Panel, togglePanel } from './widget/panel/main';
 import { exec, monitorFile, readFile, timeout, Variable } from 'astal';
-import { configPath, HOME } from './config/user_config';
-import { Popups } from './widget/popups/main';
+
+// Libraries
 import Hyprland from 'gi://AstalHyprland';
-import { SystemSounds } from './widget/system_sounds';
-import { syncConfig } from './config/styles';
 const hyprland = Hyprland.get_default();
 
-export const nightLightState = Variable(
-  JSON.parse(readFile(`${configPath}/night_light.json`))
-);
-monitorFile(`${configPath}/night_light.json`, (file) => {
-  nightLightState.set(JSON.parse(readFile(file)));
-});
+// Widgets
+import { ClickCloseRegion } from './widget/common/click_close_region';
+import { SystemSounds } from './widget/common/system_sounds';
+import { Bar } from './widget/bar/main';
+import { Panel, togglePanel } from './widget/panel/main';
+import { Popups } from './widget/popups/main';
+
+// Config
+import { configPath, HOME } from './config/user_config';
+import { syncConfig } from './config/styles';
 
 function getStyle() {
   syncConfig();
@@ -41,9 +40,15 @@ App.start({
     const currentMonitorInt = hyprland.get_focused_monitor().id;
 
     if (command === 'togglePanel') {
-      if (option === '-s') {
+      if (option === '-s' || option === '--section') {
         togglePanel(currentMonitorInt, value);
         res(`Toggling Panel-${currentMonitorInt} expanding section "${value}"`);
+      } else if (option === '-h' || option === '--help') {
+        res(`Toggle the panel from the command line.
+Available Options:
+  -h, --help                        : Print these options
+  -s [SECTION], --section [SECTION] : open to a specific section
+          `);
       } else {
         togglePanel(currentMonitorInt);
         res(`Toggling Panel-${currentMonitorInt}`);

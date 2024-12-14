@@ -15,7 +15,7 @@ import {
   getFriendlyNotifTitle,
 } from '../../../utils/friendly';
 import { playSound } from '../../../utils/play_sound';
-import { executeCCR } from '../../click_close_region';
+import { executeCCR } from '../../common/click_close_region';
 import { expandedSection } from '../main';
 
 export function dismissNotif(notif: Notifd.Notification) {

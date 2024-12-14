@@ -12,7 +12,6 @@ import { configPath, userConfig } from '../../config/user_config';
 import { XButton } from '../common/XButton';
 import { BarButton } from './BarButton';
 import { togglePanel } from '../panel/main';
-import { nightLightState } from '../../app';
 import { getLayout } from '../../utils/get_layout';
 
 const hasAMPM = userConfig.localization.timeFormat.includes('%p');
@@ -47,86 +46,9 @@ function getDateFormat(full: boolean) {
   return newFormat;
 }
 
-function nightLight(now: Date) {
-  let config = nightLightState.get();
-
-  function write() {
-    config.force = -1;
-    writeFile(`${configPath}/night_light.json`, JSON.stringify(config));
-  }
-
-  function getActive() {
-    try {
-      exec('pidof hyprsunset');
-    } catch {
-      return false;
-    }
-    return true;
-  }
-
-  function activate() {
-    execAsync([
-      'bash',
-      '-c',
-      `hyprsunset -t ${userConfig.display.nightLight.temperature}`,
-    ]).catch(print);
-    config.on = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate() + 1,
-      config.onH,
-      config.onM
-    );
-    write();
-  }
-  function deactivate() {
-    execAsync(['bash', '-c', `killall hyprsunset`]).catch(print);
-    config.off = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate() + 1,
-      config.offH,
-      config.offM
-    );
-    write();
-  }
-
-  if (!config.on || !config.off) {
-    config.on = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      config.onH,
-      config.onM
-    );
-    config.off = new Date(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate(),
-      config.offH,
-      config.offM
-    );
-  }
-
-  //@ts-expect-error
-  const pastOn = new Date(config.on) - now <= 0;
-  //@ts-expect-errorv
-  const pastOff = new Date(config.off) - now <= 0;
-
-  // if (pastOn && !getActive()) activate();
-  // if (pastOff && getActive()) deactivate();
-
-  if (config.state === 1 && !getActive()) activate();
-  if (config.state === 0 && getActive()) deactivate();
-
-  // print(`${now}\n${new Date(config.on)}\n${new Date(config.off)}\n`);
-}
-
 const timedate = Variable<any>(hasAMPM ? ['*', ''] : ['', '']).poll(
   1000,
   () => {
-    nightLight(new Date(Date.now()));
-
     const time = GLib.DateTime.new_now_local().format(getTimeFormat(false))!;
     const datefull = GLib.DateTime.new_now_local().format(getDateFormat(true))!;
     const day = GLib.DateTime.new_now_local().format('%a');

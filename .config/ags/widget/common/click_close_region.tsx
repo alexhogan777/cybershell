@@ -5,9 +5,9 @@ import {
   changeSearchItemSelection,
   executeSelectedSearchItem,
   query,
-} from './panel/Search/functions';
-import { expandedSection } from './panel/main';
-import { playSound } from '../utils/play_sound';
+} from '../panel/Search/functions';
+import { expandedSection } from '../panel/main';
+import { playSound } from '../../utils/play_sound';
 const hyprland = Hyprland.get_default();
 
 const windowTypes = ['Panel'];

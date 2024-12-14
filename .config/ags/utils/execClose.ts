@@ -1,5 +1,5 @@
 import { exec, execAsync } from 'astal';
-import { executeCCR } from '../widget/click_close_region';
+import { executeCCR } from '../widget/common/click_close_region';
 
 export function execAsyncClose(command: string, noBashC?: boolean) {
   let _command: string[] | string = ['bash', '-c', command];

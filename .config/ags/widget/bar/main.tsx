@@ -13,6 +13,8 @@ import { VSpace } from '../common/VSpace';
 import { Workspaces } from './Workspaces';
 import { SysTray } from './SysTray';
 import { SysMonitor } from './sys_monitor/main';
+import NightLight from '../../state/nightlight/nightlight';
+const nightlight = NightLight.get_default();
 
 export const Bar = (gdkMonitor: Gdk.Monitor) => {
   const monitorInt = App.get_monitors().indexOf(gdkMonitor);

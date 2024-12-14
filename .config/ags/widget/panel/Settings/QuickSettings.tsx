@@ -16,8 +16,7 @@ import Network from 'gi://AstalNetwork';
 import { configPath, userConfig } from '../../../config/user_config';
 import { XButton } from '../../common/XButton';
 import { MaterialIcon } from '../../common/MaterialIcon';
-import { executeCCR } from '../../click_close_region';
-import { nightLightState } from '../../../app';
+import { executeCCR } from '../../common/click_close_region';
 import { execAsyncClose } from '../../../utils/execClose';
 import { getFriendlyNetworkState } from '../../../utils/friendly';
 import { toggleEthernet, toggleWifi } from '../../../utils/network_toggles';
@@ -239,35 +238,10 @@ const AirplaneMode = () => {
   );
 };
 
-const NightLight = () => {
-  const active = Variable(nightLightState.get().state > 0);
-
-  function forceNightLight() {
-    let config = nightLightState.get();
-
-    function write() {
-      writeFile(`${configPath}/night_light.json`, JSON.stringify(config));
-    }
-
-    if (config.state === -1) {
-      config.force = 1;
-      config.state = 1;
-      write();
-      return;
-    }
-    if (config.state === 0) {
-      config.force = 1;
-      config.state = 1;
-      write();
-      return;
-    }
-    if (config.state === 1) {
-      config.force = 0;
-      config.state = 0;
-      write();
-      return;
-    }
-  }
+import NightLight from '../../../state/nightlight/nightlight';
+const nightlight = NightLight.get_default();
+const NightLightToggle = () => {
+  const active = Variable(nightlight.enabled);
 
   return (
     <QuickSetting
@@ -275,13 +249,13 @@ const NightLight = () => {
       icon='bedtime'
       tooltipText='Toggle blue light filter on/off'
       activeIf={active}
-      execute={() => forceNightLight()}
+      execute={() => (nightlight.enabled = !nightlight.enabled)}
       setup={(self) => {
         function update() {
-          active.set(nightLightState.get().state > 0);
+          active.set(nightlight.enabled);
         }
         //@ts-expect-error
-        self.hook(nightLightState, update);
+        self.hook(nightlight, 'notify', update);
       }}
     />
   );
@@ -372,7 +346,7 @@ export const QuickSettings = () => {
           icon='do_not_disturb_on'
           tooltipText={`Toggle do not disturb on/off\n(Disables notification popups and sounds)`}
         />
-        <NightLight />
+        <NightLightToggle />
       </Row>
       <Row>
         <QuickSetting
