@@ -2,9 +2,9 @@
 import { Astal, Gtk } from 'astal/gtk3';
 
 // Config
-import { userConfig } from '../../../config/user_config';
 import Config from '../../../state/config/config';
 const spacing = Config.get_default().appearance.paddingBase;
+const BLUETOOTH_SETTINGS = Config.get_default().apps.bluetoothSettings;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -21,7 +21,7 @@ export const Bluetooth = () => {
         <XButton
           onClick={(self: Astal.Button, event: Astal.ClickEvent) => {
             if (event.button === Astal.MouseButton.PRIMARY) {
-              execAsyncClose(userConfig.programs.bluetoothSettings);
+              execAsyncClose(BLUETOOTH_SETTINGS);
             }
           }}
         >

@@ -5,14 +5,15 @@ import { Variable, GLib, bind } from 'astal';
 // Config
 import { userConfig } from '../../config/user_config';
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = config.appearance.paddingBase;
 
 // Widgets
 import { BarButton } from './BarButton';
 
-const hasAMPM = userConfig.localization.timeFormat.includes('%p');
+const hasAMPM = config.localization.timeFormat.includes('%p');
 function getTimeFormat(full: boolean) {
-  const userTimeFormat = userConfig.localization.timeFormat;
+  const userTimeFormat = config.localization.timeFormat;
   let newFormat = userTimeFormat;
   if (full) return newFormat;
   newFormat = newFormat.replaceAll(':', '\n'); // Reformat for vertical clock
@@ -27,7 +28,7 @@ function getTimeFormat(full: boolean) {
 }
 
 function getDateFormat(full: boolean) {
-  const userDateFormat = userConfig.localization.dateFormat;
+  const userDateFormat = config.localization.dateFormat;
   let newFormat = userDateFormat;
   if (full) return newFormat;
 

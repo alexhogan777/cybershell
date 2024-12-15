@@ -7,9 +7,9 @@ import Wp from 'gi://AstalWp';
 const audio = Wp.get_default()?.audio;
 
 // Config
-import { userConfig } from '../../../config/user_config';
 import Config from '../../../state/config/config';
 const spacing = Config.get_default().appearance.paddingBase;
+const AUDIO_SETTINGS = Config.get_default().apps.audioSettings;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -214,7 +214,7 @@ export const Audio = () => {
           <XButton
             onClick={(self: Astal.Button, event: Astal.ClickEvent) => {
               if (event.button === Astal.MouseButton.PRIMARY) {
-                execAsyncClose(userConfig.programs.audioSettings);
+                execAsyncClose(AUDIO_SETTINGS);
               }
             }}
           >

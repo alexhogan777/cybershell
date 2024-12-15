@@ -1,24 +1,13 @@
 // Astal
 import GLib from 'gi://GLib';
-import { readFile } from 'astal';
 
 export const HOME = GLib.getenv('HOME');
 export const configPath = `${HOME}/.config/ags/config`;
 export const assetsPath = `${HOME}/.config/ags/assets`;
 export const soundsPath = `${assetsPath}/sounds`;
 export const STATE = `${HOME}/.config/ags/state`;
-const APPS = JSON.parse(readFile(`${configPath}/apps.json`));
 
 export const userConfig = {
-  localization: {
-    dateFormat: '%a %m.%d.%Y',
-    // you can change the order, but MUST use %m %d and %Y.
-    // %m and %d MUST also be adjacent.
-    dateFormatNotification: '%a %m.%d',
-    timeFormat: '%I:%M:%S%p',
-    //if using %p, there MUST NOT be anything between it and the previous selector.
-    timeFormatNotification: '%l:%M %p',
-  },
   bar: {
     autoHide: false,
     // Currently does nothing. Stay tuned.
@@ -56,7 +45,7 @@ export const userConfig = {
       searchEngine: 'https://www.google.com/search?q=%s',
       // Replace this with the url of the search engine of your choosing.
       // You can probably get it from your browser's settings
-      terminal: `${APPS.terminal} --detach --hold`,
+      terminal: `kitty --detach --hold`,
     },
   },
   sounds: {
@@ -111,13 +100,5 @@ export const userConfig = {
       // 'bar': show on any monitor with a bar
       // int[]: show on specified monitor(s)
     },
-  },
-  programs: {
-    settings: APPS.settings,
-    audioSettings: APPS.audioSettings,
-    wifiSettings: APPS.wifiSettings,
-    networkSettings: APPS.networkSettings,
-    bluetoothSettings: APPS.bluetoothSettings,
-    systemMonitor: APPS.systemMonitor,
   },
 };

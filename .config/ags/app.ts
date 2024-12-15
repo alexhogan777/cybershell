@@ -9,7 +9,6 @@ const panel = PanelLib.get_default();
 
 // Config
 import Config from './state/config/config';
-const config = Config.get_default();
 
 // Widgets
 import { ClickCloseRegion } from './widget/common/click_close_region';
@@ -20,7 +19,7 @@ import { Popups } from './widget/popups/main';
 
 App.start({
   main() {
-    config.appearance.syncAppearance();
+    Config.get_default().syncConfig();
     SystemSounds();
     App.get_monitors().map(Bar);
     App.get_monitors().map(ClickCloseRegion);

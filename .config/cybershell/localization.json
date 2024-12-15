@@ -1,0 +1,6 @@
+{
+  "dateFormat": "%a %m.%d.%Y",
+  "dateFormatNotification": "%a %m.%d",
+  "timeFormat": "%I:%M:%S%p",
+  "timeFormatNotification": "%l:%M %p"
+}

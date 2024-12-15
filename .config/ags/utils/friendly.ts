@@ -1,6 +1,10 @@
 // Astal
 import { GLib } from 'astal';
 
+// Libraries
+import Config from '../state/config/config';
+const config = Config.get_default();
+
 // Functions
 import { assetsPath, userConfig } from '../config/user_config';
 
@@ -56,14 +60,13 @@ export function getFriendlyNotifTime(time: number) {
     messageTime.get_day_of_year() ==
     GLib.DateTime.new_now_local().get_day_of_year()
   )
-    return messageTime.format(userConfig.localization.timeFormatNotification);
+    return messageTime.format(config.localization.timeFormatNotification);
   else if (
     messageTime.get_day_of_year() ==
     GLib.DateTime.new_now_local().get_day_of_year() - 1
   )
     return 'Yesterday';
-  else
-    return messageTime.format(userConfig.localization.dateFormatNotification);
+  else return messageTime.format(config.localization.dateFormatNotification);
 }
 
 export function getFriendlyNotifBody(body: string) {

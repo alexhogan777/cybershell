@@ -2,9 +2,9 @@
 import { Astal, Gtk } from 'astal/gtk3';
 
 // Config
-import { userConfig } from '../../../config/user_config';
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = config.appearance.paddingBase;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -21,7 +21,7 @@ export const Network = () => {
         <XButton
           onClick={(self: Astal.Button, event: Astal.ClickEvent) => {
             if (event.button === Astal.MouseButton.PRIMARY) {
-              execAsyncClose(userConfig.programs.wifiSettings);
+              execAsyncClose(config.apps.wifiSettings);
             }
           }}
         >
@@ -37,7 +37,7 @@ export const Network = () => {
         <XButton
           onClick={(self: Astal.Button, event: Astal.ClickEvent) => {
             if (event.button === Astal.MouseButton.PRIMARY) {
-              execAsyncClose(userConfig.programs.networkSettings);
+              execAsyncClose(config.apps.networkSettings);
             }
           }}
         >

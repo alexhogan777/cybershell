@@ -8,7 +8,8 @@ import Network from 'gi://AstalNetwork';
 // Config
 import { userConfig } from '../../../config/user_config';
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = config.appearance.paddingBase;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -289,7 +290,7 @@ const OpenSystemMonitor = () => {
       name='Open System Monitor'
       icon='browse_activity'
       tooltipText='Open the system monitor.'
-      execute={() => execAsyncClose(userConfig.programs.systemMonitor)}
+      execute={() => execAsyncClose(config.apps.systemMonitor)}
     />
   );
 };
@@ -300,7 +301,7 @@ const OpenSettings = () => {
       name='Open Settings App'
       icon='settings'
       tooltipText={`Open the settings app\n(NOTE: by default this uses GNOME Control Center.\nMany settings will not work/won't change anything.)`}
-      execute={() => execAsyncClose(userConfig.programs.settings)}
+      execute={() => execAsyncClose(config.apps.settings)}
     />
   );
 };
