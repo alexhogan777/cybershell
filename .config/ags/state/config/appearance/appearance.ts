@@ -13,13 +13,13 @@ import { exec } from 'astal/process';
 // Config
 import { HOME, STATE, configPath } from '../../../config/user_config';
 const APPS = JSON.parse(readFile(`${configPath}/apps.json`));
-const OPTIONS = `${STATE}/config/appearance/appearance.json`;
+const OPTIONS = `${HOME}/.config/cybershell/appearance.json`;
 
 function getFromOptions(key: string) {
   return JSON.parse(readFile(OPTIONS))[key];
 }
 
-@register({ GTypeName: 'Config.Appearance' })
+@register({ GTypeName: 'ConfigAppearance' })
 export default class Appearance extends GObject.Object {
   static instance: Appearance;
   static get_default() {

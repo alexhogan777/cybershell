@@ -8,7 +8,8 @@
 - DE comparable experience featuring a vertical Status Bar, Panel, Overview, and more.
 - Integration with KDEConnect for seamless sync accross devices.
 - Centralized configuration files that will update live accross every\* part of the experience.
-  - Located in `~/.config/ags/state/config`
+  - Located in `~/.config/cybershell`
+  - \* = some apps will need to be reloaded for the changes to show.
 
 ## Dependencies
 
