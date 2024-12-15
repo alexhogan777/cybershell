@@ -6,6 +6,7 @@ export const HOME = GLib.getenv('HOME');
 export const configPath = `${HOME}/.config/ags/config`;
 export const assetsPath = `${HOME}/.config/ags/assets`;
 export const soundsPath = `${assetsPath}/sounds`;
+export const STATE = `${HOME}/.config/ags/state`;
 const STYLES = JSON.parse(readFile(`${configPath}/styles.json`));
 const APPS = JSON.parse(readFile(`${configPath}/apps.json`));
 

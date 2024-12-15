@@ -1,11 +1,12 @@
 // Astal
 import { Astal, Gtk } from 'astal/gtk3';
 
+// Libraries
+import PanelLib from '../../state/panel/panel';
+const panel = PanelLib.get_default();
+
 // Config
 import { userConfig } from '../../config/user_config';
-
-// Functions
-import { togglePanel } from '../panel/main';
 
 // Widgets
 import { XButton } from '../common/XButton';
@@ -33,7 +34,7 @@ export const BarButton = ({
           ? onClick
           : (_: any, event: Astal.ClickEvent) => {
               if (event.button === Astal.MouseButton.PRIMARY)
-                togglePanel(monitorInt, section);
+                panel.togglePanel(monitorInt, section);
             }
       }
     >

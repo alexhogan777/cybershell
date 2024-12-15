@@ -2,6 +2,10 @@
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable } from 'astal';
 
+// Libraries
+import PanelLib from '../../state/panel/panel';
+const panel = PanelLib.get_default();
+
 // Config
 import { userConfig, assetsPath } from '../../config/user_config';
 
@@ -20,28 +24,6 @@ import { Notifications } from './Notifications/main';
 import { Search } from './Search/main';
 import { Settings } from './Settings/main';
 import { Weather } from './Weather';
-
-export function togglePanel(monitorInt: number, section?: string) {
-  const windowsOpen = App.get_windows()
-    .filter((v) => v.visible)
-    .map((v) => v.name);
-  const thisPanelName = `Panel-${monitorInt}`;
-  const thisPanel = App.get_window(thisPanelName);
-
-  const sectionCheck = section && expandedSection.get() !== section;
-
-  if (windowsOpen.includes(thisPanelName)) {
-    if (sectionCheck) return expandedSection.set(section);
-    thisPanel?.set_visible(false);
-  } else {
-    if (sectionCheck) expandedSection.set(section);
-    thisPanel?.set_visible(true);
-  }
-}
-
-export const expandedSection = Variable<string>(
-  userConfig.panel.defaultSection
-);
 
 export const Panel = (gdkMonitor: Gdk.Monitor) => {
   const monitorInt = App.get_monitors().indexOf(gdkMonitor);
@@ -69,7 +51,7 @@ export const Panel = (gdkMonitor: Gdk.Monitor) => {
 
           function mapped() {}
           function unmapped() {
-            expandedSection.set(userConfig.panel.defaultSection);
+            panel.section = userConfig.panel.defaultSection;
           }
           self.connect('map', mapped);
           self.connect('unmap', unmapped);

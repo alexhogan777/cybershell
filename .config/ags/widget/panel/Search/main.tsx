@@ -2,14 +2,15 @@
 import { Gtk } from 'astal/gtk3';
 import { bind, timeout } from 'astal';
 
+// Libraries
+import PanelLib from '../../../state/panel/panel';
+const panel = PanelLib.get_default();
+
 // Config
 import { userConfig } from '../../../config/user_config';
 
 // Functions
 import { query, searchItems, updateSearchItems } from './functions';
-
-// Variables
-import { expandedSection } from '../main';
 
 // Widget
 import { Result } from './Result';
@@ -114,7 +115,7 @@ export const Search = (monitorInt: number) => {
   const title = () => {
     return (
       <stack
-        visibleChildName={bind(expandedSection).as((v) =>
+        visibleChildName={bind(panel, 'section').as((v) =>
           v === 'Search' ? 'searchbox' : 'title'
         )}
         transitionType={Gtk.StackTransitionType.SLIDE_LEFT_RIGHT}

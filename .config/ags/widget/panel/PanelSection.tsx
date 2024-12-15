@@ -2,15 +2,15 @@
 import { Astal, Gtk } from 'astal/gtk3';
 import { Variable, bind } from 'astal';
 
+// Libraries
+import PanelLib from '../../state/panel/panel';
+const panel = PanelLib.get_default();
+
 // Config
 import { userConfig } from '../../config/user_config';
 
 // Functions
-import { togglePanel } from './main';
 import { playSound } from '../../utils/play_sound';
-
-// Variables
-import { expandedSection } from './main';
 
 // Widgets
 import { MaterialIcon } from '../common/MaterialIcon';
@@ -45,10 +45,10 @@ export const PanelSection = ({
           if ((event.button = Astal.MouseButton.PRIMARY)) {
             playSound('button');
             className.set('active');
-            if (expandedSection.get() === section) {
-              togglePanel(monitorInt, 'Notifications');
+            if (panel.section === section) {
+              panel.togglePanel(monitorInt, 'Notifications');
             } else {
-              togglePanel(monitorInt, section);
+              panel.togglePanel(monitorInt, section);
             }
           }
         }}
@@ -62,7 +62,7 @@ export const PanelSection = ({
           <MaterialIcon icon={icon} size={1.25} />
           <box hexpand>{title}</box>
           <MaterialIcon
-            icon={bind(expandedSection).as((es) =>
+            icon={bind(panel, 'section').as((es) =>
               es === section ? 'arrow_drop_down' : 'arrow_drop_up'
             )}
             size={1}
@@ -76,7 +76,7 @@ export const PanelSection = ({
     return (
       <revealer
         transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-        revealChild={bind(expandedSection).as((v) => v === section)}
+        revealChild={bind(panel, 'section').as((v) => v === section)}
       >
         {child}
       </revealer>

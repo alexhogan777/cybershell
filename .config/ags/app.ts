@@ -5,6 +5,8 @@ import { exec } from 'astal';
 // Libraries
 import Hyprland from 'gi://AstalHyprland';
 const hyprland = Hyprland.get_default();
+import PanelLib from './state/panel/panel';
+const panel = PanelLib.get_default();
 
 // Config
 import { syncConfig } from './config/styles';
@@ -13,7 +15,7 @@ import { syncConfig } from './config/styles';
 import { ClickCloseRegion } from './widget/common/click_close_region';
 import { SystemSounds } from './widget/common/system_sounds';
 import { Bar } from './widget/bar/main';
-import { Panel, togglePanel } from './widget/panel/main';
+import { Panel } from './widget/panel/main';
 import { Popups } from './widget/popups/main';
 
 function getStyle() {
@@ -40,7 +42,7 @@ App.start({
 
     if (command === 'togglePanel') {
       if (option === '-s' || option === '--section') {
-        togglePanel(currentMonitorInt, value);
+        panel.togglePanel(currentMonitorInt, value);
         res(`Toggling Panel-${currentMonitorInt} expanding section "${value}"`);
       } else if (option === '-h' || option === '--help') {
         res(`Toggle the panel from the command line.
@@ -49,7 +51,7 @@ Available Options:
   -s [SECTION], --section [SECTION] : open to a specific section
           `);
       } else {
-        togglePanel(currentMonitorInt);
+        panel.togglePanel(currentMonitorInt);
         res(`Toggling Panel-${currentMonitorInt}`);
       }
     }

@@ -5,13 +5,14 @@ import { bind } from 'astal';
 // Libraries
 import Notifd from 'gi://AstalNotifd';
 const notifd = Notifd.get_default();
+import PanelLib from '../../../state/panel/panel';
+const panel = PanelLib.get_default();
 
 // Config
 import { userConfig } from '../../../config/user_config';
 
 // Functions
 import { dismissNotif } from './Notification';
-import { expandedSection, togglePanel } from '../main';
 
 // Widgets
 import { MaterialIcon } from '../../common/MaterialIcon';
@@ -51,7 +52,7 @@ export const Notifications = (monitorInt: number) => {
       return (
         <revealer
           transitionType={Gtk.RevealerTransitionType.SLIDE_LEFT}
-          revealChild={bind(expandedSection).as((v) => v === 'Notifications')}
+          revealChild={bind(panel, 'section').as((v) => v === 'Notifications')}
         >
           <box className='section-actions'>
             <ClearAll />
@@ -76,8 +77,8 @@ export const Notifications = (monitorInt: number) => {
   return (
     <eventbox
       onClick={() => {
-        expandedSection.get() !== 'Notifications' &&
-          togglePanel(monitorInt, 'Notifications');
+        panel.section !== 'Notifications' &&
+          panel.togglePanel(monitorInt, 'Notifications');
       }}
     >
       <box

@@ -1,4 +1,5 @@
-import GObject, { register, property, signal } from 'astal/gobject';
+// Astal
+import GObject, { register, property } from 'astal/gobject';
 import {
   monitorFile,
   readFileAsync,
@@ -6,9 +7,10 @@ import {
   writeFileAsync,
 } from 'astal/file';
 import { interval } from 'astal';
-import { exec, execAsync, subprocess } from 'astal/process';
-import { configPath, HOME } from '../../config/user_config';
+import { execAsync } from 'astal/process';
 
+// Config
+import { HOME } from '../../config/user_config';
 const statePath = `${HOME}/.config/ags/state/nightlight`;
 const temperaturePath = `${statePath}/temperature`;
 const timeEnablePath = `${statePath}/time_enable`;

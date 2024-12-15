@@ -4,6 +4,8 @@ import { Variable, bind, timeout } from 'astal';
 
 // Libraries
 import Notifd from 'gi://AstalNotifd';
+import PanelLib from '../../../state/panel/panel';
+const panel = PanelLib.get_default();
 
 // Config
 import { userConfig } from '../../../config/user_config';
@@ -21,9 +23,6 @@ import {
   getFriendlyNotifTitle,
 } from '../../../utils/friendly';
 import { executeCCR } from '../../common/click_close_region';
-
-// Variables
-import { expandedSection } from '../main';
 
 // Widgets
 import { MaterialIcon } from '../../common/MaterialIcon';
@@ -237,13 +236,13 @@ export const Notification = (notif: Notifd.Notification) => {
               expanded.subscribe((e) => {
                 if (e) {
                   self.visibleChildName = 'expanded';
-                  expandedSection.set('Notifications');
+                  panel.section;
                 } else {
                   self.visibleChildName = 'retracted';
                 }
               });
-              expandedSection.subscribe((es) => {
-                if (es !== 'Notifications') expanded.set(false);
+              bind(panel, 'section').as((s) => {
+                if (s !== 'Notifications') expanded.set(false);
               });
             }}
           >
