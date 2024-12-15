@@ -1,7 +1,10 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
+// Astal
+import { App, Gdk } from 'astal/gtk3';
+
+// Functions
 import { getLayout } from '../../utils/get_layout';
-import { SystemPopups } from './System';
+
+// Widgets
 import { NotificationPopups } from './Notifications';
 
 export const Popups = (gdkMonitor: Gdk.Monitor) => {

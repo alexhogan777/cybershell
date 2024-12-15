@@ -1,13 +1,13 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync, exec } from 'astal';
+// Astal
+import { Gtk } from 'astal/gtk3';
 import { userConfig } from '../../../config/user_config';
 
-import { Resources } from './Resources';
+// Widgets
 import { Audio } from './Audio';
-import { NetworkMonitor } from './Network';
-import { BluetoothMonitor } from './Bluetooth';
 import { BatteryMonitor } from './Battery';
-import { getLayout } from '../../../utils/get_layout';
+import { BluetoothMonitor } from './Bluetooth';
+import { NetworkMonitor } from './Network';
+import { Resources } from './Resources';
 
 export const SysMonitor = ({ monitorInt }: { monitorInt: number }) => {
   return (

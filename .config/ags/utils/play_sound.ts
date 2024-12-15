@@ -1,6 +1,9 @@
 // @ts-nocheck
+// Astal
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable, GLib, bind, Binding, execAsync } from 'astal';
+
+// Config
 import { userConfig } from '../config/user_config';
 
 function random() {

@@ -1,9 +1,19 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { expandedSection, togglePanel } from './main';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind } from 'astal';
+
+// Config
 import { userConfig } from '../../config/user_config';
-import { MaterialIcon } from '../common/MaterialIcon';
+
+// Functions
+import { togglePanel } from './main';
 import { playSound } from '../../utils/play_sound';
+
+// Variables
+import { expandedSection } from './main';
+
+// Widgets
+import { MaterialIcon } from '../common/MaterialIcon';
 
 interface PanelSection {
   monitorInt: number;

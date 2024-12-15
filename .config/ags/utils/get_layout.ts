@@ -1,4 +1,7 @@
+// Astal
 import { App, Astal } from 'astal/gtk3';
+
+// Config
 import { userConfig } from '../config/user_config';
 const barConfig = userConfig.bar;
 

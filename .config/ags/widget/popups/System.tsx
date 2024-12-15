@@ -1,8 +1,13 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, timeout } from 'astal';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { Variable, bind, timeout } from 'astal';
+
+// Libraries
 import Wp from 'gi://AstalWp';
-import { getLayout } from '../../utils/get_layout';
 const audio = Wp.get_default()?.audio;
+
+// Functions
+import { getLayout } from '../../utils/get_layout';
 
 export const SystemPopups = ({ monitorInt }: { monitorInt: number }) => {
   const isLeft = getLayout(monitorInt).side === 'left';

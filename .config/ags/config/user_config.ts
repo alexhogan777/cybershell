@@ -1,3 +1,4 @@
+// Astal
 import GLib from 'gi://GLib';
 import { readFile } from 'astal';
 

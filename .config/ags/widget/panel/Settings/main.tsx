@@ -1,13 +1,21 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind } from 'astal';
+
+// Config
 import { userConfig } from '../../../config/user_config';
-import { PanelSection } from '../PanelSection';
-import { XButton } from '../../common/XButton';
-import { QuickSettings } from './QuickSettings';
-import { Session, showConfirm } from './Session';
+
+// Functions
+import { showConfirm } from './Session';
+
+// Widgets
 import { Audio } from './Audio';
 import { Network } from './Network';
 import { Bluetooth } from './Bluetooth';
+import { PanelSection } from '../PanelSection';
+import { QuickSettings } from './QuickSettings';
+import { Session } from './Session';
+import { XButton } from '../../common/XButton';
 
 export const selectedSubsection = Variable<string>('Audio');
 export function changeSubsection(subsection: string) {

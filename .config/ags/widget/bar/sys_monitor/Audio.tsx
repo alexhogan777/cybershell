@@ -1,9 +1,16 @@
+// Astal
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 import { Variable, GLib, bind, execAsync, exec } from 'astal';
-import { userConfig } from '../../../config/user_config';
-import { XButton } from '../../common/XButton';
+
+// Libraries
 import Wp from 'gi://AstalWp';
 const audio = Wp.get_default()?.audio;
+
+// Config
+import { userConfig } from '../../../config/user_config';
+
+// Widgets
+import { XButton } from '../../common/XButton';
 
 export function volumeUp(speaker: Wp.Endpoint) {
   speaker.set_volume(Math.min(speaker.volume + 0.05, 1));

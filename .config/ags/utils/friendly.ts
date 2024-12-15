@@ -1,4 +1,7 @@
+// Astal
 import { GLib } from 'astal';
+
+// Functions
 import { assetsPath, userConfig } from '../config/user_config';
 
 export function getFriendlySearchEngine(engine: string) {

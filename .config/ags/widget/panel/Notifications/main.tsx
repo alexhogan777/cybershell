@@ -1,12 +1,22 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { userConfig } from '../../../config/user_config';
-import { MaterialIcon } from '../../common/MaterialIcon';
-import { dismissNotif, Notification } from './Notification';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Notifd from 'gi://AstalNotifd';
-import { XButton } from '../../common/XButton';
-import { expandedSection, togglePanel } from '../main';
 const notifd = Notifd.get_default();
+
+// Config
+import { userConfig } from '../../../config/user_config';
+
+// Functions
+import { dismissNotif } from './Notification';
+import { expandedSection, togglePanel } from '../main';
+
+// Widgets
+import { MaterialIcon } from '../../common/MaterialIcon';
+import { Notification } from './Notification';
+import { XButton } from '../../common/XButton';
 
 export const Notifications = (monitorInt: number) => {
   const Bar = () => {

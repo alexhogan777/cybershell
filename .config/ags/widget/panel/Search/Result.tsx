@@ -1,17 +1,24 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, execAsync } from 'astal';
-import { userConfig } from '../../../config/user_config';
-import { expandedSection } from '../main';
-import { MaterialIcon } from '../../common/MaterialIcon';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { bind, Binding } from 'astal';
 
+// Libraries
 import Apps from 'gi://AstalApps';
+
+// Config
+import { userConfig } from '../../../config/user_config';
+
+// Functions
+import { getFriendlySearchEngine } from '../../../utils/friendly';
 import {
   executeSelectedSearchItem,
   query,
   selectedSearchItem,
 } from './functions';
-import { getFriendlySearchEngine } from '../../../utils/friendly';
 import { playSound } from '../../../utils/play_sound';
+
+// Widgets
+import { MaterialIcon } from '../../common/MaterialIcon';
 
 export const Result = (
   type: 'app' | 'web' | 'command' | 'pinned-app',

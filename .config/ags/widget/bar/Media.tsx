@@ -1,9 +1,13 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { BarButton } from './BarButton';
+// Astal
+import { Astal } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Mpris from 'gi://AstalMpris';
-import { getLayout } from '../../utils/get_layout';
 const mpris = Mpris.get_default();
+
+// Widgets
+import { BarButton } from './BarButton';
 
 function getIcon(player: Mpris.Player) {
   if (player.playbackStatus === Mpris.PlaybackStatus.PLAYING) return 'pause';

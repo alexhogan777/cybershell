@@ -1,4 +1,7 @@
-import { Gio, Variable, execAsync } from 'astal';
+// Astal
+import { Gio, execAsync } from 'astal';
+
+// Libraries
 import Network from 'gi://AstalNetwork';
 const network = Network.get_default();
 const wifi = network.get_wifi();

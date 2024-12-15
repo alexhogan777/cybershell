@@ -1,4 +1,7 @@
+// Astal
 import { exec, execAsync } from 'astal';
+
+// Functions
 import { executeCCR } from '../widget/common/click_close_region';
 
 export function execAsyncClose(command: string, noBashC?: boolean) {

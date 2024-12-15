@@ -1,9 +1,16 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind } from 'astal';
+// Astal
+import { Astal, Gtk, Gdk } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Tray from 'gi://AstalTray';
-import { userConfig } from '../../config/user_config';
-import { playSound } from '../../utils/play_sound';
 const tray = Tray.get_default();
+
+// Config
+import { userConfig } from '../../config/user_config';
+
+// Functions
+import { playSound } from '../../utils/play_sound';
 
 export const SysTray = () => {
   const TrayItem = (trayItem: Tray.TrayItem) => {

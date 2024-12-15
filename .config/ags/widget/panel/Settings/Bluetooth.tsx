@@ -1,10 +1,16 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, execAsync } from 'astal';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+
+// Config
 import { userConfig } from '../../../config/user_config';
 const { spacing } = userConfig.appearance;
+
+// Functions
+import { execAsyncClose } from '../../../utils/execClose';
+
+// Widgets
 import { Subsection } from './main';
 import { XButton } from '../../common/XButton';
-import { execAsyncClose } from '../../../utils/execClose';
 import { MaterialIcon } from '../../common/MaterialIcon';
 
 export const Bluetooth = () => {

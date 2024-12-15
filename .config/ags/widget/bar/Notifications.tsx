@@ -1,10 +1,16 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind } from 'astal';
-import { BarButton } from './BarButton';
+// Astal
+import { Astal } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Notifd from 'gi://AstalNotifd';
-import { getLayout } from '../../utils/get_layout';
-import { dismissNotif } from '../panel/Notifications/Notification';
 const notifd = Notifd.get_default();
+
+// Functions
+import { dismissNotif } from '../panel/Notifications/Notification';
+
+// Widgets
+import { BarButton } from './BarButton';
 
 function getIcon(notifs: Notifd.Notification[]) {
   if (notifs.length > 0) return 'notifications_unread';

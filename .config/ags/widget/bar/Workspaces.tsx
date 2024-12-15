@@ -1,11 +1,18 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind } from 'astal';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Hyprland from 'gi://AstalHyprland';
 const hyprland = Hyprland.get_default();
-import { userConfig } from '../../config/user_config';
-import { playSound } from '../../utils/play_sound';
-import { getLayout } from '../../utils/get_layout';
 
+// Config
+import { userConfig } from '../../config/user_config';
+
+// Functions
+import { playSound } from '../../utils/play_sound';
+
+// Variables
 const scratchID = -99;
 
 export const Workspaces = ({ monitorInt }: { monitorInt: number }) => {

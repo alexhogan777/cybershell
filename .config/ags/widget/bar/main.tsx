@@ -1,20 +1,22 @@
+// Astal
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { getLayout } from '../../utils/get_layout';
-import { Clock } from './Clock';
+
+// Config
 import { userConfig } from '../../config/user_config';
-import { MaterialIcon } from '../common/MaterialIcon';
-import { Settings } from './Settings';
-import { Search } from './Search';
+
+// Functions
+import { getLayout } from '../../utils/get_layout';
+
+// Widgets
+import { Clock } from './Clock';
 import { Media } from './Media';
 import { Notifications } from './Notifications';
 import { Overview } from './Overview';
-import { VSpace } from '../common/VSpace';
-import { Workspaces } from './Workspaces';
-import { SysTray } from './SysTray';
+import { Search } from './Search';
+import { Settings } from './Settings';
 import { SysMonitor } from './sys_monitor/main';
-import NightLight from '../../state/nightlight/nightlight';
-const nightlight = NightLight.get_default();
+import { SysTray } from './SysTray';
+import { Workspaces } from './Workspaces';
 
 export const Bar = (gdkMonitor: Gdk.Monitor) => {
   const monitorInt = App.get_monitors().indexOf(gdkMonitor);

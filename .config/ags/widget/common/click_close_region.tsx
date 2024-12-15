@@ -1,15 +1,11 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, exec } from 'astal';
-import Hyprland from 'gi://AstalHyprland';
-import {
-  changeSearchItemSelection,
-  executeSelectedSearchItem,
-  query,
-} from '../panel/Search/functions';
-import { expandedSection } from '../panel/main';
-import { playSound } from '../../utils/play_sound';
-const hyprland = Hyprland.get_default();
+// Astal
+import { App, Astal, Gdk } from 'astal/gtk3';
+import { Variable } from 'astal';
 
+// Functions
+import { playSound } from '../../utils/play_sound';
+
+// Variables
 const windowTypes = ['Panel'];
 
 function openCCRs() {

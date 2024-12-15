@@ -1,25 +1,20 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import {
-  Variable,
-  GLib,
-  bind,
-  Binding,
-  execAsync,
-  readFileAsync,
-  writeFileAsync,
-  readFile,
-  writeFile,
-  monitorFile,
-  Gio,
-} from 'astal';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind, Binding, execAsync, Gio } from 'astal';
+
+// Libraries
 import Network from 'gi://AstalNetwork';
-import { configPath, userConfig } from '../../../config/user_config';
-import { XButton } from '../../common/XButton';
-import { MaterialIcon } from '../../common/MaterialIcon';
-import { executeCCR } from '../../common/click_close_region';
+
+// Config
+import { userConfig } from '../../../config/user_config';
+
+// Functions
 import { execAsyncClose } from '../../../utils/execClose';
-import { getFriendlyNetworkState } from '../../../utils/friendly';
 import { toggleEthernet, toggleWifi } from '../../../utils/network_toggles';
+
+// Widgets
+import { MaterialIcon } from '../../common/MaterialIcon';
+import { XButton } from '../../common/XButton';
 
 /*
 Sound on/off
@@ -86,8 +81,8 @@ const QuickSetting = ({
   );
 };
 
-const wifiEnabled = Variable(Network.get_default().wifi.get_enabled() || false);
 const network = Network.get_default();
+const wifiEnabled = Variable(Network.get_default().wifi.get_enabled() || false);
 const wifi = network.get_wifi();
 const wired = network.get_wired();
 

@@ -1,18 +1,12 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import {
-  Variable,
-  GLib,
-  bind,
-  readFile,
-  execAsync,
-  writeFile,
-  exec,
-} from 'astal';
-import { configPath, userConfig } from '../../config/user_config';
-import { XButton } from '../common/XButton';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { Variable, GLib, bind } from 'astal';
+
+// Config
+import { userConfig } from '../../config/user_config';
+
+// Widgets
 import { BarButton } from './BarButton';
-import { togglePanel } from '../panel/main';
-import { getLayout } from '../../utils/get_layout';
 
 const hasAMPM = userConfig.localization.timeFormat.includes('%p');
 function getTimeFormat(full: boolean) {

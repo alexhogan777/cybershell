@@ -1,6 +1,11 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, execAsync, exec } from 'astal';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind, execAsync } from 'astal';
+
+// Config
 import { userConfig } from '../../../config/user_config';
+
+// Widgets
 import { XButton } from '../../common/XButton';
 import { MaterialIcon } from '../../common/MaterialIcon';
 import { Subsection } from './main';

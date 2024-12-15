@@ -1,10 +1,13 @@
 // Astal
 import { App } from 'astal/gtk3';
-import { exec, monitorFile, readFile, timeout, Variable } from 'astal';
+import { exec } from 'astal';
 
 // Libraries
 import Hyprland from 'gi://AstalHyprland';
 const hyprland = Hyprland.get_default();
+
+// Config
+import { syncConfig } from './config/styles';
 
 // Widgets
 import { ClickCloseRegion } from './widget/common/click_close_region';
@@ -12,10 +15,6 @@ import { SystemSounds } from './widget/common/system_sounds';
 import { Bar } from './widget/bar/main';
 import { Panel, togglePanel } from './widget/panel/main';
 import { Popups } from './widget/popups/main';
-
-// Config
-import { configPath, HOME } from './config/user_config';
-import { syncConfig } from './config/styles';
 
 function getStyle() {
   syncConfig();

@@ -1,8 +1,14 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { MaterialIcon } from './MaterialIcon';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+
+// Config
 import { userConfig } from '../../config/user_config';
+
+// Functions
 import { playSound } from '../../utils/play_sound';
+
+// Widgets
+import { MaterialIcon } from './MaterialIcon';
 
 interface XButton {
   iconObj: { icon: string; size: number };

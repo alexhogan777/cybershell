@@ -1,10 +1,12 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync, exec } from 'astal';
-import { userConfig } from '../../../config/user_config';
-import Network from 'gi://AstalNetwork';
-import { XButton } from '../../common/XButton';
+// Astal
+import { Gtk } from 'astal/gtk3';
+
+// Libraries
 import Bluetooth from 'gi://AstalBluetooth';
 const bluetooth = Bluetooth.get_default();
+
+// Widgets
+import { XButton } from '../../common/XButton';
 
 export const BluetoothMonitor = () => {
   const adapter = bluetooth.get_adapter();

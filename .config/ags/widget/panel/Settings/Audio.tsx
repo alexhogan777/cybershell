@@ -1,20 +1,24 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, execAsync } from 'astal';
-import { userConfig } from '../../../config/user_config';
-import { Dropdown, Option } from '../../common/Dropdown';
-import { selectedSubsection, Subsection } from './main';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind } from 'astal';
+
+// Libraries
 import Wp from 'gi://AstalWp';
-import { MaterialIcon } from '../../common/MaterialIcon';
-import { playSound } from '../../../utils/play_sound';
-import { XButton } from '../../common/XButton';
-import { toggleMute, volumeDown, volumeUp } from '../../bar/sys_monitor/Audio';
-import { expandedSection, togglePanel } from '../main';
-import { execAsyncClose } from '../../../utils/execClose';
-import {
-  defaultSpeaker,
-  defaultSpeakerVolume,
-} from '../../../state/WirePlumber';
 const audio = Wp.get_default()?.audio;
+
+// Config
+import { userConfig } from '../../../config/user_config';
+
+// Functions
+import { execAsyncClose } from '../../../utils/execClose';
+import { playSound } from '../../../utils/play_sound';
+import { toggleMute, volumeDown, volumeUp } from '../../bar/sys_monitor/Audio';
+
+// Widgets
+import { Dropdown, Option } from '../../common/Dropdown';
+import { Subsection } from './main';
+import { MaterialIcon } from '../../common/MaterialIcon';
+import { XButton } from '../../common/XButton';
 
 export const Audio = () => {
   if (audio) {
@@ -57,12 +61,12 @@ export const Audio = () => {
             <box>
               <XButton
                 iconObj={{
-                  icon: bind(defaultSpeakerVolume).as((v) => {
-                    if (!v) return 'no_sound';
+                  icon: bind(audio.defaultSpeaker, 'volume').as((v) => {
                     if (v === 0) return 'no_sound';
                     if (v === 1) return 'volume_up';
                     if (v < 0.5) return 'volume_mute';
                     if (v >= 0.5) return 'volume_down';
+                    return '';
                   }),
                   size: 1.5,
                 }}

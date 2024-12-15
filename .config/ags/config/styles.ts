@@ -1,8 +1,14 @@
-import { execAsync, readFile, writeFile } from 'astal';
-import { configPath, HOME } from './user_config';
+// Astal
+import { readFile, writeFile } from 'astal';
+
+// Libraries
 import Hyprland from 'gi://AstalHyprland';
 const hypr = Hyprland.get_default();
 
+// Config
+import { configPath, HOME } from './user_config';
+
+// Variables
 const STYLES = JSON.parse(readFile(`${configPath}/styles.json`));
 const APPS = JSON.parse(readFile(`${configPath}/apps.json`));
 

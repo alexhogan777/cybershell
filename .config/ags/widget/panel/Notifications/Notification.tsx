@@ -1,10 +1,16 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, timeout } from 'astal';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { Variable, bind, timeout } from 'astal';
+
+// Libraries
+import Notifd from 'gi://AstalNotifd';
+
+// Config
 import { userConfig } from '../../../config/user_config';
 const spacing = userConfig.appearance.spacing;
-import { MaterialIcon } from '../../common/MaterialIcon';
-import Notifd from 'gi://AstalNotifd';
-import { XButton } from '../../common/XButton';
+
+// Functions
+import { playSound } from '../../../utils/play_sound';
 import {
   FriendlyAction,
   getFriendlyNotifActions,
@@ -14,9 +20,14 @@ import {
   getFriendlyNotifTime,
   getFriendlyNotifTitle,
 } from '../../../utils/friendly';
-import { playSound } from '../../../utils/play_sound';
 import { executeCCR } from '../../common/click_close_region';
+
+// Variables
 import { expandedSection } from '../main';
+
+// Widgets
+import { MaterialIcon } from '../../common/MaterialIcon';
+import { XButton } from '../../common/XButton';
 
 export function dismissNotif(notif: Notifd.Notification) {
   notif.emit('resolved', Notifd.ClosedReason.DISMISSED_BY_USER);

@@ -1,6 +1,4 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { userConfig } from '../../config/user_config';
+// Widgets
 import { PanelSection } from './PanelSection';
 
 export const Weather = (monitorInt: number) => {

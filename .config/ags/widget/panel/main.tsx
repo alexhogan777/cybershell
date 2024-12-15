@@ -1,22 +1,25 @@
+// Astal
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
+import { Variable } from 'astal';
+
+// Config
+import { userConfig, assetsPath } from '../../config/user_config';
+
+// Functions
 import { executeCCR } from '../common/click_close_region';
 import { getLayout } from '../../utils/get_layout';
-import { userConfig } from '../../config/user_config';
-import { Search } from './Search/main';
 import {
   changeSearchItemSelection,
   executeSelectedSearchItem,
-  query,
-  updateSearchItems,
 } from './Search/functions';
-import { Media } from './Media';
-import { Settings } from './Settings/main';
-import { VSpace } from '../common/VSpace';
+
+// Widgets
 import { Calendar } from './Calendar';
-import { Weather } from './Weather';
+import { Media } from './Media';
 import { Notifications } from './Notifications/main';
-import { assetsPath } from '../../config/user_config';
+import { Search } from './Search/main';
+import { Settings } from './Settings/main';
+import { Weather } from './Weather';
 
 export function togglePanel(monitorInt: number, section?: string) {
   const windowsOpen = App.get_windows()

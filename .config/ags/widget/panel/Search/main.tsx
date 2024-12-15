@@ -1,19 +1,17 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, execAsync, timeout } from 'astal';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { bind, timeout } from 'astal';
+
+// Config
 import { userConfig } from '../../../config/user_config';
-import { expandedSection, togglePanel } from '../main';
-import { MaterialIcon } from '../../common/MaterialIcon';
 
-import Apps from 'gi://AstalApps';
+// Functions
+import { query, searchItems, updateSearchItems } from './functions';
 
-import { getFriendlySearchEngine } from '../../../utils/friendly';
-import {
-  executeSelectedSearchItem,
-  query,
-  searchItems,
-  selectedSearchItem,
-  updateSearchItems,
-} from './functions';
+// Variables
+import { expandedSection } from '../main';
+
+// Widget
 import { Result } from './Result';
 import { PanelSection } from '../PanelSection';
 

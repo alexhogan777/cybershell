@@ -1,7 +1,14 @@
-import { App, Astal, Gtk, Gdk, Widget } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind } from 'astal';
+
+// Config
 import { userConfig } from '../../config/user_config';
+
+// Functions
 import { playSound } from '../../utils/play_sound';
+
+// Widgets
 import { MaterialIcon } from './MaterialIcon';
 
 export interface Option {

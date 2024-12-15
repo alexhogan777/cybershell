@@ -1,14 +1,19 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync, exec } from 'astal';
-import { userConfig } from '../../../config/user_config';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Network from 'gi://AstalNetwork';
-import { XButton } from '../../common/XButton';
-import AstalNetwork from 'gi://AstalNetwork?version=0.1';
-import { getFriendlyNetworkState } from '../../../utils/friendly';
 const network = Network.get_default();
 
+// Functions
+import { getFriendlyNetworkState } from '../../../utils/friendly';
+
+// Widgets
+import { XButton } from '../../common/XButton';
+
 export const NetworkMonitor = () => {
-  const Wired = (nw: AstalNetwork.Wired) => {
+  const Wired = (nw: Network.Wired) => {
     return (
       <XButton
         tooltipText={bind(nw, 'state').as(
@@ -19,7 +24,7 @@ export const NetworkMonitor = () => {
       </XButton>
     );
   };
-  const Wifi = (nw: AstalNetwork.Wifi) => {
+  const Wifi = (nw: Network.Wifi) => {
     return (
       <XButton
         tooltipText={bind(nw, 'state').as(
@@ -42,9 +47,9 @@ export const NetworkMonitor = () => {
   return (
     <box className='Network' halign={Gtk.Align.CENTER}>
       {bind(network, 'primary').as((v) => {
-        if (v === AstalNetwork.Primary.WIFI) return Wifi(network.wifi);
-        if (v === AstalNetwork.Primary.WIRED) return Wired(network.wired);
-        if (v === AstalNetwork.Primary.UNKNOWN) return Unknown();
+        if (v === Network.Primary.WIFI) return Wifi(network.wifi);
+        if (v === Network.Primary.WIRED) return Wired(network.wired);
+        if (v === Network.Primary.UNKNOWN) return Unknown();
       })}
     </box>
   );

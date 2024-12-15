@@ -1,5 +1,7 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync, exec } from 'astal';
+// Astal
+import { Variable, bind, execAsync } from 'astal';
+
+// Widgets
 import { MaterialIcon } from '../../common/MaterialIcon';
 
 const ramUsage = Variable<any>('').poll(5000, () =>

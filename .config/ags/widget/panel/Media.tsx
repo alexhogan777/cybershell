@@ -1,13 +1,18 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
+// Astal
+import { bind } from 'astal';
+
+// Libraries
+import Mpris from 'gi://AstalMpris';
+const mpris = Mpris.get_default();
+
+// Config
 import { userConfig } from '../../config/user_config';
-import { PanelSection } from './PanelSection';
 const spacing = userConfig.appearance.spacing;
 
-import Mpris from 'gi://AstalMpris';
+// Widgets
 import { MaterialIcon } from '../common/MaterialIcon';
+import { PanelSection } from './PanelSection';
 import { XButton } from '../common/XButton';
-const mpris = Mpris.get_default();
 
 export const Media = (monitorInt: number) => {
   function lengthStr(length: number) {

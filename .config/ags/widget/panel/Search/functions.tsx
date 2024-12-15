@@ -1,16 +1,19 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, execAsync } from 'astal';
-import { userConfig } from '../../../config/user_config';
+// Astal
+import { Variable, execAsync } from 'astal';
 
-import { executeCCR } from '../../common/click_close_region';
-
+// Libraries
 import Apps from 'gi://AstalApps';
-
 const apps = new Apps.Apps({
   nameMultiplier: 2,
   entryMultiplier: 0,
   executableMultiplier: 2,
 });
+
+// Config
+import { userConfig } from '../../../config/user_config';
+
+// Functions
+import { executeCCR } from '../../common/click_close_region';
 
 export interface SearchItem {
   type: 'pinned-app' | 'app' | 'command' | 'web';

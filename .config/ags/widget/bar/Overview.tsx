@@ -1,10 +1,11 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync } from 'astal';
-import { BarButton } from './BarButton';
-import { playSound } from '../../utils/play_sound';
-import { userConfig } from '../../config/user_config';
-import { getLayout } from '../../utils/get_layout';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+
+// Functions
 import { execAsyncClose } from '../../utils/execClose';
+
+// Widgets
+import { BarButton } from './BarButton';
 
 export const Overview = ({ monitorInt }: { monitorInt: number }) => {
   return (

@@ -1,19 +1,18 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-
-interface props {
-  icon: string | Binding<string>;
-  size?: number;
-  props?: any;
-  css?: string;
-}
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { Binding } from 'astal';
 
 export const MaterialIcon = ({
   icon = '',
   size = 1,
   css = '',
   ...props
-}: props) => {
+}: {
+  icon: string | Binding<string>;
+  size?: number;
+  props?: any;
+  css?: string;
+}) => {
   return (
     <label
       className='icon-material'

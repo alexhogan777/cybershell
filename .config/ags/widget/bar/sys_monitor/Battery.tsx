@@ -1,9 +1,13 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync, exec } from 'astal';
-import { userConfig } from '../../../config/user_config';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { bind } from 'astal';
+
+// Libraries
 import Battery from 'gi://AstalBattery';
-import { XButton } from '../../common/XButton';
 const battery = Battery.get_default();
+
+// Widgets
+import { XButton } from '../../common/XButton';
 
 export const BatteryMonitor = () => {
   const Content = () => {

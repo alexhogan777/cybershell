@@ -1,9 +1,12 @@
-import { App } from 'astal/gtk3';
+// Astal
 import { Variable } from 'astal';
+
+// Libraries
 import Hyprland from 'gi://AstalHyprland';
-import { playSound } from '../../utils/play_sound';
-import { userConfig } from '../../config/user_config';
 const hyprland = Hyprland.get_default();
+
+// Functions
+import { playSound } from '../../utils/play_sound';
 
 export const SystemSounds = () => {
   const popups = Variable(['']);

@@ -1,13 +1,17 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding, timeout } from 'astal';
+// Astal
+import { Gtk } from 'astal/gtk3';
+import { Variable, bind, timeout } from 'astal';
 
+// Libraries
 import Notifd from 'gi://AstalNotifd';
+import Hyprland from 'gi://AstalHyprland';
+const notifd = Notifd.get_default();
+
+// Config
 import { userConfig } from '../../config/user_config';
 
-import Hyprland from 'gi://AstalHyprland';
+// Functions
 import { getLayout } from '../../utils/get_layout';
-import { Notification } from '../panel/Notifications/Notification';
-const notifd = Notifd.get_default();
 
 export const NotificationPopups = (monitorInt: number) => {
   const layout = getLayout(monitorInt);

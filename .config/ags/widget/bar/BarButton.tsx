@@ -1,8 +1,14 @@
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, Binding } from 'astal';
-import { XButton } from '../common/XButton';
+// Astal
+import { Astal, Gtk } from 'astal/gtk3';
+
+// Config
 import { userConfig } from '../../config/user_config';
+
+// Functions
 import { togglePanel } from '../panel/main';
+
+// Widgets
+import { XButton } from '../common/XButton';
 
 export const BarButton = ({
   icon = '',
