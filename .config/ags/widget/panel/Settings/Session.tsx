@@ -3,7 +3,8 @@ import { Astal, Gtk } from 'astal/gtk3';
 import { Variable, bind, execAsync } from 'astal';
 
 // Config
-import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Widgets
 import { XButton } from '../../common/XButton';
@@ -49,7 +50,7 @@ const SessionButton = ({
         }
       }}
     >
-      <box vertical spacing={userConfig.appearance.spacing}>
+      <box vertical spacing={spacing}>
         <MaterialIcon icon={icon} size={2} />
         <label label={name} />
       </box>
@@ -80,11 +81,7 @@ export const Session = () => {
             showConfirm.set(false);
         }}
       >
-        <box
-          vertical
-          spacing={userConfig.appearance.spacing}
-          css='padding: 0em 1em 0em 1em;'
-        >
+        <box vertical spacing={spacing} css='padding: 0em 1em 0em 1em;'>
           <MaterialIcon icon='arrow_back' size={2} />
           <label label='Cancel' />
         </box>
@@ -96,7 +93,7 @@ export const Session = () => {
     return (
       <box
         name='confirm'
-        spacing={userConfig.appearance.spacing}
+        spacing={spacing}
         setup={(self) => {
           function mapped() {}
           function unmapped() {
@@ -122,7 +119,7 @@ export const Session = () => {
         transitionType={Gtk.StackTransitionType.OVER_UP_DOWN}
       >
         <ConfirmOptions />
-        <box name='options' spacing={userConfig.appearance.spacing} homogeneous>
+        <box name='options' spacing={spacing} homogeneous>
           <SessionButton
             name='Lock'
             icon='lock'

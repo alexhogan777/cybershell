@@ -3,7 +3,8 @@ import { Astal, Gtk } from 'astal/gtk3';
 
 // Config
 import { userConfig } from '../../../config/user_config';
-const { spacing } = userConfig.appearance;
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -26,7 +27,7 @@ export const Network = () => {
         >
           <box
             hexpand
-            spacing={userConfig.appearance.spacing * 2}
+            spacing={spacing * 2}
             css='font-size: 1em; font-weight: bold;'
           >
             <label label='Open Wifi Settings' valign={Gtk.Align.BASELINE} />
@@ -42,7 +43,7 @@ export const Network = () => {
         >
           <box
             hexpand
-            spacing={userConfig.appearance.spacing * 2}
+            spacing={spacing * 2}
             css='font-size: 1em; font-weight: bold;'
           >
             <label label='Open Network Settings' valign={Gtk.Align.BASELINE} />

@@ -8,6 +8,8 @@ const panel = PanelLib.get_default();
 
 // Config
 import { userConfig, assetsPath } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { executeCCR } from '../common/click_close_region';
@@ -44,7 +46,7 @@ export const Panel = (gdkMonitor: Gdk.Monitor) => {
           if (keyval === 65364) changeSearchItemSelection(+1);
           if (keyval === 65293) executeSelectedSearchItem();
         }}
-        margin={userConfig.appearance.spacing}
+        margin={spacing}
         setup={(self) => {
           if (layout.side === 'left') self.marginRight = 0;
           if (layout.side === 'right') self.marginLeft = 0;
@@ -63,11 +65,7 @@ export const Panel = (gdkMonitor: Gdk.Monitor) => {
         `}
       >
         <scrollable propagateNaturalHeight hscroll={Gtk.PolicyType.NEVER}>
-          <box
-            vertical
-            className='panel-container'
-            spacing={userConfig.appearance.spacing}
-          >
+          <box vertical className='panel-container' spacing={spacing}>
             {Search(monitorInt)}
             {Media(monitorInt)}
             {Notifications(monitorInt)}

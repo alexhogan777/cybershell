@@ -2,7 +2,8 @@
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
 
 // Config
-import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { getLayout } from '../../utils/get_layout';
@@ -24,7 +25,7 @@ export const Bar = (gdkMonitor: Gdk.Monitor) => {
 
   const Section = ({ children, valign }: any) => {
     return (
-      <box vertical spacing={userConfig.appearance.spacing} valign={valign}>
+      <box vertical spacing={spacing} valign={valign}>
         {children}
       </box>
     );
@@ -37,7 +38,7 @@ export const Bar = (gdkMonitor: Gdk.Monitor) => {
         gdkmonitor={gdkMonitor}
         className='Bar'
         anchor={layout.anchor}
-        margin={userConfig.appearance.spacing}
+        margin={spacing}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         setup={(self) => {
           if (layout.side === 'left') self.marginRight = 0;

@@ -9,7 +9,8 @@ import PanelLib from '../../../state/panel/panel';
 const panel = PanelLib.get_default();
 
 // Config
-import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { dismissNotif } from './Notification';
@@ -61,11 +62,7 @@ export const Notifications = (monitorInt: number) => {
       );
     };
     return (
-      <box
-        spacing={userConfig.appearance.spacing}
-        className='title-bar'
-        valign={Gtk.Align.CENTER}
-      >
+      <box spacing={spacing} className='title-bar' valign={Gtk.Align.CENTER}>
         <Icon />
         <Title />
         <box hexpand />
@@ -81,18 +78,14 @@ export const Notifications = (monitorInt: number) => {
           panel.togglePanel(monitorInt, 'Notifications');
       }}
     >
-      <box
-        vertical
-        spacing={userConfig.appearance.spacing}
-        className='panel-section notifications'
-      >
+      <box vertical spacing={spacing} className='panel-section notifications'>
         <Bar />
         <scrollable
           hscroll={Gtk.PolicyType.NEVER}
           vscroll={Gtk.PolicyType.ALWAYS}
           vexpand
         >
-          <box vertical spacing={userConfig.appearance.spacing}>
+          <box vertical spacing={spacing}>
             {bind(notifd, 'notifications').as((notifs) =>
               notifs.map(Notification)
             )}

@@ -7,9 +7,7 @@ import {
   writeFileAsync,
   writeFile,
 } from 'astal/file';
-import { interval } from 'astal';
 import { App } from 'astal/gtk3';
-import { execAsync } from 'astal/process';
 
 // Config
 import { STATE } from '../../config/user_config';

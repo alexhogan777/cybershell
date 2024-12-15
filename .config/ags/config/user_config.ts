@@ -7,13 +7,9 @@ export const configPath = `${HOME}/.config/ags/config`;
 export const assetsPath = `${HOME}/.config/ags/assets`;
 export const soundsPath = `${assetsPath}/sounds`;
 export const STATE = `${HOME}/.config/ags/state`;
-const STYLES = JSON.parse(readFile(`${configPath}/styles.json`));
 const APPS = JSON.parse(readFile(`${configPath}/apps.json`));
 
 export const userConfig = {
-  appearance: {
-    spacing: STYLES.paddingBase,
-  },
   localization: {
     dateFormat: '%a %m.%d.%Y',
     // you can change the order, but MUST use %m %d and %Y.

@@ -9,7 +9,8 @@ import PanelLib from './state/panel/panel';
 const panel = PanelLib.get_default();
 
 // Config
-import { syncConfig } from './config/styles';
+import Config from './state/config/config';
+const config = Config.get_default();
 
 // Widgets
 import { ClickCloseRegion } from './widget/common/click_close_region';
@@ -18,15 +19,9 @@ import { Bar } from './widget/bar/main';
 import { Panel } from './widget/panel/main';
 import { Popups } from './widget/popups/main';
 
-function getStyle() {
-  syncConfig();
-  exec(['sass', './style.scss', '/tmp/style.css']);
-  App.apply_css('/tmp/style.css');
-}
-
 App.start({
   main() {
-    getStyle();
+    config.appearance.syncAppearance();
     SystemSounds();
     App.get_monitors().map(Bar);
     App.get_monitors().map(ClickCloseRegion);
@@ -51,6 +46,8 @@ Available Options:
   -s [SECTION], --section [SECTION] : open to a specific section
           `);
       } else {
+        const spacing = config.appearance.paddingBase;
+        print(spacing);
         panel.togglePanel(currentMonitorInt);
         res(`Toggling Panel-${currentMonitorInt}`);
       }

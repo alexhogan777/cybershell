@@ -3,7 +3,8 @@ import { Astal, Gtk } from 'astal/gtk3';
 import { Variable, bind } from 'astal';
 
 // Config
-import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { showConfirm } from './Session';
@@ -68,7 +69,7 @@ export const Settings = (monitorInt: number) => {
     return (
       <box
         className='subsection-selector corners-top'
-        spacing={userConfig.appearance.spacing}
+        spacing={spacing}
         hexpand
         // halign={Gtk.Align.CENTER}
         setup={(self) => {
@@ -100,11 +101,7 @@ export const Settings = (monitorInt: number) => {
       icon='settings'
       title={title()}
     >
-      <box
-        vertical
-        spacing={userConfig.appearance.spacing}
-        className='section-content'
-      >
+      <box vertical spacing={spacing} className='section-content'>
         <QuickSettings />
         <box css='min-height: 1em;' />
         <SubsectionSelector />

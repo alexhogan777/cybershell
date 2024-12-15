@@ -7,7 +7,8 @@ import PanelLib from '../../../state/panel/panel';
 const panel = PanelLib.get_default();
 
 // Config
-import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { query, searchItems, updateSearchItems } from './functions';
@@ -37,15 +38,11 @@ export const Search = (monitorInt: number) => {
         <box
           name='pinned-apps'
           vertical
-          spacing={userConfig.appearance.spacing}
+          spacing={spacing}
           className='search-results-section'
         >
           <label className='h3' label='Pinned Apps' xalign={0} />
-          <box
-            vertical
-            spacing={userConfig.appearance.spacing}
-            css='padding-left: 2em;'
-          >
+          <box vertical spacing={spacing} css='padding-left: 2em;'>
             {content}
           </box>
         </box>
@@ -58,15 +55,11 @@ export const Search = (monitorInt: number) => {
         <box
           name='apps'
           vertical
-          spacing={userConfig.appearance.spacing}
+          spacing={spacing}
           className='search-results-section'
         >
           <label className='h3' label='Apps' xalign={0} />
-          <box
-            vertical
-            spacing={userConfig.appearance.spacing}
-            css='padding-left: 2em;'
-          >
+          <box vertical spacing={spacing} css='padding-left: 2em;'>
             {content}
           </box>
         </box>
@@ -79,7 +72,7 @@ export const Search = (monitorInt: number) => {
           revealChild={isQueryEmpty.as((v) => !v)}
           transitionType={Gtk.RevealerTransitionType.SLIDE_UP}
         >
-          <box vertical spacing={userConfig.appearance.spacing}>
+          <box vertical spacing={spacing}>
             {filter('command')}
             {filter('web')}
           </box>
@@ -88,11 +81,7 @@ export const Search = (monitorInt: number) => {
     };
 
     return (
-      <box
-        vertical
-        className='section-content'
-        spacing={userConfig.appearance.spacing}
-      >
+      <box vertical className='section-content' spacing={spacing}>
         <stack
           interpolateSize
           vhomogeneous={false}

@@ -3,7 +3,8 @@ import { Astal, Gtk } from 'astal/gtk3';
 import { Variable, bind } from 'astal';
 
 // Config
-import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -49,7 +50,7 @@ export const Dropdown = ({
           }
         }}
       >
-        <box spacing={userConfig.appearance.spacing}>
+        <box spacing={spacing}>
           {icon && (
             <MaterialIcon icon={icon} size={1.5} css='font-weight: normal;' />
           )}
@@ -92,7 +93,7 @@ export const Dropdown = ({
           }
         }}
       >
-        <box spacing={userConfig.appearance.spacing}>
+        <box spacing={spacing}>
           {icon && (
             <MaterialIcon icon={icon} size={1.5} css='font-weight: normal;' />
           )}
@@ -127,7 +128,7 @@ export const Dropdown = ({
         transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
         revealChild={bind(reveal)}
       >
-        <box vertical spacing={userConfig.appearance.spacing}>
+        <box vertical spacing={spacing}>
           {bind(selected).as((s) => {
             return options.map(({ name, icon }, i) =>
               Option({ name: name, icon: icon, index: i })

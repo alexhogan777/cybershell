@@ -7,7 +7,8 @@ import Tray from 'gi://AstalTray';
 const tray = Tray.get_default();
 
 // Config
-import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -54,7 +55,7 @@ export const SysTray = () => {
       className='Sys-Tray'
       halign={Gtk.Align.CENTER}
       vertical
-      spacing={userConfig.appearance.spacing}
+      spacing={spacing}
     >
       {bind(tray, 'items').as((tis) => tis.map(TrayItem))}
     </box>

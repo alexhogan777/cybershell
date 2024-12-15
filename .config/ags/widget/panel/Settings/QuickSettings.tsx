@@ -7,6 +7,8 @@ import Network from 'gi://AstalNetwork';
 
 // Config
 import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -306,18 +308,14 @@ const OpenSettings = () => {
 export const QuickSettings = () => {
   const Row = ({ children }: { children?: Gtk.Widget[] }) => {
     return (
-      <box hexpand spacing={userConfig.appearance.spacing}>
+      <box hexpand spacing={spacing}>
         {children}
       </box>
     );
   };
 
   return (
-    <box
-      vertical
-      className='quick-settings'
-      spacing={userConfig.appearance.spacing}
-    >
+    <box vertical className='quick-settings' spacing={spacing}>
       {/* <label label='Quick Settings' className='h3' /> */}
       <Row>
         <NetworkToggle />

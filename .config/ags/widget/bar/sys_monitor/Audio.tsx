@@ -1,13 +1,10 @@
 // Astal
-import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable, GLib, bind, execAsync, exec } from 'astal';
+import { Astal, Gtk } from 'astal/gtk3';
+import { Variable, bind } from 'astal';
 
 // Libraries
 import Wp from 'gi://AstalWp';
 const audio = Wp.get_default()?.audio;
-
-// Config
-import { userConfig } from '../../../config/user_config';
 
 // Widgets
 import { XButton } from '../../common/XButton';

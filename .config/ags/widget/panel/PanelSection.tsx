@@ -7,7 +7,8 @@ import PanelLib from '../../state/panel/panel';
 const panel = PanelLib.get_default();
 
 // Config
-import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -54,11 +55,7 @@ export const PanelSection = ({
         }}
         onClickRelease={() => className.set('')}
       >
-        <box
-          className='title-bar'
-          spacing={userConfig.appearance.spacing}
-          valign={Gtk.Align.CENTER}
-        >
+        <box className='title-bar' spacing={spacing} valign={Gtk.Align.CENTER}>
           <MaterialIcon icon={icon} size={1.25} />
           <box hexpand>{title}</box>
           <MaterialIcon
@@ -86,7 +83,7 @@ export const PanelSection = ({
   return (
     <box
       vertical
-      spacing={userConfig.appearance.spacing}
+      spacing={spacing}
       className={bind(className).as((v) => `panel-section ${v}`)}
     >
       <Bar />

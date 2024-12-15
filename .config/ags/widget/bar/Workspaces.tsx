@@ -8,6 +8,8 @@ const hyprland = Hyprland.get_default();
 
 // Config
 import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -85,7 +87,7 @@ export const Workspaces = ({ monitorInt }: { monitorInt: number }) => {
       <box
         className='Workspaces'
         vertical={true}
-        spacing={userConfig.appearance.spacing}
+        spacing={spacing}
         halign={Gtk.Align.CENTER}
       >
         {getChildren()}

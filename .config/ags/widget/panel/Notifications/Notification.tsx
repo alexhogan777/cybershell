@@ -8,8 +8,8 @@ import PanelLib from '../../../state/panel/panel';
 const panel = PanelLib.get_default();
 
 // Config
-import { userConfig } from '../../../config/user_config';
-const spacing = userConfig.appearance.spacing;
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { playSound } from '../../../utils/play_sound';

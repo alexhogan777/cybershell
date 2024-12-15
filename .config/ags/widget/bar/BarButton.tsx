@@ -6,7 +6,8 @@ import PanelLib from '../../state/panel/panel';
 const panel = PanelLib.get_default();
 
 // Config
-import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const SPACING = Config.get_default().appearance.paddingBase;
 
 // Widgets
 import { XButton } from '../common/XButton';
@@ -16,7 +17,7 @@ export const BarButton = ({
   children = [],
   section = '',
   css = '',
-  spacing = userConfig.appearance.spacing,
+  spacing = SPACING,
   monitorInt = 0,
   onClick,
   ...props

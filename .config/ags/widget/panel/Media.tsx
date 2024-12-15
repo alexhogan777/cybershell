@@ -6,8 +6,8 @@ import Mpris from 'gi://AstalMpris';
 const mpris = Mpris.get_default();
 
 // Config
-import { userConfig } from '../../config/user_config';
-const spacing = userConfig.appearance.spacing;
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Widgets
 import { MaterialIcon } from '../common/MaterialIcon';

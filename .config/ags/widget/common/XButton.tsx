@@ -2,7 +2,8 @@
 import { Astal, Gtk } from 'astal/gtk3';
 
 // Config
-import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const SPACING = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -28,7 +29,7 @@ export const XButton = ({
   children = [],
   child,
   vertical = false,
-  spacing = userConfig.appearance.spacing,
+  spacing = SPACING,
   onClick,
   onHover,
   corners,

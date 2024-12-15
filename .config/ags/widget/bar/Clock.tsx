@@ -4,6 +4,8 @@ import { Variable, GLib, bind } from 'astal';
 
 // Config
 import { userConfig } from '../../config/user_config';
+import Config from '../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Widgets
 import { BarButton } from './BarButton';
@@ -65,7 +67,7 @@ export const Clock = ({ monitorInt }: { monitorInt: number }) => {
   };
   const Time = () => {
     return (
-      <box vertical className='time' spacing={userConfig.appearance.spacing}>
+      <box vertical className='time' spacing={spacing}>
         <label
           label={bind(timedate).as((v) => {
             const time = v[0];

@@ -8,6 +8,8 @@ const audio = Wp.get_default()?.audio;
 
 // Config
 import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -47,10 +49,10 @@ export const Audio = () => {
       const selected = Variable(0);
 
       return (
-        <box spacing={userConfig.appearance.spacing * 2}>
+        <box spacing={spacing * 2}>
           <box
             vertical
-            spacing={userConfig.appearance.spacing}
+            spacing={spacing}
             css='min-width: 5em;'
             valign={Gtk.Align.CENTER}
           >
@@ -141,10 +143,10 @@ export const Audio = () => {
       const selected = Variable(0);
 
       return (
-        <box spacing={userConfig.appearance.spacing * 2}>
+        <box spacing={spacing * 2}>
           <box
             vertical
-            spacing={userConfig.appearance.spacing}
+            spacing={spacing}
             css='min-width: 5em;'
             valign={Gtk.Align.CENTER}
           >
@@ -205,7 +207,7 @@ export const Audio = () => {
 
     return (
       <Subsection subsection='Audio'>
-        <box vertical spacing={userConfig.appearance.spacing * 3}>
+        <box vertical spacing={spacing * 3}>
           <box />
           {bind(audio, 'speakers').as(Speakers)}
           {bind(audio, 'microphones').as(Microphones)}
@@ -218,7 +220,7 @@ export const Audio = () => {
           >
             <box
               hexpand
-              spacing={userConfig.appearance.spacing * 2}
+              spacing={spacing * 2}
               css='font-size: 1em; font-weight: bold;'
             >
               <label

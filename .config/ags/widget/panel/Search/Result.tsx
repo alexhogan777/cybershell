@@ -7,6 +7,8 @@ import Apps from 'gi://AstalApps';
 
 // Config
 import { userConfig } from '../../../config/user_config';
+import Config from '../../../state/config/config';
+const spacing = Config.get_default().appearance.paddingBase;
 
 // Functions
 import { getFriendlySearchEngine } from '../../../utils/friendly';
@@ -106,7 +108,7 @@ export const Result = (
         selectedSearchItem.set(null);
       }}
     >
-      <box spacing={userConfig.appearance.spacing * 2}>
+      <box spacing={spacing * 2}>
         <Icon />
         <box vertical valign={Gtk.Align.CENTER}>
           <Name />
