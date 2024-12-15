@@ -1,6 +1,5 @@
 // Astal
 import { App } from 'astal/gtk3';
-import { exec } from 'astal';
 
 // Libraries
 import Hyprland from 'gi://AstalHyprland';
@@ -46,8 +45,6 @@ Available Options:
   -s [SECTION], --section [SECTION] : open to a specific section
           `);
       } else {
-        const spacing = config.appearance.paddingBase;
-        print(spacing);
         panel.togglePanel(currentMonitorInt);
         res(`Toggling Panel-${currentMonitorInt}`);
       }

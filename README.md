@@ -3,6 +3,13 @@
   <h3></h3>
 </div>
 
+## Notable Features
+
+- DE comparable experience featuring a vertical Status Bar, Panel, Overview, and more.
+- Integration with KDEConnect for seamless sync accross devices.
+- Centralized configuration files that will update live accross every\* part of the experience.
+  - Located in `~/.config/ags/state/config`
+
 ## Dependencies
 
 - GNOME (Maybe not, but highly recommended.)
