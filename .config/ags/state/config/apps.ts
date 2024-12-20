@@ -148,7 +148,7 @@ export default class ConfigApps extends GObject.Object {
     );
 
     hyprlandConf = `${hyprlandConfBefore}
-# Apps
+# APPS
 $terminal = ${this.#terminal}
 $webBrowser = ${this.#webBrowser}
 $webBrowserAlt = ${this.#webBrowserAlt}

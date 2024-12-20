@@ -8,8 +8,11 @@ const hyprland = Hyprland.get_default();
 
 // Config
 import { userConfig } from '../../config/user_config';
+import Appearance from '../../state/config/appearance';
+const appearance = Appearance.get_default();
+const spacing = bind(appearance, 'paddingBase');
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
 
 // Functions
 import { playSound } from '../../utils/play_sound';

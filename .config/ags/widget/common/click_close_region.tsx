@@ -10,16 +10,12 @@ const windowTypes = ['Panel'];
 
 function openCCRs() {
   const windows = App.get_windows();
-  const clickCloseRegions = windows.filter((w) =>
-    w.name.includes('Click_Close_Region')
-  );
+  const clickCloseRegions = windows.filter((w) => w.name.includes('Click_Close_Region'));
   clickCloseRegions.forEach((ccr) => ccr.set_visible(true));
 }
 function closeCCRs() {
   const windows = App.get_windows();
-  const clickCloseRegions = windows.filter((w) =>
-    w.name.includes('Click_Close_Region')
-  );
+  const clickCloseRegions = windows.filter((w) => w.name.includes('Click_Close_Region'));
   clickCloseRegions.forEach((ccr) => ccr.set_visible(false));
 }
 
@@ -57,6 +53,7 @@ export const ClickCloseRegion = (gdkMonitor: Gdk.Monitor) => {
       application={App}
       keymode={Astal.Keymode.NONE}
       visible={false}
+      css={'background: transparent;'}
       setup={(self) =>
         self.hook(App, 'window-toggled', (self, window: Astal.Window) => {
           const _visibleWindows = visibleWindows.get();
@@ -92,9 +89,7 @@ export const ClickCloseRegion = (gdkMonitor: Gdk.Monitor) => {
           );
 
           // Close open windows with the same type as this one
-          othersOpen
-            .get()
-            .forEach((w) => App.get_window(w)?.set_visible(false));
+          othersOpen.get().forEach((w) => App.get_window(w)?.set_visible(false));
 
           // Add this window to the list of visible windows
           visibleWindows.set([..._visibleWindows, window.name]);

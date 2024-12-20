@@ -8,7 +8,8 @@
   "text": "255,255,255",
   "error": "255,0,34",
   "borderWidth": 2,
-  "cornerRounding": 4,
+  "cornerRounding": 2,
   "paddingBase": 4,
-  "buttonSize": 32
+  "buttonSize": 32,
+  "wallpaperPath": "~/Pictures/walls/l0v3r5_834ch.gif"
 }

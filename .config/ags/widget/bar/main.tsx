@@ -1,9 +1,20 @@
 // Astal
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
+import { bind, Variable } from 'astal';
 
 // Config
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+import Appearance from '../../state/config/appearance';
+const appearance = Appearance.get_default();
+const spacing = appearance.paddingBase;
+const spacingVar = Variable(appearance.paddingBase).observe(
+  appearance,
+  'notify',
+  () => {
+    print('asdf');
+    return appearance.paddingBase;
+  }
+);
 
 // Functions
 import { getLayout } from '../../utils/get_layout';

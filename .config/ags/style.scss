@@ -48,7 +48,7 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
 }
 @mixin surface {
   background-color: $surface_trans;
-  border: $borderWidth solid $surface;
+  border: $borderWidth * 2 solid $surface;
 }
 @mixin hover {
   background-color: $hover_trans;
