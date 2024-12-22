@@ -10,7 +10,7 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
 
 * {
   all: unset;
-  color: $text;
+  // color: $text;
 }
 
 @mixin corners-all {
@@ -39,14 +39,12 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
   background-color: transparent;
   border: $borderWidth solid transparent;
 }
+
 @mixin bg {
   background-color: $bg_trans;
   border: $borderWidth solid $bg;
 }
-@mixin surface-dark {
-  background-color: $surfaceDark_trans;
-  border: $borderWidth solid $surfaceDark;
-}
+
 @mixin surface {
   background-color: $surface_trans;
   border: $borderWidth solid $surface;
@@ -55,13 +53,22 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
   background-color: $hover_trans;
   border: $borderWidth solid $hover;
 }
-@mixin highlight_hover {
-  background-color: $highlight_hover_trans;
-  border: $borderWidth solid $highlight_hover;
+@mixin active {
+  background-color: darken($hover_trans, 15%);
+  border: $borderWidth solid darken($hover, 15%);
 }
-@mixin fg {
-  background-color: $fg_trans;
-  border: $borderWidth solid $fg;
+
+@mixin accent {
+  background-color: $accent_trans;
+  border: $borderWidth solid $accent;
+}
+@mixin accent_hover {
+  background-color: $accent_trans_hover;
+  border: $borderWidth solid $accent_hover;
+}
+@mixin accent_active {
+  background-color: darken($accent_trans_hover, 15%);
+  border: $borderWidth solid darken($accent_trans_hover, 15%);
 }
 
 tooltip {
@@ -106,9 +113,10 @@ button {
     @include hover;
   }
   &:active {
-    @include fg;
+    @include active;
   }
 }
+
 menu {
   @include bg;
   @include corners-all;
@@ -122,7 +130,7 @@ menu {
       @include hover;
     }
     &:active {
-      @include fg;
+      @include active;
     }
   }
 }
@@ -134,29 +142,29 @@ menu {
   .dropdown-option {
     @include transparent;
     @include corners-all;
+    &.selected {
+      @include corners-bottom;
+    }
+    &:hover {
+      @include hover;
+    }
+    &:active {
+      @include active;
+    }
   }
-  .dropdown-option.selected {
-    border-radius: $corners;
-  }
-  .dropdown-option:hover {
-    background-color: $hover_trans;
-    border-color: $hover;
-  }
-  .dropdown-option.selected:hover {
-    background-color: $surface_trans;
-    border-color: $surface;
-  }
-}
-.dropdown.expanded {
-  border-radius: 0.5em 0em 0em 0.5em;
-  .dropdown-option.selected {
-    background-color: $surface_trans;
-    border-color: $surface;
-    margin-bottom: 4px;
-  }
-  .dropdown-option.selected:hover {
-    background-color: $hover_trans;
-    border-color: $hover;
+
+  &.expanded {
+    @include corners-left;
+    .dropdown-option.selected {
+      @include surface;
+      margin-bottom: 4px;
+      &:hover {
+        @include hover;
+      }
+      &:active {
+        @include active;
+      }
+    }
   }
 }
 

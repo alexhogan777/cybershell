@@ -15,18 +15,27 @@
       @include corners-circle;
       min-width: $buttonSize - $paddingSmall;
       min-height: $buttonSize - $paddingSmall;
+      color: lighten($surface, 10%);
 
       &.real {
-        background-color: $surfaceDark;
-      }
-      &.focused {
-        background-color: $surface_trans;
+        color: $text;
+        // background-color: $surfaceDark;
       }
       &:hover {
+        color: $text;
         background-color: $hover;
+        &:active {
+          background-color: darken($hover, 15%);
+        }
       }
-      &:active {
-        background-color: $surface;
+      &.focused {
+        background-color: $accent;
+        &:hover {
+          background-color: $accent_hover;
+        }
+        &:active {
+          background-color: darken($accent_hover, 15%);
+        }
       }
     }
   }
@@ -39,12 +48,12 @@
       font-family: $digital;
       font-size: $digitalMedium;
       .am-pm {
-        color: $surface;
+        color: lighten($surface, 10%);
       }
     }
     .date {
       font-size: 0.73em;
-      color: $fg;
+      color: $accent;
     }
   }
   .Sys-Tray {
@@ -63,7 +72,7 @@
 
     // .resource {
     //   background-color: $surface;
-    //   color: $fg;
+    //   color: $accent;
     //   font-size: 3px;
     //   min-width: 8em;
     //   min-height: 8em;

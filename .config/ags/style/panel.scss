@@ -18,7 +18,7 @@
       @include hover;
     }
     &.active {
-      @include fg;
+      @include active;
     }
     &.notifications {
       @include transparent;
@@ -36,15 +36,15 @@
       }
 
       #searchbox {
-        @include surface-dark;
+        @include surface;
         @include corners-all;
-        padding: $paddingSmall;
+        padding: $paddingMedium $paddingLarge;
 
         font-size: 0.67em;
         font-weight: normal;
       }
       #searchbox selection {
-        background-color: $hover;
+        background-color: $accent;
         font-weight: bold;
       }
 
@@ -58,7 +58,7 @@
             @include hover;
           }
           &:active {
-            @include fg;
+            @include active;
           }
         }
       }
@@ -68,7 +68,7 @@
       padding: $paddingMedium;
 
       .quick-settings {
-        @include surface-dark;
+        @include surface;
         @include corners-all;
         padding: $paddingMedium;
 
@@ -83,11 +83,17 @@
             @include hover;
             @include corners-all;
           }
-          &.active {
-            @include fg;
+          &:active {
+            @include active;
           }
-          &:hover.active {
-            @include highlight_hover;
+          &.active {
+            @include accent;
+            &:hover {
+              @include accent_hover;
+            }
+            &:active {
+              @include accent_active;
+            }
           }
 
           .name {
@@ -98,7 +104,7 @@
       }
 
       .subsection-selector {
-        @include surface-dark;
+        @include surface;
         @include corners-all;
         padding: $paddingMedium;
 
@@ -107,15 +113,20 @@
           @include corners-circle;
           min-width: $buttonSize;
           min-height: $buttonSize;
-          // padding: $paddingSmall / 2 $paddingSmall $paddingSmall / 2 $paddingSmall;
 
           &:hover {
             @include hover;
           }
+          &:active {
+            @include active;
+          }
           &.active {
-            @include fg;
+            @include accent;
             &:hover {
-              @include highlight_hover;
+              @include accent_hover;
+            }
+            &:active {
+              @include accent_active;
             }
           }
         }
@@ -123,26 +134,26 @@
 
       .subsection {
         button {
-          @include surface-dark;
+          @include surface;
           @include corners-all;
           padding: $paddingLarge;
           &:hover {
             @include hover;
           }
           &:active {
-            @include fg;
+            @include active;
           }
         }
 
         .mute-button {
           border-radius: $brv 0em 0em 0em;
           padding: 0px;
-          @include surface-dark;
+          @include surface;
           &:hover {
             @include hover;
           }
           &:active {
-            @include fg;
+            @include active;
           }
           border-right-color: transparent;
         }
@@ -151,16 +162,16 @@
           // margin-top: 0.125em;
           trough {
             border-radius: 0em $brv 0em 0em;
-            @include surface-dark;
+            @include surface;
             min-height: $buttonSize;
           }
 
           highlight {
-            background-color: $fg;
+            background-color: $accent;
             border-radius: 0em $brv 0em 0em;
             padding: 0em $brv 0em 0em;
             &:hover {
-              background-color: $hover;
+              background-color: $accent_hover;
             }
           }
 
@@ -169,7 +180,7 @@
           }
         }
         .dropdown {
-          @include surface-dark;
+          @include surface;
           @include corners-bottom;
           border-top-color: transparent;
 
@@ -184,14 +195,22 @@
             &:hover {
               @include hover;
             }
+            &:active {
+              @include active;
+            }
           }
-        }
-        .dropdown.expanded {
-          .dropdown-option.selected {
-            @include surface;
-            margin-bottom: 4px;
-            &:hover {
-              @include hover;
+          &.expanded {
+            .dropdown-option {
+              &.selected {
+                @include accent;
+                margin-bottom: 4px;
+                &:hover {
+                  @include hover;
+                }
+                &:active {
+                  @include accent_active;
+                }
+              }
             }
           }
         }
@@ -202,6 +221,9 @@
       @include transparent;
       &.selected {
         @include hover;
+      }
+      &:active {
+        @include active;
       }
 
       .title {
@@ -226,7 +248,7 @@
     }
 
     .media-player {
-      @include surface-dark;
+      @include surface;
       @include corners-all;
       padding: $paddingLarge;
       background-blend-mode: multiply;
@@ -258,23 +280,23 @@
           @include hover;
         }
         &:active {
-          @include fg;
+          @include active;
         }
       }
       scale.position-slider {
         padding: 0em;
         trough {
           @include corners-all;
-          @include bg;
+          @include surface;
           min-height: 1em;
         }
 
         highlight {
-          background-color: $fg;
+          background-color: $accent;
           @include corners-all;
           padding: 0em $brv 0em $brv;
           &:hover {
-            background-color: $hover;
+            background-color: $accent_hover;
           }
         }
 

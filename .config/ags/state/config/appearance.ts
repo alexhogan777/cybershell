@@ -13,6 +13,25 @@ function getFromOptions(key: string) {
   return JSON.parse(readFile(OPTIONS))[key];
 }
 
+function lighten(input: string) {
+  return input
+    .split(',')
+    .map((v: any) => {
+      let int = parseInt(v);
+      return int + 25;
+    })
+    .join(',');
+}
+function darken(input: string) {
+  return input
+    .split(',')
+    .map((v: any) => {
+      let int = parseInt(v);
+      return int - int / 10;
+    })
+    .join(',');
+}
+
 @register({ GTypeName: 'ConfigAppearance' })
 export default class Appearance extends GObject.Object {
   static instance: Appearance;
@@ -39,10 +58,16 @@ export default class Appearance extends GObject.Object {
         })
         .join('');
     }
+
     // Apply GTK
     const gtkSettings = `@define-color theme_fg_color #AEE5FA;
-@define-color accent_color #78aeed;
-@define-color accent_bg_color #3584e4;
+@define-color theme_bg_color #${convertToHex(this.#bg)};
+@define-color theme_base_color #${convertToHex(this.#bg)};
+@define-color theme_unfocused_bg_color rgba(34,0,34,0.85);
+@define-color theme_unfocused_base_color rgba(34,0,34,0.85);
+
+@define-color accent_color #${convertToHex(this.#accent)};
+@define-color accent_bg_color #${convertToHex(this.#accent)};
 @define-color accent_fg_color #ffffff;
 @define-color destructive_color #ff7b63;
 @define-color destructive_bg_color #c01c28;
@@ -58,22 +83,26 @@ export default class Appearance extends GObject.Object {
 @define-color error_fg_color #ffffff;
 @define-color window_bg_color #${convertToHex(this.#bg)};
 @define-color window_fg_color #ffffff;
-@define-color view_bg_color #1e1e1e;
+@define-color view_bg_color #${convertToHex(this.#view)};
 @define-color view_fg_color #ffffff;
-@define-color headerbar_bg_color #303030;
+@define-color headerbar_bg_color #${convertToHex(this.#surface)};
 @define-color headerbar_fg_color #ffffff;
 @define-color headerbar_border_color #ffffff;
 @define-color headerbar_backdrop_color @window_bg_color;
 @define-color headerbar_shade_color rgba(0, 0, 0, 0.36);
-@define-color card_bg_color rgba(255, 255, 255, 0.08);
+@define-color card_bg_color #${convertToHex(this.#surface)};
 @define-color card_fg_color #ffffff;
 @define-color card_shade_color rgba(0, 0, 0, 0.36);
-@define-color dialog_bg_color #383838;
+@define-color dialog_bg_color #${convertToHex(this.#bg)};
 @define-color dialog_fg_color #ffffff;
-@define-color popover_bg_color #383838;
+@define-color popover_bg_color #${convertToHex(this.#bg)};
 @define-color popover_fg_color #ffffff;
 @define-color shade_color rgba(0, 0, 0, 0.36);
 @define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
+@define-color sidebar_bg_color @headerbar_bg_color;
+@define-color sidebar_fg_color @headerbar_fg_color;
+@define-color sidebar_border_color @window_bg_color;
+@define-color sidebar_backdrop_color @headerbar_backdrop_color;
 @define-color blue_1 #99c1f1;
 @define-color blue_2 #62a0ea;
 @define-color blue_3 #3584e4;
@@ -130,20 +159,27 @@ export default class Appearance extends GObject.Object {
 // Run "ags quit" then "ags run" to apply new colors.
 
 $transparency: ${this.#transparency};
-$bg: rgb(${this.#bg});
 
+$bg: rgb(${this.#bg});
+$bg_hover: lighten($bg, 10%);
 $bg_trans: rgba($bg, $transparency);
-$surface: lighten($bg, 20%);
+$bg_trans_hover: lighten($bg_trans, 10%);
+
+$surface: rgb(${this.#surface});
+$surface_hover: lighten($surface, 10%);
 $surface_trans: rgba($surface, $transparency);
-$surfaceDark: darken($surface, 10%);
-$surfaceDark_trans: rgba($surfaceDark, $transparency);
-$fg: rgb(${this.#fg});
-$fg_trans: rgba($fg, $transparency);
-$hover: lighten($surface, 10%);
+$surface_trans_hover: lighten($surface_trans, 10%);
+
+$hover: $surface_hover;
 $hover_trans: rgba($hover, $transparency);
-$highlight_hover: lighten($fg, 10%);
-$highlight_hover_trans: rgba($highlight_hover, $transparency);
+
+$accent: rgb(${this.#accent});
+$accent_hover: lighten($accent, 10%);
+$accent_trans: rgba($accent, $transparency);
+$accent_trans_hover: lighten($accent_trans, 10%);
+
 $text: rgb(${this.#text});
+
 $error: rgb(${this.#error});
 
 $paddingBase: ${this.#paddingBase}px;
@@ -224,11 +260,9 @@ background_opacity ${this.#transparency}`;
 
   #transparency = getFromOptions('transparency');
   #bg = getFromOptions('bg');
-  #view = getFromOptions('view');
+  #view = darken(this.#bg);
   #accent = getFromOptions('accent');
-  #fg = getFromOptions('fg');
-  #surface_dark = getFromOptions('surface_dark');
-  #surface = getFromOptions('surface');
+  #surface = lighten(this.#bg);
   #hover = getFromOptions('hover');
   #text = getFromOptions('text');
   #error = getFromOptions('error');
@@ -257,8 +291,9 @@ background_opacity ${this.#transparency}`;
   get view() {
     return this.#view;
   }
-  set view(value) {
-    this.updateOption('view', value);
+  @property(String)
+  get surface() {
+    return this.#surface;
   }
   @property(String)
   get accent() {
@@ -266,30 +301,6 @@ background_opacity ${this.#transparency}`;
   }
   set accent(value) {
     this.updateOption('accent', value);
-  }
-
-  @property(String)
-  get surface_dark() {
-    return this.#surface_dark;
-  }
-  set surface_dark(value) {
-    this.updateOption('surface_dark', value);
-  }
-
-  @property(String)
-  get surface() {
-    return this.#surface;
-  }
-  set surface(value) {
-    this.updateOption('surface', value);
-  }
-
-  @property(String)
-  get fg() {
-    return this.#fg;
-  }
-  set fg(value) {
-    this.updateOption('fg', value);
   }
 
   @property(String)
@@ -373,32 +384,16 @@ background_opacity ${this.#transparency}`;
       }
       if (v.bg !== this.#bg) {
         this.#bg = String(v.bg);
+        this.#view = String(darken(v.bg));
+        this.#surface = String(lighten(v.bg));
         this.notify('bg');
-        this.emit('updated', this);
-      }
-      if (v.view !== this.#view) {
-        this.#view = String(v.view);
+        this.notify('surface');
         this.notify('view');
         this.emit('updated', this);
       }
       if (v.accent !== this.#accent) {
         this.#accent = String(v.accent);
         this.notify('accent');
-        this.emit('updated', this);
-      }
-      if (v.surface_dark !== this.#surface_dark) {
-        this.#surface_dark = String(v.surface_dark);
-        this.notify('surface_dark');
-        this.emit('updated', this);
-      }
-      if (v.surface !== this.#surface) {
-        this.#surface = String(v.surface);
-        this.notify('surface');
-        this.emit('updated', this);
-      }
-      if (v.fg !== this.#fg) {
-        this.#fg = String(v.fg);
-        this.notify('fg');
         this.emit('updated', this);
       }
       if (v.hover !== this.#hover) {

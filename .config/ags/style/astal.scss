@@ -3,20 +3,27 @@
 // Run "ags quit" then "ags run" to apply new colors.
 
 $transparency: 0.85;
-$bg: rgb(20,20,20);
 
+$bg: rgb(20,20,20);
+$bg_hover: lighten($bg, 10%);
 $bg_trans: rgba($bg, $transparency);
-$surface: lighten($bg, 20%);
+$bg_trans_hover: lighten($bg_trans, 10%);
+
+$surface: rgb(45,45,45);
+$surface_hover: lighten($surface, 10%);
 $surface_trans: rgba($surface, $transparency);
-$surfaceDark: darken($surface, 10%);
-$surfaceDark_trans: rgba($surfaceDark, $transparency);
-$fg: rgb(53,132,228);
-$fg_trans: rgba($fg, $transparency);
-$hover: lighten($surface, 10%);
+$surface_trans_hover: lighten($surface_trans, 10%);
+
+$hover: $surface_hover;
 $hover_trans: rgba($hover, $transparency);
-$highlight_hover: lighten($fg, 10%);
-$highlight_hover_trans: rgba($highlight_hover, $transparency);
+
+$accent: rgb(127,86,201);
+$accent_hover: lighten($accent, 10%);
+$accent_trans: rgba($accent, $transparency);
+$accent_trans_hover: lighten($accent_trans, 10%);
+
 $text: rgb(255,255,255);
+
 $error: rgb(255,0,34);
 
 $paddingBase: 4px;

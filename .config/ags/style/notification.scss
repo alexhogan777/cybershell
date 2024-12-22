@@ -1,5 +1,5 @@
 .notification {
-  @include surface-dark;
+  @include surface;
   @include corners-all;
   padding: $paddingMedium;
 
@@ -24,23 +24,23 @@
       @include hover;
     }
     &:active {
-      @include fg;
+      @include active;
     }
   }
 
   .notification-actions {
     margin-top: 4px;
     .notification-action {
-      @include surface;
+      @include accent;
       @include corners-all;
       padding: $paddingSmall;
       font-weight: bold;
 
       &:hover {
-        @include hover;
+        @include accent_hover;
       }
       &:active {
-        @include fg;
+        @include accent_active;
       }
     }
   }
@@ -56,7 +56,7 @@
       @include hover;
     }
     &:active {
-      @include fg;
+      @include active;
     }
   }
 }
