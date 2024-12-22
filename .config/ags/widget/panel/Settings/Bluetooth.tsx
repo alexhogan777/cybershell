@@ -1,9 +1,17 @@
 // Astal
 import { Astal, Gtk } from 'astal/gtk3';
+import { bind, Variable } from 'astal';
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 const BLUETOOTH_SETTINGS = Config.get_default().apps.bluetoothSettings;
 
 // Functions
@@ -25,15 +33,8 @@ export const Bluetooth = () => {
             }
           }}
         >
-          <box
-            hexpand
-            spacing={spacing * 2}
-            css='font-size: 1em; font-weight: bold;'
-          >
-            <label
-              label='Open Bluetooth Settings'
-              valign={Gtk.Align.BASELINE}
-            />
+          <box hexpand spacing={spacing.as((v) => v * 2)} css='font-size: 1em; font-weight: bold;'>
+            <label label='Open Bluetooth Settings' valign={Gtk.Align.BASELINE} />
             <MaterialIcon icon='open_in_new' size={1.25} />
           </box>
         </XButton>

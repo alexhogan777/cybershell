@@ -1,6 +1,6 @@
 // Astal
 import { Astal, Gtk, Gdk } from 'astal/gtk3';
-import { bind } from 'astal';
+import { bind, Variable } from 'astal';
 
 // Libraries
 import Tray from 'gi://AstalTray';
@@ -8,7 +8,14 @@ const tray = Tray.get_default();
 
 // Config
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -23,12 +30,7 @@ export const SysTray = () => {
         cursor='pointer'
         onClickRelease={(self, event) => {
           function openMenu() {
-            menu?.popup_at_widget(
-              self,
-              Gdk.Gravity.SOUTH,
-              Gdk.Gravity.NORTH,
-              null
-            );
+            menu?.popup_at_widget(self, Gdk.Gravity.SOUTH, Gdk.Gravity.NORTH, null);
           }
           playSound('button');
           if (event.button === Astal.MouseButton.PRIMARY) {
@@ -51,12 +53,7 @@ export const SysTray = () => {
   };
 
   return (
-    <box
-      className='Sys-Tray'
-      halign={Gtk.Align.CENTER}
-      vertical
-      spacing={spacing}
-    >
+    <box className='Sys-Tray' halign={Gtk.Align.CENTER} vertical spacing={spacing}>
       {bind(tray, 'items').as((tis) => tis.map(TrayItem))}
     </box>
   );

@@ -3,10 +3,15 @@ import { Gtk } from 'astal/gtk3';
 import { Variable, GLib, bind } from 'astal';
 
 // Config
-import { userConfig } from '../../config/user_config';
 import Config from '../../state/config/config';
 const config = Config.get_default();
-const spacing = config.appearance.paddingBase;
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Widgets
 import { BarButton } from './BarButton';
@@ -43,17 +48,14 @@ function getDateFormat(full: boolean) {
   return newFormat;
 }
 
-const timedate = Variable<any>(hasAMPM ? ['*', ''] : ['', '']).poll(
-  1000,
-  () => {
-    const time = GLib.DateTime.new_now_local().format(getTimeFormat(false))!;
-    const datefull = GLib.DateTime.new_now_local().format(getDateFormat(true))!;
-    const day = GLib.DateTime.new_now_local().format('%a');
-    const date = GLib.DateTime.new_now_local().format(getDateFormat(false));
-    const timefull = GLib.DateTime.new_now_local().format(getTimeFormat(true));
-    return [time, datefull, day, date, timefull];
-  }
-);
+const timedate = Variable<any>(hasAMPM ? ['*', ''] : ['', '']).poll(1000, () => {
+  const time = GLib.DateTime.new_now_local().format(getTimeFormat(false))!;
+  const datefull = GLib.DateTime.new_now_local().format(getDateFormat(true))!;
+  const day = GLib.DateTime.new_now_local().format('%a');
+  const date = GLib.DateTime.new_now_local().format(getDateFormat(false));
+  const timefull = GLib.DateTime.new_now_local().format(getTimeFormat(true));
+  return [time, datefull, day, date, timefull];
+});
 export const Clock = ({ monitorInt }: { monitorInt: number }) => {
   const Day = () => {
     return (
@@ -76,10 +78,7 @@ export const Clock = ({ monitorInt }: { monitorInt: number }) => {
           })}
         />
         {hasAMPM && (
-          <label
-            className='am-pm'
-            label={bind(timedate).as((v) => v[0].split('*')[1])}
-          />
+          <label className='am-pm' label={bind(timedate).as((v) => v[0].split('*')[1])} />
         )}
       </box>
     );

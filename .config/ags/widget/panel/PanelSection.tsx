@@ -8,7 +8,14 @@ const panel = PanelLib.get_default();
 
 // Config
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -25,13 +32,7 @@ interface PanelSection {
   child?: Gtk.Widget;
 }
 
-export const PanelSection = ({
-  monitorInt,
-  section,
-  title,
-  icon,
-  child,
-}: PanelSection) => {
+export const PanelSection = ({ monitorInt, section, title, icon, child }: PanelSection) => {
   const className = Variable<string>('');
   const Bar = () => {
     return (
@@ -81,11 +82,7 @@ export const PanelSection = ({
   };
 
   return (
-    <box
-      vertical
-      spacing={spacing}
-      className={bind(className).as((v) => `panel-section ${v}`)}
-    >
+    <box vertical spacing={spacing} className={bind(className).as((v) => `panel-section ${v}`)}>
       <Bar />
       <Content />
     </box>

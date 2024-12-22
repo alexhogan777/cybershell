@@ -1,5 +1,5 @@
 // Astal
-import { bind } from 'astal';
+import { bind, Variable } from 'astal';
 
 // Libraries
 import Mpris from 'gi://AstalMpris';
@@ -7,7 +7,14 @@ const mpris = Mpris.get_default();
 
 // Config
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Widgets
 import { MaterialIcon } from '../common/MaterialIcon';
@@ -92,9 +99,7 @@ export const Media = (monitorInt: number) => {
               hexpand
               className='position-slider'
               value={position}
-              onDragged={({ value }) =>
-                (player.position = value * player.length)
-              }
+              onDragged={({ value }) => (player.position = value * player.length)}
             />
           );
         };
@@ -102,7 +107,7 @@ export const Media = (monitorInt: number) => {
           return <label label={lengthStr(length)} />;
         };
         return (
-          <box spacing={spacing * 2}>
+          <box spacing={spacing.as((v) => v * 2)}>
             {bind(player, 'position').as((v) => [
               Current(player.length > 0 ? v / player.length : 0),
               Bar(v),
@@ -154,9 +159,7 @@ export const Media = (monitorInt: number) => {
       const Shuffle = () => {
         return (
           <XButton
-            className={bind(player, 'shuffleStatus').as(
-              (v) => `player-control ${v && 'active'}`
-            )}
+            className={bind(player, 'shuffleStatus').as((v) => `player-control ${v && 'active'}`)}
             iconObj={{
               icon: 'shuffle',
               size: 1.25,
@@ -169,10 +172,7 @@ export const Media = (monitorInt: number) => {
         return (
           <XButton
             className={bind(player, 'loopStatus').as(
-              (v) =>
-                `player-control ${
-                  (v === Mpris.Loop.TRACK || Mpris.Loop.PLAYLIST) && 'active'
-                }`
+              (v) => `player-control ${(v === Mpris.Loop.TRACK || Mpris.Loop.PLAYLIST) && 'active'}`
             )}
             iconObj={{
               icon: bind(player, 'loopStatus').as((v) => {
@@ -224,12 +224,7 @@ export const Media = (monitorInt: number) => {
     return <label label='Media' className='title' />;
   };
   return (
-    <PanelSection
-      monitorInt={monitorInt}
-      section='Media'
-      icon='music_note'
-      title={title()}
-    >
+    <PanelSection monitorInt={monitorInt} section='Media' icon='music_note' title={title()}>
       <box vertical className='section-content' spacing={spacing}>
         {bind(mpris, 'players').as((v) => v.map(Player))}
       </box>

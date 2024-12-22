@@ -9,7 +9,13 @@ import Network from 'gi://AstalNetwork';
 import { userConfig } from '../../../config/user_config';
 import Config from '../../../state/config/config';
 const config = Config.get_default();
-const spacing = config.appearance.paddingBase;
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { execAsyncClose } from '../../../utils/execClose';
@@ -90,9 +96,7 @@ const wifi = network.get_wifi();
 const wired = network.get_wired();
 
 const NetworkToggle = () => {
-  const active = Variable(
-    network.get_connectivity() >= 2 || wifi?.get_enabled() || false
-  );
+  const active = Variable(network.get_connectivity() >= 2 || wifi?.get_enabled() || false);
 
   return (
     <QuickSetting
@@ -181,11 +185,9 @@ const BluetoothToggle = () => {
 
 const AirplaneMode = () => {
   const active = Variable(
-    ![
-      network.get_connectivity() >= 2,
-      wifi?.get_enabled(),
-      bluetooth.get_is_powered(),
-    ].includes(true)
+    ![network.get_connectivity() >= 2, wifi?.get_enabled(), bluetooth.get_is_powered()].includes(
+      true
+    )
   );
   return (
     <QuickSetting
@@ -217,15 +219,9 @@ const AirplaneMode = () => {
             !bluetooth.get_is_powered() && bluetooth.toggle();
           }
           let ifname = '';
-          execAsync([
-            'bash',
-            '-c',
-            `nmcli device status | awk '/ethernet/ {print $1}'`,
-          ])
+          execAsync(['bash', '-c', `nmcli device status | awk '/ethernet/ {print $1}'`])
             .then((res) => (ifname = res))
-            .finally(() =>
-              execAsync(['bash', '-c', `nmcli device connect ${ifname}`])
-            );
+            .finally(() => execAsync(['bash', '-c', `nmcli device connect ${ifname}`]));
         } else {
           wifi?.set_enabled(false);
           bluetooth.get_is_powered() && bluetooth.toggle();
@@ -325,11 +321,7 @@ export const QuickSettings = () => {
         <AirplaneMode />
       </Row>
       <Row>
-        <QuickSetting
-          name='Sound'
-          icon='volume_up'
-          tooltipText='Toggle sound on/off'
-        />
+        <QuickSetting name='Sound' icon='volume_up' tooltipText='Toggle sound on/off' />
         <QuickSetting
           name='Popups'
           icon='notifications'
@@ -343,11 +335,7 @@ export const QuickSettings = () => {
         <NightLightToggle />
       </Row>
       <Row>
-        <QuickSetting
-          name='Screenshot'
-          icon='screenshot_monitor'
-          tooltipText='Take a screenshot'
-        />
+        <QuickSetting name='Screenshot' icon='screenshot_monitor' tooltipText='Take a screenshot' />
         <QuickSetting
           name='trigger-control'
           icon='stadia_controller'

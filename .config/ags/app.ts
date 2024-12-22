@@ -1,5 +1,6 @@
 // Astal
 import { App } from 'astal/gtk3';
+import { exec } from 'astal';
 
 // Libraries
 import Hyprland from 'gi://AstalHyprland';

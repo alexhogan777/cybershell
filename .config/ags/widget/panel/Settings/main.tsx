@@ -4,7 +4,14 @@ import { Variable, bind } from 'astal';
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { showConfirm } from './Session';
@@ -23,13 +30,7 @@ export function changeSubsection(subsection: string) {
   selectedSubsection.set(subsection);
 }
 
-export const Subsection = ({
-  subsection,
-  child,
-}: {
-  subsection: string;
-  child?: Gtk.Widget;
-}) => {
+export const Subsection = ({ subsection, child }: { subsection: string; child?: Gtk.Widget }) => {
   return (
     <box name={subsection} className='subsection'>
       {child ? child : `hello ${subsection}`}
@@ -38,13 +39,7 @@ export const Subsection = ({
 };
 
 export const Settings = (monitorInt: number) => {
-  const SubsectionButton = ({
-    subsection,
-    icon,
-  }: {
-    subsection: string;
-    icon: string;
-  }) => {
+  const SubsectionButton = ({ subsection, icon }: { subsection: string; icon: string }) => {
     return (
       <XButton
         hexpand
@@ -95,12 +90,7 @@ export const Settings = (monitorInt: number) => {
   };
 
   return (
-    <PanelSection
-      monitorInt={monitorInt}
-      section='Settings'
-      icon='settings'
-      title={title()}
-    >
+    <PanelSection monitorInt={monitorInt} section='Settings' icon='settings' title={title()}>
       <box vertical spacing={spacing} className='section-content'>
         <QuickSettings />
         <box css='min-height: 1em;' />

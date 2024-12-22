@@ -10,7 +10,6 @@ export const STATE = `${HOME}/.config/ags/state`;
 export const userConfig = {
   bar: {
     autoHide: false,
-    // Currently does nothing. Stay tuned.
     displayMode: <string | number[]>'default',
     // Which monitor(s) to display the bar on. Either 'default', 'all', or an int[].
     // 'default' : Bar on left and right side of first and last monitors respectively.

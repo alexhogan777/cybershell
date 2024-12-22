@@ -1,12 +1,6 @@
 // Astal
-import GObject, { register, property } from 'astal/gobject';
-import {
-  monitorFile,
-  readFileAsync,
-  readFile,
-  writeFile,
-  writeFileAsync,
-} from 'astal/file';
+import GObject, { register, property, signal } from 'astal/gobject';
+import { monitorFile, readFileAsync, readFile, writeFile, writeFileAsync } from 'astal/file';
 import { App } from 'astal/gtk3';
 import { exec } from 'astal/process';
 
@@ -67,6 +61,11 @@ export default class Localization extends GObject.Object {
     this.updateOption('timeFormatNotification', value);
   }
 
+  @signal(Localization)
+  updated(value: Localization) {
+    return value;
+  }
+
   constructor() {
     super();
 
@@ -75,18 +74,22 @@ export default class Localization extends GObject.Object {
       if (v.dateFormat !== this.#dateFormat) {
         this.#dateFormat = v.dateFormat;
         this.notify('dateFormat');
+        this.emit('updated', this);
       }
       if (v.dateFormatNotification !== this.#dateFormatNotification) {
         this.#dateFormatNotification = v.dateFormatNotification;
         this.notify('dateFormatNotification');
+        this.emit('updated', this);
       }
       if (v.timeFormat !== this.#timeFormat) {
         this.#timeFormat = v.timeFormat;
         this.notify('timeFormat');
+        this.emit('updated', this);
       }
       if (v.timeFormatNotification !== this.#timeFormatNotification) {
         this.#timeFormatNotification = v.timeFormatNotification;
         this.notify('timeFormatNotification');
+        this.emit('updated', this);
       }
     });
   }

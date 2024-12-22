@@ -84,7 +84,10 @@
             @include corners-all;
           }
           &.active {
-            @include surface;
+            @include fg;
+          }
+          &:hover.active {
+            @include highlight_hover;
           }
 
           .name {
@@ -104,15 +107,16 @@
           @include corners-circle;
           min-width: $buttonSize;
           min-height: $buttonSize;
-          padding: 0px $paddingSmall 0px $paddingSmall;
-          // padding: $paddingSmall / 2 $paddingSmall $paddingSmall / 2
-          //   $paddingSmall;
+          // padding: $paddingSmall / 2 $paddingSmall $paddingSmall / 2 $paddingSmall;
 
           &:hover {
             @include hover;
           }
           &.active {
-            @include surface;
+            @include fg;
+            &:hover {
+              @include highlight_hover;
+            }
           }
         }
       }
@@ -152,7 +156,7 @@
           }
 
           highlight {
-            background-color: $surface;
+            background-color: $fg;
             border-radius: 0em $brv 0em 0em;
             padding: 0em $brv 0em 0em;
             &:hover {
@@ -266,7 +270,7 @@
         }
 
         highlight {
-          background-color: $surface;
+          background-color: $fg;
           @include corners-all;
           padding: 0em $brv 0em $brv;
           &:hover {

@@ -4,7 +4,14 @@ import { Variable, bind } from 'astal';
 
 // Config
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -51,16 +58,12 @@ export const Dropdown = ({
         }}
       >
         <box spacing={spacing}>
-          {icon && (
-            <MaterialIcon icon={icon} size={1.5} css='font-weight: normal;' />
-          )}
+          {icon && <MaterialIcon icon={icon} size={1.5} css='font-weight: normal;' />}
           <label label={name} wrap xalign={0} />
           <box hexpand />
           <MaterialIcon
             css='font-weight: normal;'
-            icon={bind(reveal).as(
-              (v) => `${v ? 'arrow_drop_down' : 'arrow_drop_up'}`
-            )}
+            icon={bind(reveal).as((v) => `${v ? 'arrow_drop_down' : 'arrow_drop_up'}`)}
             size={1.5}
           />
         </box>
@@ -68,15 +71,7 @@ export const Dropdown = ({
     );
   };
 
-  const Option = ({
-    name,
-    icon,
-    index,
-  }: {
-    name: string;
-    icon?: string;
-    index: number;
-  }) => {
+  const Option = ({ name, icon, index }: { name: string; icon?: string; index: number }) => {
     return (
       <button
         className='dropdown-option'
@@ -94,9 +89,7 @@ export const Dropdown = ({
         }}
       >
         <box spacing={spacing}>
-          {icon && (
-            <MaterialIcon icon={icon} size={1.5} css='font-weight: normal;' />
-          )}
+          {icon && <MaterialIcon icon={icon} size={1.5} css='font-weight: normal;' />}
           <label label={name} wrap xalign={0} />
         </box>
       </button>
@@ -124,15 +117,10 @@ export const Dropdown = ({
           index: s,
         });
       })}
-      <revealer
-        transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN}
-        revealChild={bind(reveal)}
-      >
+      <revealer transitionType={Gtk.RevealerTransitionType.SLIDE_DOWN} revealChild={bind(reveal)}>
         <box vertical spacing={spacing}>
           {bind(selected).as((s) => {
-            return options.map(({ name, icon }, i) =>
-              Option({ name: name, icon: icon, index: i })
-            );
+            return options.map(({ name, icon }, i) => Option({ name: name, icon: icon, index: i }));
           })}
         </box>
       </revealer>

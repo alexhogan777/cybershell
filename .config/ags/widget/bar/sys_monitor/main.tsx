@@ -1,10 +1,17 @@
 // Astal
+import { bind, Variable } from 'astal';
 import { Gtk } from 'astal/gtk3';
-import { userConfig } from '../../../config/user_config';
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Widgets
 import { Audio } from './Audio';

@@ -8,7 +8,14 @@ const audio = Wp.get_default()?.audio;
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 const AUDIO_SETTINGS = Config.get_default().apps.audioSettings;
 
 // Functions
@@ -39,9 +46,7 @@ export const Audio = () => {
 
       function getDefaultSpeaker() {
         const defaultSpeaker = audio?.get_default_speaker();
-        const defaultIndex = speakers.findIndex(
-          (s) => s.id === defaultSpeaker?.id
-        );
+        const defaultIndex = speakers.findIndex((s) => s.id === defaultSpeaker?.id);
 
         selected.set(defaultIndex || 0);
       }
@@ -49,13 +54,8 @@ export const Audio = () => {
       const selected = Variable(0);
 
       return (
-        <box spacing={spacing * 2}>
-          <box
-            vertical
-            spacing={spacing}
-            css='min-width: 5em;'
-            valign={Gtk.Align.CENTER}
-          >
+        <box spacing={spacing.as((v) => v * 2)}>
+          <box vertical spacing={spacing} css='min-width: 5em;' valign={Gtk.Align.CENTER}>
             <MaterialIcon icon='speaker' size={2.5} />
             <label label='Output' />
           </box>
@@ -133,9 +133,7 @@ export const Audio = () => {
 
       function getDefaultMic() {
         const defaultMic = audio?.get_default_microphone();
-        const defaultIndex = microphones.findIndex(
-          (s) => s.id === defaultMic?.id
-        );
+        const defaultIndex = microphones.findIndex((s) => s.id === defaultMic?.id);
 
         selected.set(defaultIndex || 0);
       }
@@ -143,13 +141,8 @@ export const Audio = () => {
       const selected = Variable(0);
 
       return (
-        <box spacing={spacing * 2}>
-          <box
-            vertical
-            spacing={spacing}
-            css='min-width: 5em;'
-            valign={Gtk.Align.CENTER}
-          >
+        <box spacing={spacing.as((v) => v * 2)}>
+          <box vertical spacing={spacing} css='min-width: 5em;' valign={Gtk.Align.CENTER}>
             <MaterialIcon icon='mic' size={2.5} />
             <label label='Input' />
           </box>
@@ -207,7 +200,7 @@ export const Audio = () => {
 
     return (
       <Subsection subsection='Audio'>
-        <box vertical spacing={spacing * 3}>
+        <box vertical spacing={spacing.as((v) => v * 3)}>
           <box />
           {bind(audio, 'speakers').as(Speakers)}
           {bind(audio, 'microphones').as(Microphones)}
@@ -220,13 +213,10 @@ export const Audio = () => {
           >
             <box
               hexpand
-              spacing={spacing * 2}
+              spacing={spacing.as((v) => v * 2)}
               css='font-size: 1em; font-weight: bold;'
             >
-              <label
-                label='Open Audio Settings / Volume Mixer'
-                valign={Gtk.Align.BASELINE}
-              />
+              <label label='Open Audio Settings / Volume Mixer' valign={Gtk.Align.BASELINE} />
               <MaterialIcon icon='open_in_new' size={1.25} />
             </box>
           </XButton>

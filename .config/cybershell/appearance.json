@@ -1,15 +1,17 @@
 {
   "transparency": 0.85,
-  "bg": "34,0,34",
+  "bg": "20,20,20",
+  "accent": "53,132,228",
+  "fg": "53,132,228",
+  "view": "30,30,30",
+  "surface": "30,30,30",
   "surface_dark": "68,0,68",
-  "surface": "136,0,136",
-  "fg": "255,0,136",
   "hover": "200,0,111",
   "text": "255,255,255",
   "error": "255,0,34",
   "borderWidth": 2,
-  "cornerRounding": 2,
+  "cornerRounding": 8,
   "paddingBase": 4,
-  "buttonSize": 32,
+  "buttonSize": 36,
   "wallpaperPath": "~/Pictures/walls/l0v3r5_834ch.gif"
 }

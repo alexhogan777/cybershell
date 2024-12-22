@@ -56,7 +56,7 @@
   .Sys-Monitor {
     @include bg;
     @include corners-all;
-    // padding: $paddingMedium;
+    padding: $paddingMedium - $borderWidth - 1px;
     min-width: $buttonSize;
     padding-top: $paddingSmall;
     padding-bottom: $paddingSmall;

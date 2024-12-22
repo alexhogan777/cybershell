@@ -4,7 +4,14 @@ import { Variable, bind, execAsync } from 'astal';
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Widgets
 import { XButton } from '../../common/XButton';
@@ -66,8 +73,7 @@ export const Session = () => {
         label='Confirm?'
         css='font-weight: bold;'
         onClick={(self: Gtk.Button, event: Astal.ClickEvent) => {
-          if (event.button === Astal.MouseButton.PRIMARY)
-            execAsync(onConfirm.get());
+          if (event.button === Astal.MouseButton.PRIMARY) execAsync(onConfirm.get());
         }}
         className='corners-reversed'
       />
@@ -77,8 +83,7 @@ export const Session = () => {
     return (
       <XButton
         onClick={(self: Gtk.Button, event: Astal.ClickEvent) => {
-          if (event.button === Astal.MouseButton.PRIMARY)
-            showConfirm.set(false);
+          if (event.button === Astal.MouseButton.PRIMARY) showConfirm.set(false);
         }}
       >
         <box vertical spacing={spacing} css='padding: 0em 1em 0em 1em;'>
@@ -113,9 +118,7 @@ export const Session = () => {
     <Subsection subsection='Session'>
       <stack
         valign={Gtk.Align.START}
-        visibleChildName={bind(showConfirm).as((sc) =>
-          sc ? 'confirm' : 'options'
-        )}
+        visibleChildName={bind(showConfirm).as((sc) => (sc ? 'confirm' : 'options'))}
         transitionType={Gtk.StackTransitionType.OVER_UP_DOWN}
       >
         <ConfirmOptions />

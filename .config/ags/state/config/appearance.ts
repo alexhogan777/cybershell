@@ -29,129 +29,96 @@ export default class Appearance extends GObject.Object {
   }
 
   syncAppearance() {
+    function convertToHex(input: any) {
+      return input
+        .split(',')
+        .map((v: any) => {
+          let int = parseInt(v);
+          if (int < 16) return `0${int.toString(16)}`;
+          return int.toString(16);
+        })
+        .join('');
+    }
     // Apply GTK
     const gtkSettings = `@define-color theme_fg_color #AEE5FA;
-@define-color theme_text_color rgb(${this.#text});
-@define-color theme_bg_color rgba(${this.#bg},${this.#transparency});
-@define-color theme_base_color rgba(${this.#bg},${this.#transparency});
-@define-color theme_selected_bg_color rbga(${this.#hover},${this.#transparency});
-@define-color theme_selected_fg_color rbga(${this.#hover},${this.#transparency});
-@define-color insensitive_bg_color #1a1b26;
-@define-color insensitive_fg_color rgba(192, 202, 245, 0.5);
-@define-color insensitive_base_color #24283b;
-@define-color theme_unfocused_fg_color #AEE5FA;
-@define-color theme_unfocused_text_color #c0caf5;
-@define-color theme_unfocused_bg_color rgba(${this.#bg},${this.#transparency});
-@define-color theme_unfocused_base_color rgba(${this.#bg},${this.#transparency});
-@define-color theme_unfocused_selected_bg_color #a9b1d6;
-@define-color theme_unfocused_selected_fg_color rgba(0, 0, 0, 0.87);
-@define-color unfocused_insensitive_color rgba(192, 202, 245, 0.5);
-@define-color borders rgba(192, 202, 245, 0.12);
-@define-color unfocused_borders rgba(192, 202, 245, 0.12);
-@define-color warning_color #FDD633;
-@define-color error_color #BA1B1B;
-@define-color success_color #81C995;
-@define-color wm_title #AEE5FA;
-@define-color wm_unfocused_title rgba(192, 202, 245, 0.7);
-@define-color wm_highlight rbga(${this.#hover},${this.#transparency});
-@define-color wm_bg #1a1b26;
-@define-color wm_unfocused_bg #1a1b26;
-@define-color wm_button_close_icon #1a1b26;
-@define-color wm_button_close_hover_bg #a9b1d6;
-@define-color wm_button_close_active_bg #c7c7c7;
-@define-color content_view_bg #1a1b26;
-@define-color placeholder_text_color silver;
-@define-color text_view_bg #1d1d1d;
-@define-color budgie_tasklist_indicator_color #90D1F6;
-@define-color budgie_tasklist_indicator_color_active #90D1F6;
-@define-color budgie_tasklist_indicator_color_active_window #999999;
-@define-color budgie_tasklist_indicator_color_attention #FDD633;
-@define-color STRAWBERRY_100 #FF9262;
-@define-color STRAWBERRY_300 #FF793E;
-@define-color STRAWBERRY_500 #F15D22;
-@define-color STRAWBERRY_700 #CF3B00;
-@define-color STRAWBERRY_900 #AC1800;
-@define-color ORANGE_100 #FFDB91;
-@define-color ORANGE_300 #FFCA40;
-@define-color ORANGE_500 #FAA41A;
-@define-color ORANGE_700 #DE8800;
-@define-color ORANGE_900 #C26C00;
-@define-color BANANA_100 #FFFFA8;
-@define-color BANANA_300 #FFFA7D;
-@define-color BANANA_500 #FFCE51;
-@define-color BANANA_700 #D1A023;
-@define-color BANANA_900 #A27100;
-@define-color LIME_100 #A2F3BE;
-@define-color LIME_300 #8ADBA6;
-@define-color LIME_500 #73C48F;
-@define-color LIME_700 #479863;
-@define-color LIME_900 #1C6D38;
-@define-color BLUEBERRY_100 #94A6FF;
-@define-color BLUEBERRY_300 #6A7CE0;
-@define-color BLUEBERRY_500 #3F51B5;
-@define-color BLUEBERRY_700 #213397;
-@define-color BLUEBERRY_900 #031579;
-@define-color GRAPE_100 #D25DE6;
-@define-color GRAPE_300 #B84ACB;
-@define-color GRAPE_500 #9C27B0;
-@define-color GRAPE_700 #830E97;
-@define-color GRAPE_900 #6A007E;
-@define-color COCOA_100 #9F9792;
-@define-color COCOA_300 #7B736E;
-@define-color COCOA_500 #574F4A;
-@define-color COCOA_700 #463E39;
-@define-color COCOA_900 #342C27;
-@define-color SILVER_100 #EEE;
-@define-color SILVER_300 #CCC;
-@define-color SILVER_500 #AAA;
-@define-color SILVER_700 #888;
-@define-color SILVER_900 #666;
-@define-color SLATE_100 #888;
-@define-color SLATE_300 #666;
-@define-color SLATE_500 #444;
-@define-color SLATE_700 #222;
-@define-color SLATE_900 #111;
-@define-color BLACK_100 #474341;
-@define-color BLACK_300 #403C3A;
-@define-color BLACK_500 #393634;
-@define-color BLACK_700 #33302F;
-@define-color BLACK_900 #2B2928;
-@define-color accent_bg_color rgba(${this.#bg},${this.#transparency});
-@define-color accent_fg_color rbg(${this.#text});
-@define-color accent_color rgba(${this.#surface},${this.#transparency});
-@define-color destructive_bg_color #FFB4AB;
-@define-color destructive_fg_color #690005;
-@define-color destructive_color #FFB4AB;
-@define-color success_bg_color #81C995;
-@define-color success_fg_color rgba(0, 0, 0, 0.87);
-@define-color warning_bg_color #FDD633;
-@define-color warning_fg_color rgba(0, 0, 0, 0.87);
-@define-color error_bg_color #FFB4AB;
-@define-color error_fg_color #690005;
-@define-color window_bg_color rgba(${this.#bg},${this.#transparency});
-@define-color window_fg_color rbga(${this.#hover},${this.#transparency});
-@define-color view_bg_color #1D0F18;
-@define-color view_fg_color #F6DBE9;
-@define-color headerbar_bg_color #440044;
+@define-color accent_color #78aeed;
+@define-color accent_bg_color #3584e4;
+@define-color accent_fg_color #ffffff;
+@define-color destructive_color #ff7b63;
+@define-color destructive_bg_color #c01c28;
+@define-color destructive_fg_color #ffffff;
+@define-color success_color #8ff0a4;
+@define-color success_bg_color #26a269;
+@define-color success_fg_color #ffffff;
+@define-color warning_color #f8e45c;
+@define-color warning_bg_color #cd9309;
+@define-color warning_fg_color rgba(0, 0, 0, 0.8);
+@define-color error_color #ff7b63;
+@define-color error_bg_color #c01c28;
+@define-color error_fg_color #ffffff;
+@define-color window_bg_color #${convertToHex(this.#bg)};
+@define-color window_fg_color #ffffff;
+@define-color view_bg_color #1e1e1e;
+@define-color view_fg_color #ffffff;
+@define-color headerbar_bg_color #303030;
 @define-color headerbar_fg_color #ffffff;
-@define-color headerbar_border_color #220022;
-@define-color headerbar_backdrop_color @headerbar_bg_color;
-@define-color headerbar_shade_color rgba(0, 0, 0, 0.09);
-@define-color card_bg_color rgba(${this.#surface_dark},${this.#transparency});
+@define-color headerbar_border_color #ffffff;
+@define-color headerbar_backdrop_color @window_bg_color;
+@define-color headerbar_shade_color rgba(0, 0, 0, 0.36);
+@define-color card_bg_color rgba(255, 255, 255, 0.08);
 @define-color card_fg_color #ffffff;
-@define-color card_shade_color rgba(0, 0, 0, 0.09);
-@define-color dialog_bg_color #440044;
-@define-color dialog_fg_color #fff;
-@define-color popover_bg_color #6D3850;
-@define-color popover_fg_color #FFDBE7;
-@define-color thumbnail_bg_color #1a1b26;
-@define-color thumbnail_fg_color #AEE5FA;
-@define-color shade_color rbga(${this.#hover},${this.#transparency});
+@define-color card_shade_color rgba(0, 0, 0, 0.36);
+@define-color dialog_bg_color #383838;
+@define-color dialog_fg_color #ffffff;
+@define-color popover_bg_color #383838;
+@define-color popover_fg_color #ffffff;
+@define-color shade_color rgba(0, 0, 0, 0.36);
 @define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
-@define-color sidebar_bg_color @window_bg_color;
-@define-color sidebar_fg_color @window_fg_color;
-@define-color sidebar_border_color @sidebar_bg_color;
-@define-color sidebar_backdrop_color @sidebar_bg_color;`;
+@define-color blue_1 #99c1f1;
+@define-color blue_2 #62a0ea;
+@define-color blue_3 #3584e4;
+@define-color blue_4 #1c71d8;
+@define-color blue_5 #1a5fb4;
+@define-color green_1 #8ff0a4;
+@define-color green_2 #57e389;
+@define-color green_3 #33d17a;
+@define-color green_4 #2ec27e;
+@define-color green_5 #26a269;
+@define-color yellow_1 #f9f06b;
+@define-color yellow_2 #f8e45c;
+@define-color yellow_3 #f6d32d;
+@define-color yellow_4 #f5c211;
+@define-color yellow_5 #e5a50a;
+@define-color orange_1 #ffbe6f;
+@define-color orange_2 #ffa348;
+@define-color orange_3 #ff7800;
+@define-color orange_4 #e66100;
+@define-color orange_5 #c64600;
+@define-color red_1 #f66151;
+@define-color red_2 #ed333b;
+@define-color red_3 #e01b24;
+@define-color red_4 #c01c28;
+@define-color red_5 #a51d2d;
+@define-color purple_1 #dc8add;
+@define-color purple_2 #c061cb;
+@define-color purple_3 #9141ac;
+@define-color purple_4 #813d9c;
+@define-color purple_5 #613583;
+@define-color brown_1 #cdab8f;
+@define-color brown_2 #b5835a;
+@define-color brown_3 #986a44;
+@define-color brown_4 #865e3c;
+@define-color brown_5 #63452c;
+@define-color light_1 #ffffff;
+@define-color light_2 #f6f5f4;
+@define-color light_3 #deddda;
+@define-color light_4 #c0bfbc;
+@define-color light_5 #9a9996;
+@define-color dark_1 #77767b;
+@define-color dark_2 #5e5c64;
+@define-color dark_3 #3d3846;
+@define-color dark_4 #241f31;
+@define-color dark_5 #000000;`;
     writeFile(`${HOME}/.config/gtk-3.0/gtk.css`, gtkSettings);
     writeFile(`${HOME}/.config/gtk-4.0/gtk.css`, gtkSettings);
 
@@ -164,15 +131,18 @@ export default class Appearance extends GObject.Object {
 
 $transparency: ${this.#transparency};
 $bg: rgb(${this.#bg});
+
 $bg_trans: rgba($bg, $transparency);
-$surfaceDark: rgb(${this.#surface_dark});
-$surfaceDark_trans: rgba($surfaceDark, $transparency);
-$surface: rgb(${this.#surface});
+$surface: lighten($bg, 20%);
 $surface_trans: rgba($surface, $transparency);
+$surfaceDark: darken($surface, 10%);
+$surfaceDark_trans: rgba($surfaceDark, $transparency);
 $fg: rgb(${this.#fg});
 $fg_trans: rgba($fg, $transparency);
-$hover: rgb(${this.#hover});
+$hover: lighten($surface, 10%);
 $hover_trans: rgba($hover, $transparency);
+$highlight_hover: lighten($fg, 10%);
+$highlight_hover_trans: rgba($highlight_hover, $transparency);
 $text: rgb(${this.#text});
 $error: rgb(${this.#error});
 
@@ -204,7 +174,7 @@ general {
 }
   
 decoration {
-  rounding = ${this.#cornerRounding / 2}
+  rounding = ${this.#cornerRounding}
   
   shadow {
     color = rgba(${this.#surface},1)
@@ -219,6 +189,17 @@ decoration {
       workspaceActiveBorder = rgb(${this.#surface})
       workspaceInactiveBorder = rgb(${this.#bg})
     }
+    hyprbars {
+        bar_height = 24
+        bar_padding = 10
+        bar_button_padding = 5
+        bar_precedence_over_border = false
+        bar_part_of_window = true
+
+        bar_color = rgb(${this.#bg})
+
+        windowrulev2 = plugin:hyprbars:bar_color rgb(${convertToHex(this.#surface)}), focus:1
+    }
   }
 ${hyprlandConfAfter}
 `
@@ -227,17 +208,6 @@ ${hyprlandConfAfter}
     // Apply Kitty
     let kittyConf = readFile(`${HOME}/.config/kitty/kitty.conf`);
     kittyConf = kittyConf.slice(0, kittyConf.indexOf('# ASTAL') - 1);
-
-    function convertToHex(input: any) {
-      return input
-        .split(',')
-        .map((v: any) => {
-          let int = parseInt(v);
-          if (int < 16) return `0${int.toString(16)}`;
-          return int.toString(16);
-        })
-        .join('');
-    }
 
     kittyConf = `${kittyConf}
 # ASTAL
@@ -254,9 +224,11 @@ background_opacity ${this.#transparency}`;
 
   #transparency = getFromOptions('transparency');
   #bg = getFromOptions('bg');
+  #view = getFromOptions('view');
+  #accent = getFromOptions('accent');
+  #fg = getFromOptions('fg');
   #surface_dark = getFromOptions('surface_dark');
   #surface = getFromOptions('surface');
-  #fg = getFromOptions('fg');
   #hover = getFromOptions('hover');
   #text = getFromOptions('text');
   #error = getFromOptions('error');
@@ -280,6 +252,20 @@ background_opacity ${this.#transparency}`;
   }
   set bg(value) {
     this.updateOption('bg', value);
+  }
+  @property(String)
+  get view() {
+    return this.#view;
+  }
+  set view(value) {
+    this.updateOption('view', value);
+  }
+  @property(String)
+  get accent() {
+    return this.#accent;
+  }
+  set accent(value) {
+    this.updateOption('accent', value);
   }
 
   @property(String)
@@ -370,6 +356,11 @@ background_opacity ${this.#transparency}`;
     this.updateOption('wallpaperPath', value);
   }
 
+  @signal(Appearance)
+  updated(value: Appearance) {
+    return value;
+  }
+
   constructor() {
     super();
 
@@ -378,50 +369,72 @@ background_opacity ${this.#transparency}`;
       if (v.transparency !== this.#transparency) {
         this.#transparency = Number(v.transparency);
         this.notify('transparency');
+        this.emit('updated', this);
       }
       if (v.bg !== this.#bg) {
         this.#bg = String(v.bg);
         this.notify('bg');
+        this.emit('updated', this);
+      }
+      if (v.view !== this.#view) {
+        this.#view = String(v.view);
+        this.notify('view');
+        this.emit('updated', this);
+      }
+      if (v.accent !== this.#accent) {
+        this.#accent = String(v.accent);
+        this.notify('accent');
+        this.emit('updated', this);
       }
       if (v.surface_dark !== this.#surface_dark) {
         this.#surface_dark = String(v.surface_dark);
         this.notify('surface_dark');
+        this.emit('updated', this);
       }
       if (v.surface !== this.#surface) {
         this.#surface = String(v.surface);
         this.notify('surface');
+        this.emit('updated', this);
       }
       if (v.fg !== this.#fg) {
         this.#fg = String(v.fg);
         this.notify('fg');
+        this.emit('updated', this);
       }
       if (v.hover !== this.#hover) {
         this.#hover = String(v.hover);
         this.notify('hover');
+        this.emit('updated', this);
       }
       if (v.text !== this.#text) {
         this.#text = String(v.text);
         this.notify('text');
+        this.emit('updated', this);
       }
       if (v.error !== this.#error) {
         this.#error = String(v.error);
         this.notify('error');
+        this.emit('updated', this);
       }
       if (v.borderWidth !== this.#borderWidth) {
         this.#borderWidth = Number(v.borderWidth);
         this.notify('borderWidth');
+        this.emit('updated', this);
       }
       if (v.cornerRounding !== this.#cornerRounding) {
         this.#cornerRounding = Number(v.cornerRounding);
         this.notify('cornerRounding');
+        this.emit('updated', this);
       }
       if (v.paddingBase !== this.#paddingBase) {
         this.#paddingBase = Number(v.paddingBase);
         this.notify('paddingBase');
+        this.emit('updated', this);
       }
       if (v.buttonSize !== this.#buttonSize) {
         this.#buttonSize = Number(v.buttonSize);
         this.notify('buttonSize');
+        this.emit('updated', this);
       }
       this.syncAppearance();
 
@@ -429,6 +442,7 @@ background_opacity ${this.#transparency}`;
         this.#wallpaperPath = String(v.wallpaperPath);
         execAsync(['bash', '-c', `swww img ${this.#wallpaperPath}`]);
         this.notify('wallpaperPath');
+        this.emit('updated', this);
       }
     });
   }

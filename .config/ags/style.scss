@@ -10,6 +10,7 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
 
 * {
   all: unset;
+  color: $text;
 }
 
 @mixin corners-all {
@@ -48,14 +49,18 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
 }
 @mixin surface {
   background-color: $surface_trans;
-  border: $borderWidth * 2 solid $surface;
+  border: $borderWidth solid $surface;
 }
 @mixin hover {
   background-color: $hover_trans;
   border: $borderWidth solid $hover;
 }
+@mixin highlight_hover {
+  background-color: $highlight_hover_trans;
+  border: $borderWidth solid $highlight_hover;
+}
 @mixin fg {
-  background-color: $fg;
+  background-color: $fg_trans;
   border: $borderWidth solid $fg;
 }
 

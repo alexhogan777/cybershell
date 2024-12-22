@@ -1,9 +1,17 @@
 // Astal
 import { Astal, Gtk } from 'astal/gtk3';
+import { bind, Variable } from 'astal';
 
 // Config
 import Config from '../../state/config/config';
-const SPACING = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const SPACING = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { playSound } from '../../utils/play_sound';
@@ -54,9 +62,7 @@ export const XButton = ({
         halign={Gtk.Align.CENTER}
         valign={Gtk.Align.CENTER}
       >
-        {iconObj.icon !== '' && (
-          <MaterialIcon icon={iconObj.icon} size={iconObj.size} />
-        )}
+        {iconObj.icon !== '' && <MaterialIcon icon={iconObj.icon} size={iconObj.size} />}
         {label !== '' && <label label={label} />}
         {child && child}
         {children && children}

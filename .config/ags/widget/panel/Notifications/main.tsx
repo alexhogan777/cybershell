@@ -1,6 +1,6 @@
 // Astal
 import { Gtk } from 'astal/gtk3';
-import { bind } from 'astal';
+import { bind, Variable } from 'astal';
 
 // Libraries
 import Notifd from 'gi://AstalNotifd';
@@ -10,7 +10,14 @@ const panel = PanelLib.get_default();
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { dismissNotif } from './Notification';
@@ -26,13 +33,7 @@ export const Notifications = (monitorInt: number) => {
       return <MaterialIcon icon='notifications' size={1.25} />;
     };
     const Title = () => {
-      return (
-        <label
-          label='Notifications'
-          className='title'
-          valign={Gtk.Align.CENTER}
-        />
-      );
+      return <label label='Notifications' className='title' valign={Gtk.Align.CENTER} />;
     };
     const ClearAll = () => {
       return (
@@ -42,9 +43,7 @@ export const Notifications = (monitorInt: number) => {
         >
           <XButton
             label='Clear'
-            onClick={() =>
-              notifd.get_notifications().forEach((n) => dismissNotif(n))
-            }
+            onClick={() => notifd.get_notifications().forEach((n) => dismissNotif(n))}
           />
         </revealer>
       );
@@ -74,21 +73,14 @@ export const Notifications = (monitorInt: number) => {
   return (
     <eventbox
       onClick={() => {
-        panel.section !== 'Notifications' &&
-          panel.togglePanel(monitorInt, 'Notifications');
+        panel.section !== 'Notifications' && panel.togglePanel(monitorInt, 'Notifications');
       }}
     >
       <box vertical spacing={spacing} className='panel-section notifications'>
         <Bar />
-        <scrollable
-          hscroll={Gtk.PolicyType.NEVER}
-          vscroll={Gtk.PolicyType.ALWAYS}
-          vexpand
-        >
+        <scrollable hscroll={Gtk.PolicyType.NEVER} vscroll={Gtk.PolicyType.ALWAYS} vexpand>
           <box vertical spacing={spacing}>
-            {bind(notifd, 'notifications').as((notifs) =>
-              notifs.map(Notification)
-            )}
+            {bind(notifd, 'notifications').as((notifs) => notifs.map(Notification))}
           </box>
         </scrollable>
       </box>

@@ -1,5 +1,5 @@
 // Astal
-import GObject, { register, property } from 'astal/gobject';
+import GObject, { register, property, signal } from 'astal/gobject';
 import { monitorFile, readFileAsync, readFile, writeFile } from 'astal/file';
 
 // Config
@@ -11,10 +11,10 @@ function getFromOptions(key: string) {
 }
 
 @register({ GTypeName: 'ConfigApps' })
-export default class ConfigApps extends GObject.Object {
-  static instance: ConfigApps;
+export default class Apps extends GObject.Object {
+  static instance: Apps;
   static get_default() {
-    if (!this.instance) this.instance = new ConfigApps();
+    if (!this.instance) this.instance = new Apps();
     return this.instance;
   }
 
@@ -142,10 +142,7 @@ export default class ConfigApps extends GObject.Object {
   syncApps() {
     // Apply Hyprland
     let hyprlandConf = readFile(`${HOME}/.config/hypr/hyprland/astal.conf`);
-    const hyprlandConfBefore = hyprlandConf.slice(
-      0,
-      hyprlandConf.indexOf('# Apps') - 1
-    );
+    const hyprlandConfBefore = hyprlandConf.slice(0, hyprlandConf.indexOf('# Apps') - 1);
 
     hyprlandConf = `${hyprlandConfBefore}
 # APPS
@@ -164,6 +161,11 @@ $terminalAlt = ${this.#terminalAlt}
     writeFile(`${HOME}/.config/hypr/hyprland/astal.conf`, hyprlandConf);
   }
 
+  @signal(Apps)
+  updated(value: Apps) {
+    return value;
+  }
+
   constructor() {
     super();
     monitorFile(OPTIONS, async (f) => {
@@ -171,58 +173,72 @@ $terminalAlt = ${this.#terminalAlt}
       if (v.settings !== this.#settings) {
         this.#settings = v.settings;
         this.notify('settings');
+        this.emit('updated', this);
       }
       if (v.audioSettings !== this.#audioSettings) {
         this.#audioSettings = v.audioSettings;
         this.notify('audioSettings');
+        this.emit('updated', this);
       }
       if (v.wifiSettings !== this.#wifiSettings) {
         this.#wifiSettings = v.wifiSettings;
         this.notify('wifiSettings');
+        this.emit('updated', this);
       }
       if (v.networkSettings !== this.#networkSettings) {
         this.#networkSettings = v.networkSettings;
         this.notify('networkSettings');
+        this.emit('updated', this);
       }
       if (v.bluetoothSettings !== this.#bluetoothSettings) {
         this.#bluetoothSettings = v.bluetoothSettings;
         this.notify('bluetoothSettings');
+        this.emit('updated', this);
       }
       if (v.systemMonitor !== this.#systemMonitor) {
         this.#systemMonitor = v.systemMonitor;
         this.notify('systemMonitor');
+        this.emit('updated', this);
       }
       if (v.terminal !== this.#terminal) {
         this.#terminal = v.terminal;
         this.notify('terminal');
+        this.emit('updated', this);
       }
       if (v.terminalAlt !== this.#terminalAlt) {
         this.#terminalAlt = v.terminalAlt;
         this.notify('terminalAlt');
+        this.emit('updated', this);
       }
       if (v.webBrowser !== this.#webBrowser) {
         this.#webBrowser = v.webBrowser;
         this.notify('webBrowser');
+        this.emit('updated', this);
       }
       if (v.webBrowserAlt !== this.#webBrowserAlt) {
         this.#webBrowserAlt = v.webBrowserAlt;
         this.notify('webBrowserAlt');
+        this.emit('updated', this);
       }
       if (v.fileManager !== this.#fileManager) {
         this.#fileManager = v.fileManager;
         this.notify('fileManager');
+        this.emit('updated', this);
       }
       if (v.fileManagerAlt !== this.#fileManagerAlt) {
         this.#fileManagerAlt = v.fileManagerAlt;
         this.notify('fileManagerAlt');
+        this.emit('updated', this);
       }
       if (v.textEditor !== this.#textEditor) {
         this.#textEditor = v.textEditor;
         this.notify('textEditor');
+        this.emit('updated', this);
       }
       if (v.codeEditor !== this.#codeEditor) {
         this.#codeEditor = v.codeEditor;
         this.notify('codeEditor');
+        this.emit('updated', this);
       }
       this.syncApps();
     });

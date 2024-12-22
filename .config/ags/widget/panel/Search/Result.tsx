@@ -1,6 +1,6 @@
 // Astal
 import { Gtk } from 'astal/gtk3';
-import { bind, Binding } from 'astal';
+import { bind, Binding, Variable } from 'astal';
 
 // Libraries
 import Apps from 'gi://AstalApps';
@@ -8,24 +8,24 @@ import Apps from 'gi://AstalApps';
 // Config
 import { userConfig } from '../../../config/user_config';
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { getFriendlySearchEngine } from '../../../utils/friendly';
-import {
-  executeSelectedSearchItem,
-  query,
-  selectedSearchItem,
-} from './functions';
+import { executeSelectedSearchItem, query, selectedSearchItem } from './functions';
 import { playSound } from '../../../utils/play_sound';
 
 // Widgets
 import { MaterialIcon } from '../../common/MaterialIcon';
 
-export const Result = (
-  type: 'app' | 'web' | 'command' | 'pinned-app',
-  app?: Apps.Application
-) => {
+export const Result = (type: 'app' | 'web' | 'command' | 'pinned-app', app?: Apps.Application) => {
   let name: string | Binding<string> = '';
   let description: string | Binding<string> = '';
   let icon = <box />;
@@ -33,12 +33,7 @@ export const Result = (
   if (app) {
     name = app.name;
     description = app.description;
-    icon = (
-      <icon
-        css='font-size: 2em;'
-        icon={app.iconName ? app.iconName : 'kitty'}
-      />
-    );
+    icon = <icon css='font-size: 2em;' icon={app.iconName ? app.iconName : 'kitty'} />;
   }
   if (!app && type === 'command') {
     const terminal = userConfig.panel.search.terminal;
@@ -89,10 +84,7 @@ export const Result = (
     <button
       name={type}
       className={bind(selectedSearchItem).as(
-        (ssi) =>
-          `search-result ${
-            ssi?.type === type && ssi.app === app ? 'selected' : ''
-          }`
+        (ssi) => `search-result ${ssi?.type === type && ssi.app === app ? 'selected' : ''}`
       )}
       cursor='pointer'
       //@ts-expect-error
@@ -108,7 +100,7 @@ export const Result = (
         selectedSearchItem.set(null);
       }}
     >
-      <box spacing={spacing * 2}>
+      <box spacing={spacing.as((v) => v * 2)}>
         <Icon />
         <box vertical valign={Gtk.Align.CENTER}>
           <Name />

@@ -1,6 +1,6 @@
 // Astal
 import { App, Astal, Gtk, Gdk } from 'astal/gtk3';
-import { Variable } from 'astal';
+import { bind, Variable } from 'astal';
 
 // Libraries
 import PanelLib from '../../state/panel/panel';
@@ -9,15 +9,19 @@ const panel = PanelLib.get_default();
 // Config
 import { userConfig, assetsPath } from '../../config/user_config';
 import Config from '../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { executeCCR } from '../common/click_close_region';
 import { getLayout } from '../../utils/get_layout';
-import {
-  changeSearchItemSelection,
-  executeSelectedSearchItem,
-} from './Search/functions';
+import { changeSearchItemSelection, executeSelectedSearchItem } from './Search/functions';
 
 // Widgets
 import { Calendar } from './Calendar';

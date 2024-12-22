@@ -9,7 +9,14 @@ const panel = PanelLib.get_default();
 
 // Config
 import Config from '../../../state/config/config';
-const spacing = Config.get_default().appearance.paddingBase;
+const config = Config.get_default();
+const spacing = bind(
+  Variable(config.appearance.paddingBase).observe(
+    config.appearance,
+    'updated',
+    () => config.appearance.paddingBase
+  )
+);
 
 // Functions
 import { playSound } from '../../../utils/play_sound';
@@ -38,10 +45,7 @@ export const Notification = (notif: Notifd.Notification) => {
   const className = Variable('');
   const AppIcon = () => {
     return (
-      <icon
-        icon={getFriendlyNotifAppIcon(notif)}
-        file={getFriendlyNotifAppIcon(notif)}
-      />
+      <icon icon={getFriendlyNotifAppIcon(notif)} file={getFriendlyNotifAppIcon(notif)} />
       // <box
       //   css={`
       //     background-image: url('${getFriendlyNotifAppIcon(notif)}');
@@ -58,12 +62,7 @@ export const Notification = (notif: Notifd.Notification) => {
   };
   const Title = (title: string) => {
     return (
-      <label
-        className='notification-title'
-        label={getFriendlyNotifTitle(title)}
-        xalign={0}
-        wrap
-      />
+      <label className='notification-title' label={getFriendlyNotifTitle(title)} xalign={0} wrap />
     );
   };
   const Time = (time: number) => {
@@ -79,9 +78,7 @@ export const Notification = (notif: Notifd.Notification) => {
         className='notification-action-title'
         valign={Gtk.Align.CENTER}
         iconObj={{
-          icon: bind(expanded).as((e) =>
-            e ? 'arrow_drop_down' : 'arrow_drop_up'
-          ),
+          icon: bind(expanded).as((e) => (e ? 'arrow_drop_down' : 'arrow_drop_up')),
         }}
         onClick={() => {
           expanded.set(!expanded.get());
@@ -102,13 +99,7 @@ export const Notification = (notif: Notifd.Notification) => {
   };
   const Body = (body: string) => {
     return (
-      <label
-        className='notification-body'
-        label={body}
-        xalign={0}
-        valign={Gtk.Align.START}
-        wrap
-      />
+      <label className='notification-body' label={body} xalign={0} valign={Gtk.Align.START} wrap />
     );
   };
   const Image = (image: string) => {
@@ -157,7 +148,7 @@ export const Notification = (notif: Notifd.Notification) => {
     };
 
     return (
-      <box className='notification-actions' spacing={spacing * 2}>
+      <box className='notification-actions' spacing={spacing.as((v) => v * 2)}>
         {friendlyActions.map(Action)}
       </box>
     );
@@ -212,9 +203,7 @@ export const Notification = (notif: Notifd.Notification) => {
       }}
     >
       <box
-        className={bind(className).as(
-          (v) => `notification corners-reversed ${v}`
-        )}
+        className={bind(className).as((v) => `notification corners-reversed ${v}`)}
         vertical
         spacing={spacing}
       >
