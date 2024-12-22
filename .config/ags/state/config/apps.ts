@@ -142,7 +142,7 @@ export default class Apps extends GObject.Object {
   syncApps() {
     // Apply Hyprland
     let hyprlandConf = readFile(`${HOME}/.config/hypr/hyprland/astal.conf`);
-    const hyprlandConfBefore = hyprlandConf.slice(0, hyprlandConf.indexOf('# Apps') - 1);
+    const hyprlandConfBefore = hyprlandConf.slice(0, hyprlandConf.indexOf('# APPS') - 1);
 
     hyprlandConf = `${hyprlandConfBefore}
 # APPS
