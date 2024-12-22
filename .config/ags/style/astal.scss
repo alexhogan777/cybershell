@@ -4,12 +4,12 @@
 
 $transparency: 0.85;
 
-$bg: rgb(20,20,20);
+$bg: rgb(34,0,34);
 $bg_hover: lighten($bg, 10%);
 $bg_trans: rgba($bg, $transparency);
 $bg_trans_hover: lighten($bg_trans, 10%);
 
-$surface: rgb(45,45,45);
+$surface: rgb(59,25,59);
 $surface_hover: lighten($surface, 10%);
 $surface_trans: rgba($surface, $transparency);
 $surface_trans_hover: lighten($surface_trans, 10%);
@@ -17,7 +17,7 @@ $surface_trans_hover: lighten($surface_trans, 10%);
 $hover: $surface_hover;
 $hover_trans: rgba($hover, $transparency);
 
-$accent: rgb(127,86,201);
+$accent: rgb(127,0,127);
 $accent_hover: lighten($accent, 10%);
 $accent_trans: rgba($accent, $transparency);
 $accent_trans_hover: lighten($accent_trans, 10%);

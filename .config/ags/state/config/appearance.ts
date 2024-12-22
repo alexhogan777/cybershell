@@ -60,14 +60,19 @@ export default class Appearance extends GObject.Object {
     }
 
     // Apply GTK
-    const gtkSettings = `@define-color theme_fg_color #AEE5FA;
-@define-color theme_bg_color #${convertToHex(this.#bg)};
-@define-color theme_base_color #${convertToHex(this.#bg)};
-@define-color theme_unfocused_bg_color rgba(34,0,34,0.85);
-@define-color theme_unfocused_base_color rgba(34,0,34,0.85);
+    const bg = `rgba(${this.#bg},${this.#transparency})`;
+    const surface = `rgba(${this.#surface},${this.#transparency})`;
+    const view = `rgba(${this.#view},${this.#transparency})`;
+    const accent = `#${convertToHex(this.#accent)}`;
 
-@define-color accent_color #${convertToHex(this.#accent)};
-@define-color accent_bg_color #${convertToHex(this.#accent)};
+    const gtkSettings = `@define-color theme_fg_color #AEE5FA;
+@define-color theme_bg_color ${bg};
+@define-color theme_base_color #${convertToHex(this.#bg)};
+@define-color theme_unfocused_bg_color ${bg};
+@define-color theme_unfocused_base_color ${bg};
+
+@define-color accent_color ${accent};
+@define-color accent_bg_color ${accent};
 @define-color accent_fg_color #ffffff;
 @define-color destructive_color #ff7b63;
 @define-color destructive_bg_color #c01c28;
@@ -81,21 +86,21 @@ export default class Appearance extends GObject.Object {
 @define-color error_color #ff7b63;
 @define-color error_bg_color #c01c28;
 @define-color error_fg_color #ffffff;
-@define-color window_bg_color #${convertToHex(this.#bg)};
+@define-color window_bg_color ${bg};
 @define-color window_fg_color #ffffff;
-@define-color view_bg_color #${convertToHex(this.#view)};
+@define-color view_bg_color ${view};
 @define-color view_fg_color #ffffff;
-@define-color headerbar_bg_color #${convertToHex(this.#surface)};
+@define-color headerbar_bg_color ${surface};
 @define-color headerbar_fg_color #ffffff;
 @define-color headerbar_border_color #ffffff;
 @define-color headerbar_backdrop_color @window_bg_color;
 @define-color headerbar_shade_color rgba(0, 0, 0, 0.36);
-@define-color card_bg_color #${convertToHex(this.#surface)};
+@define-color card_bg_color ${surface};
 @define-color card_fg_color #ffffff;
 @define-color card_shade_color rgba(0, 0, 0, 0.36);
-@define-color dialog_bg_color #${convertToHex(this.#bg)};
+@define-color dialog_bg_color ${bg};
 @define-color dialog_fg_color #ffffff;
-@define-color popover_bg_color #${convertToHex(this.#bg)};
+@define-color popover_bg_color ${bg};
 @define-color popover_fg_color #ffffff;
 @define-color shade_color rgba(0, 0, 0, 0.36);
 @define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
