@@ -24,7 +24,7 @@ import { query, searchItems, updateSearchItems } from './functions';
 import { Result } from './Result';
 import { PanelSection } from '../PanelSection';
 
-export const Search = (monitorInt: number) => {
+export const Search = () => {
   const Results = () => {
     const isQueryEmpty = bind(query).as((v) => v === '');
     const isAppsEmpty = bind(searchItems).as(
@@ -132,7 +132,7 @@ export const Search = (monitorInt: number) => {
   };
 
   return (
-    <PanelSection monitorInt={monitorInt} section='Search' icon='search' title={title()}>
+    <PanelSection section='Search' icon='search' title={title()}>
       <Results />
     </PanelSection>
   );

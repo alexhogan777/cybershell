@@ -1,7 +1,8 @@
 {
   "autoHide": false,
-  "displayMode": "default",
-  "displayAnchor": "right",
+  "autoHideDelay": 500,
+  "displayMode": "all",
+  "displayAnchor": "top",
   "wsInactive": true,
   "wsNumber": 5,
   "wsScratch": false

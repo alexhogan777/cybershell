@@ -26,8 +26,9 @@ export default class Bar extends GObject.Object {
   }
 
   #autoHide: boolean = getFromOptions('autoHide');
+  #autoHideDelay: number = getFromOptions('autoHideDelay');
   #displayMode: 'default' | 'all' | number[] = getFromOptions('displayMode');
-  #displayAnchor: 'left' | 'right' = getFromOptions('displayAnchor');
+  #displayAnchor: 'top' | 'right' | 'bottom' | 'left' = getFromOptions('displayAnchor');
   #wsInactive: boolean = getFromOptions('wsInactive');
   #wsNumber: number = getFromOptions('wsNumber');
   #wsScratch: boolean = getFromOptions('wsScratch');
@@ -38,6 +39,14 @@ export default class Bar extends GObject.Object {
   }
   set autoHide(value) {
     this.updateOption('autoHide', value);
+  }
+
+  @property(Number)
+  get autoHideDelay() {
+    return this.#autoHideDelay;
+  }
+  set autoHideDelay(value) {
+    this.updateOption('autoHideDelay', value);
   }
 
   @property()
@@ -94,6 +103,11 @@ export default class Bar extends GObject.Object {
         this.#autoHide = v.autoHide;
         this.emit('updated', this);
         this.notify('autoHide');
+      }
+      if (v.autoHideDelay !== this.#autoHideDelay) {
+        this.#autoHideDelay = v.autoHideDelay;
+        this.emit('updated', this);
+        this.notify('autoHideDelay');
       }
       if (v.displayMode !== this.#displayMode) {
         this.#displayMode = v.displayMode;

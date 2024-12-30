@@ -164,6 +164,7 @@
             border-radius: 0em $brv 0em 0em;
             @include surface;
             min-height: $buttonSize;
+            box-shadow: inset 0px 0px 2px #000000;
           }
 
           highlight {
@@ -250,6 +251,7 @@
     .media-player {
       @include surface;
       @include corners-all;
+      box-shadow: inset 0px 0px 16px $bg;
       padding: $paddingLarge;
       background-blend-mode: multiply;
       background-repeat: no-repeat;
@@ -263,6 +265,7 @@
         background-size: cover;
         min-height: 7.5em;
         min-width: 7.5em;
+        border: 2px solid $surface;
       }
       .metadata-label {
         font-weight: bold;

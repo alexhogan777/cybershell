@@ -1,0 +1,152 @@
+# This folder contains all configuration options for Cybershell.
+
+# Here's a breakdown of what each setting does and acceptable values for each:
+
+- appearance.json
+
+  # Contains all options related to visual theming. Values will be updated accross the whole shell.
+
+  - transparency (default: 0.85)
+
+    - # transparency of all surfaces
+    - # float value between 0 and 1 (higher values are more opaque).
+
+  - # Colors (all comma seperated RGB values)
+
+    - bg (default: "24,24,24")
+
+    - accent (default: "28,113,216")
+
+    - hover (default: "200,0,111")
+
+    - text (default: "255,255,255")
+
+    - error (default: "255,0,34")
+
+  - # Padding / Decoration
+
+    - borderWidth (default: 0)
+
+      - # Adds a border of specified width in px around many surfaces including windows.
+      - # int value
+
+    - cornerRounding (default: 8)
+
+      - # Equivalent to border-radius CSS tag.
+      - # int value
+
+    - paddingBase (default: 4)
+
+      - # Base that all spacing, padding, margins are derived from.
+      - # int value
+
+    - buttonSize (default: 40)
+
+      - # Size of buttons on Astal widgets (Bar, Panel, etc).
+      - # int value
+
+  - # Wallpaper
+
+    - wallpaperPath (default: "~/Pictures/cybershell.png")
+      - # Can be a .png, .jpeg, or .gif file.
+
+- apps.json
+
+  # Contains default apps launced by Astal widgets and keyboard shortcuts.
+
+  - settings (default: "XDG_CURRENT_DESKTOP='gnome' gnome-control-center")
+
+    - # General system settings.
+
+  - audioSettings (default: "pavucontrol -t 1")
+
+  - wifiSettings (default: "XDG_CURRENT_DESKTOP='gnome' gnome-control-center wifi")
+
+  - networkSettings (default: "XDG_CURRENT_DESKTOP='gnome' gnome-control-center network")
+
+  - bluetoothSettings (default: "blueberry")
+
+  - systemMonitor (default: "gnome-system-monitor")
+
+    - # "Task Manager" app
+
+  - terminal (default: "kitty")
+
+  - terminalAlt (default: "foot")
+
+  - webBrowser (default: "floorp")
+
+  - webBrowserAlt (default: "firefox")
+
+  - fileManager (default: "nautilus")
+
+  - fileManagerAlt (default: "ranger")
+
+  - textEditor (default: "gnome-text-editor --new-window")
+
+  - codeEditor (default: "code")
+
+- Bar.json
+
+  # Contains settings related to the Bar
+
+  - autoHide (default: false)
+
+  - autoHideDelay (default: 500)
+
+    - # Time it takes in ms for the Bar to start hiding if autoHide is enabled.
+
+  - displayMode (default: "default")
+
+    - # Which monitors to render the Bar on.
+    - # Acceptable values:
+      - default
+        - # Renders the Bar vertically on the left side of the first monitor and the right side of the last monitor.
+      - all
+        - # Renders the Bar on every monitor
+      - int[]
+        - # Renders the Bar on only on the specified monitor(s)
+
+  - displayAnchor (default: "left")
+
+    - # Which side of the screen to render the Bar on. Has no effect if displayMode is set to "default".
+    - # Either "top", "right", "bottom", or "left"
+
+  - wsInactive (default: true)
+
+    - # Whether of not to display empty workspaces on the Bar.
+
+  - wsNumber (default: 5)
+
+    - # The maximum number of workspaces to display on the Bar.
+    - # Will always display this many if wsInactive is true.
+
+  - wsScratch (default: false)
+    - # Whether or not to display the scratch/magic workspace on the Bar.
+
+- localization.json
+
+  # Contains settings related to localization.
+
+  - # Date/Time Settings (all strings containing UNIX field descriptors.)
+
+    - dateFormat (default: "%a %m.%d.%Y")
+
+    - dateFormatNotification (default: "%a %m.%d")
+
+    - timeFormat (default: "%I:%M:%S%p")
+
+      - # If the Bar is vertically, colons will be replaced with new-line (\n) characters automatically.
+      - # If you want to use the AM/PM field (%p), it MUST be placed DIRECTLY at the end of the string (i.e., no space, colon, etc after last field descriptor.)
+
+    - timeFormatNotification (default: "%l:%M %p")
+      - # AM/PM field descriptor can be anywhere.
+
+- panel.json
+
+  # Contains settings related to the Panel.
+
+  - anchor (default: "left")
+    - # Which side of the screen to display the Panel on by default.
+    - # Has no effect if the Bar is vertical, or if the Panel is opened by clicking a Bar button on the opposite side of the screen, in which case the Panel with open on the same side of the screen as the Bar button.
+    - #

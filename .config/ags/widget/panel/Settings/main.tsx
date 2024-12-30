@@ -21,7 +21,7 @@ import { Audio } from './Audio';
 import { Network } from './Network';
 import { Bluetooth } from './Bluetooth';
 import { PanelSection } from '../PanelSection';
-import { QuickSettings } from './QuickSettings';
+import { QuickSettings } from './QuickSettings/main';
 import { Session } from './Session';
 import { XButton } from '../../common/XButton';
 
@@ -38,7 +38,7 @@ export const Subsection = ({ subsection, child }: { subsection: string; child?: 
   );
 };
 
-export const Settings = (monitorInt: number) => {
+export const Settings = () => {
   const SubsectionButton = ({ subsection, icon }: { subsection: string; icon: string }) => {
     return (
       <XButton
@@ -90,7 +90,7 @@ export const Settings = (monitorInt: number) => {
   };
 
   return (
-    <PanelSection monitorInt={monitorInt} section='Settings' icon='settings' title={title()}>
+    <PanelSection section='Settings' icon='settings' title={title()}>
       <box vertical spacing={spacing} className='section-content'>
         <QuickSettings />
         <box css='min-height: 1em;' />

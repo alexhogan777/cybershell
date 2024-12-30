@@ -2,30 +2,39 @@
 import { App, Astal } from 'astal/gtk3';
 
 // Config
-import { userConfig } from '../config/user_config';
-const barConfig = userConfig.bar;
+import Bar from '../state/config/bar';
+const barConfig = Bar.get_default();
 
 export function getLayout(monitorInt: number) {
   const unrendered = {
     rendered: false,
     side: '',
+    direction: '',
     anchor: Astal.WindowAnchor.NONE,
   };
-  const left = {
+  const top = {
     rendered: true,
-    side: 'left',
-    anchor:
-      Astal.WindowAnchor.TOP |
-      Astal.WindowAnchor.BOTTOM |
-      Astal.WindowAnchor.LEFT,
+    side: 'top',
+    direction: 'horizontal',
+    anchor: Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT,
   };
   const right = {
     rendered: true,
     side: 'right',
-    anchor:
-      Astal.WindowAnchor.TOP |
-      Astal.WindowAnchor.BOTTOM |
-      Astal.WindowAnchor.RIGHT,
+    direction: 'vertical',
+    anchor: Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.RIGHT,
+  };
+  const bottom = {
+    rendered: true,
+    side: 'bottom',
+    direction: 'horizontal',
+    anchor: Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT | Astal.WindowAnchor.RIGHT,
+  };
+  const left = {
+    rendered: true,
+    side: 'left',
+    direction: 'vertical',
+    anchor: Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT,
   };
 
   switch (barConfig.displayMode) {
@@ -34,14 +43,17 @@ export function getLayout(monitorInt: number) {
       if (monitorInt === App.get_monitors().length - 1) return right;
       return unrendered;
     case 'all':
-      if (barConfig.displayAnchor === 'left') return left;
+      if (barConfig.displayAnchor === 'top') return top;
       if (barConfig.displayAnchor === 'right') return right;
+      if (barConfig.displayAnchor === 'bottom') return bottom;
+      if (barConfig.displayAnchor === 'left') return left;
       return unrendered;
     default:
-      //@ts-expect-error
       if (barConfig.displayMode.includes(monitorInt)) {
-        if (barConfig.displayAnchor === 'left') return left;
+        if (barConfig.displayAnchor === 'top') return top;
         if (barConfig.displayAnchor === 'right') return right;
+        if (barConfig.displayAnchor === 'bottom') return bottom;
+        if (barConfig.displayAnchor === 'left') return left;
       }
       return unrendered;
   }

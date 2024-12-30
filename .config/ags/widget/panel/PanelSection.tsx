@@ -24,7 +24,6 @@ import { playSound } from '../../utils/play_sound';
 import { MaterialIcon } from '../common/MaterialIcon';
 
 interface PanelSection {
-  monitorInt: number;
   section: string;
   title: Gtk.Widget;
   icon: string;
@@ -32,7 +31,7 @@ interface PanelSection {
   child?: Gtk.Widget;
 }
 
-export const PanelSection = ({ monitorInt, section, title, icon, child }: PanelSection) => {
+export const PanelSection = ({ section, title, icon, child }: PanelSection) => {
   const className = Variable<string>('');
   const Bar = () => {
     return (
@@ -47,11 +46,7 @@ export const PanelSection = ({ monitorInt, section, title, icon, child }: PanelS
           if ((event.button = Astal.MouseButton.PRIMARY)) {
             playSound('button');
             className.set('active');
-            if (panel.section === section) {
-              panel.togglePanel(monitorInt, 'Notifications');
-            } else {
-              panel.togglePanel(monitorInt, section);
-            }
+            panel.togglePanel(panel.monitor, 'panel', section);
           }
         }}
         onClickRelease={() => className.set('')}

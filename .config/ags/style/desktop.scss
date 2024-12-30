@@ -1,0 +1,17 @@
+.desktop-icon {
+  @include transparent;
+  font-size: $buttonSize * 1.5;
+  padding: $paddingMedium;
+
+  &:hover {
+    @include accent_hover;
+  }
+  &:active {
+    @include accent_active;
+  }
+
+  label {
+    font-size: initial;
+    font-weight: bold;
+  }
+}

@@ -1,6 +1,6 @@
 // Astal
 import { Gtk } from 'astal/gtk3';
-import { bind, Variable } from 'astal';
+import { bind, Binding, Variable } from 'astal';
 
 // Libraries
 import Hyprland from 'gi://AstalHyprland';
@@ -23,7 +23,7 @@ import { playSound } from '../../utils/play_sound';
 // Variables
 const scratchID = -99;
 
-export const Workspaces = ({ monitorInt }: { monitorInt: number }) => {
+export const Workspaces = ({ vertical }: { vertical: Binding<boolean> }) => {
   function getChildren() {
     if (config.bar.wsInactive) {
       let wss = Array.from({ length: config.bar.wsNumber }, (_, i) => i + 1);
@@ -86,7 +86,7 @@ export const Workspaces = ({ monitorInt }: { monitorInt: number }) => {
     >
       <box
         className='Workspaces'
-        vertical={true}
+        vertical={vertical}
         spacing={spacing}
         halign={Gtk.Align.CENTER}
         setup={(self) => {

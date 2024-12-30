@@ -17,15 +17,17 @@ import { SystemSounds } from './widget/common/system_sounds';
 import { Bar } from './widget/bar/main';
 import { Panel } from './widget/panel/main';
 import { Popups } from './widget/popups/main';
+import { Desktop } from './widget/desktop/main';
 
 App.start({
   main() {
     Config.get_default().syncConfig();
     SystemSounds();
+    App.get_monitors().map(Desktop);
     App.get_monitors().map(Bar);
     App.get_monitors().map(ClickCloseRegion);
     App.get_monitors().map(Popups);
-    App.get_monitors().map(Panel);
+    Panel(App.get_monitors()[0]);
   },
   requestHandler(request: string, res: (response: any) => void) {
     const requestArr = request.split(' ');
@@ -36,7 +38,7 @@ App.start({
 
     if (command === 'togglePanel') {
       if (option === '-s' || option === '--section') {
-        panel.togglePanel(currentMonitorInt, value);
+        panel.togglePanel(currentMonitorInt, 'keybind', value);
         res(`Toggling Panel-${currentMonitorInt} expanding section "${value}"`);
       } else if (option === '-h' || option === '--help') {
         res(`Toggle the panel from the command line.
@@ -45,7 +47,7 @@ Available Options:
   -s [SECTION], --section [SECTION] : open to a specific section
           `);
       } else {
-        panel.togglePanel(currentMonitorInt);
+        panel.togglePanel(currentMonitorInt, 'keybind', panel.defaultSection);
         res(`Toggling Panel-${currentMonitorInt}`);
       }
     }

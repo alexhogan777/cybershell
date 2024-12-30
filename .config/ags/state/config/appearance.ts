@@ -61,11 +61,20 @@ export default class Appearance extends GObject.Object {
 
     // Apply GTK
     const bg = `rgba(${this.#bg},${this.#transparency})`;
+    const bgHex = `#${convertToHex(this.#bg)}${convertToHex(String(this.#transparency * 255))}`;
     const surface = `rgba(${this.#surface},${this.#transparency})`;
+    const surfaceHex = `#${convertToHex(this.#surface)}${convertToHex(
+      String(this.#transparency * 255)
+    )}`;
+    const hoverHex = `#${convertToHex(lighten(this.#surface))}${convertToHex(
+      String(this.#transparency * 255)
+    )}`;
     const view = `rgba(${this.#view},${this.#transparency})`;
+    const viewHex = `#${convertToHex(this.#view)}${convertToHex(String(this.#transparency * 255))}`;
     const accent = `#${convertToHex(this.#accent)}`;
+    const text = `#${convertToHex(this.#text)}`;
 
-    const gtkSettings = `@define-color theme_fg_color #AEE5FA;
+    const gtkSettings = `@define-color theme_fg_color ${accent};
 @define-color theme_bg_color ${bg};
 @define-color theme_base_color #${convertToHex(this.#bg)};
 @define-color theme_unfocused_bg_color ${bg};
@@ -73,37 +82,38 @@ export default class Appearance extends GObject.Object {
 
 @define-color accent_color ${accent};
 @define-color accent_bg_color ${accent};
-@define-color accent_fg_color #ffffff;
+@define-color accent_fg_color ${text};
 @define-color destructive_color #ff7b63;
 @define-color destructive_bg_color #c01c28;
-@define-color destructive_fg_color #ffffff;
+@define-color destructive_fg_color ${text};
 @define-color success_color #8ff0a4;
 @define-color success_bg_color #26a269;
-@define-color success_fg_color #ffffff;
+@define-color success_fg_color ${text};
 @define-color warning_color #f8e45c;
 @define-color warning_bg_color #cd9309;
 @define-color warning_fg_color rgba(0, 0, 0, 0.8);
 @define-color error_color #ff7b63;
 @define-color error_bg_color #c01c28;
-@define-color error_fg_color #ffffff;
+@define-color error_fg_color ${text};
 @define-color window_bg_color ${bg};
-@define-color window_fg_color #ffffff;
+@define-color window_fg_color ${text};
 @define-color view_bg_color ${view};
-@define-color view_fg_color #ffffff;
-@define-color headerbar_bg_color ${surface};
-@define-color headerbar_fg_color #ffffff;
-@define-color headerbar_border_color #ffffff;
+@define-color view_fg_color ${text};
+@define-color headerbar_bg_color #${convertToHex(this.#surface)};
+@define-color headerbar_fg_color ${text};
+@define-color headerbar_border_color ${text};
 @define-color headerbar_backdrop_color @window_bg_color;
 @define-color headerbar_shade_color rgba(0, 0, 0, 0.36);
 @define-color card_bg_color ${surface};
-@define-color card_fg_color #ffffff;
+@define-color card_fg_color ${text};
 @define-color card_shade_color rgba(0, 0, 0, 0.36);
 @define-color dialog_bg_color ${bg};
-@define-color dialog_fg_color #ffffff;
+@define-color dialog_fg_color ${text};
 @define-color popover_bg_color ${bg};
-@define-color popover_fg_color #ffffff;
+@define-color popover_fg_color ${text};
 @define-color shade_color rgba(0, 0, 0, 0.36);
-@define-color scrollbar_outline_color rgba(0, 0, 0, 0.5);
+@define-color scrollbar_color ${accent};
+@define-color scrollbar_outline_color ${accent};
 @define-color sidebar_bg_color @headerbar_bg_color;
 @define-color sidebar_fg_color @headerbar_fg_color;
 @define-color sidebar_border_color @window_bg_color;
@@ -213,6 +223,8 @@ general {
   gaps_workspaces = 50
   border_size = ${this.#borderWidth}
 }
+
+layerrule = ignorealpha ${this.#transparency - 0.01}, gtk-layer-shell
   
 decoration {
   rounding = ${this.#cornerRounding}
@@ -235,7 +247,7 @@ decoration {
         bar_padding = 10
         bar_button_padding = 5
         bar_precedence_over_border = false
-        bar_part_of_window = true
+        bar_part_of_window = false
 
         bar_color = rgb(${this.#bg})
 
@@ -261,6 +273,36 @@ background_opacity ${this.#transparency}`;
 
     exec(['sass', './style.scss', '/tmp/style.css']);
     App.apply_css('/tmp/style.css');
+
+    // Apply VSCode
+    let codeConf = JSON.parse(readFile(`${HOME}/.config/Code/User/settings.json`));
+    let wbColors = codeConf['workbench.colorCustomizations'];
+    wbColors['selection.background'] = accent;
+    wbColors['input.background'] = surfaceHex;
+    wbColors['dropdown.background'] = surfaceHex;
+    wbColors['list.dropBackground'] = surfaceHex;
+    wbColors['button.foreground'] = text;
+    wbColors['button.background'] = accent;
+    wbColors['badge.foreground'] = text;
+    wbColors['badge.background'] = accent;
+    wbColors['scrollbarSlider.background'] = surfaceHex;
+    wbColors['scrollbarSlider.hoverBackground'] = hoverHex;
+    wbColors['scrollbarSlider.activeBackground'] = accent;
+    wbColors['editor.background'] = `#141414`;
+    wbColors['editor.foreground'] = text;
+
+    wbColors['editorCursor.foreground'] = accent;
+
+    wbColors['sideBar.background'] = bgHex;
+    wbColors['sideBar.foreground'] = text;
+    wbColors['sideBarSectionHeader.background'] = surfaceHex;
+    wbColors['activityBar.background'] = surfaceHex;
+    wbColors['activityBar.foreground'] = text;
+    wbColors['activtyBarBadge.background'] = accent;
+    wbColors['activityBarBadge.foreground'] = text;
+
+    codeConf['workbench.colorCustomizations'] = wbColors;
+    writeFile(`${HOME}/.config/Code/User/settings.json`, JSON.stringify(codeConf));
   }
 
   #transparency = getFromOptions('transparency');

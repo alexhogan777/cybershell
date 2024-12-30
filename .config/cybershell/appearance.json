@@ -1,13 +1,13 @@
 {
   "transparency": 0.85,
-  "bg": "34,0,34",
-  "accent": "127,0,127",
+  "bg": "24,24,24",
+  "accent": "28,113,216",
   "hover": "200,0,111",
   "text": "255,255,255",
   "error": "255,0,34",
-  "borderWidth": 2,
+  "borderWidth": 0,
   "cornerRounding": 8,
   "paddingBase": 4,
-  "buttonSize": 36,
+  "buttonSize": 40,
   "wallpaperPath": "~/Pictures/walls/l0v3r5_834ch.gif"
 }

@@ -27,7 +27,7 @@ import { MaterialIcon } from '../../common/MaterialIcon';
 import { Notification } from './Notification';
 import { XButton } from '../../common/XButton';
 
-export const Notifications = (monitorInt: number) => {
+export const Notifications = () => {
   const Bar = () => {
     const Icon = () => {
       return <MaterialIcon icon='notifications' size={1.25} />;
@@ -73,7 +73,8 @@ export const Notifications = (monitorInt: number) => {
   return (
     <eventbox
       onClick={() => {
-        panel.section !== 'Notifications' && panel.togglePanel(monitorInt, 'Notifications');
+        panel.section !== 'Notifications' &&
+          panel.togglePanel(panel.monitor, 'panel', 'Notifications');
       }}
     >
       <box vertical spacing={spacing} className='panel-section notifications'>

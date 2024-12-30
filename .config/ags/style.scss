@@ -13,6 +13,19 @@ $cornersReversed: 0em 0.5em 0em 0.5em;
   // color: $text;
 }
 
+label {
+  color: $text;
+}
+
+@mixin animate($animation, $duration, $method, $times) {
+  animation: $animation $duration $method $times;
+}
+@mixin keyframes($name) {
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
 @mixin corners-all {
   border-radius: $brv;
 }
@@ -168,6 +181,7 @@ menu {
   }
 }
 
+@import './style/desktop.scss';
 @import './style/bar.scss';
 @import './style/panel.scss';
 @import './style/notification.scss';

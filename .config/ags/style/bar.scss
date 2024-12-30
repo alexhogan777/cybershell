@@ -3,6 +3,13 @@
   .icon-material {
     font-weight: bold;
   }
+  .active-client {
+    @include bg;
+    @include corners-all;
+    min-width: $buttonSize;
+    min-height: $buttonSize;
+    padding: $paddingSmall;
+  }
   .Workspaces {
     @include bg;
     @include corners-all;
@@ -15,14 +22,21 @@
       @include corners-circle;
       min-width: $buttonSize - $paddingSmall;
       min-height: $buttonSize - $paddingSmall;
-      color: lighten($surface, 10%);
+
+      label {
+        color: lighten($surface, 10%);
+      }
 
       &.real {
-        color: $text;
+        label {
+          color: $text;
+        }
         // background-color: $surfaceDark;
       }
       &:hover {
-        color: $text;
+        label {
+          color: $text;
+        }
         background-color: $hover;
         &:active {
           background-color: darken($hover, 15%);
@@ -41,7 +55,9 @@
   }
 
   .Clock {
-    min-width: $buttonSize + $paddingSmall * 2;
+    min-width: $buttonSize;
+    min-height: $buttonSize;
+    // padding: $paddingMedium;
     font-weight: bold;
     .time {
       padding-top: 4px;
@@ -52,8 +68,10 @@
       }
     }
     .date {
-      font-size: 0.73em;
       color: $accent;
+      &.vertical {
+        font-size: 0.73em;
+      }
     }
   }
   .Sys-Tray {
@@ -67,6 +85,7 @@
     @include corners-all;
     padding: $paddingMedium - $borderWidth - 1px;
     min-width: $buttonSize;
+    min-height: $buttonSize;
     padding-top: $paddingSmall;
     padding-bottom: $paddingSmall;
 
@@ -79,8 +98,9 @@
     // }
     button {
       @include transparent;
-      padding: 0px;
-      min-height: 20px;
+      // padding: 0px;
+      min-width: 0px;
+      min-height: 0px;
     }
   }
 }

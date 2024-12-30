@@ -19,6 +19,7 @@ const SPACING = bind(
 
 // Widgets
 import { XButton } from '../common/XButton';
+import { getLayout } from '../../utils/get_layout';
 
 export const BarButton = ({
   icon = '',
@@ -30,6 +31,12 @@ export const BarButton = ({
   onClick,
   ...props
 }: any) => {
+  const doRight = ['Calendar', 'Settings'];
+  const anchor = () => {
+    if (doRight.includes(section)) return Astal.WindowAnchor.RIGHT;
+    else return Astal.WindowAnchor.LEFT;
+  };
+
   return (
     <XButton
       vertical={true}
@@ -43,7 +50,7 @@ export const BarButton = ({
           ? onClick
           : (_: any, event: Astal.ClickEvent) => {
               if (event.button === Astal.MouseButton.PRIMARY)
-                panel.togglePanel(monitorInt, section);
+                panel.togglePanel(monitorInt, 'bar', section, anchor());
             }
       }
     >

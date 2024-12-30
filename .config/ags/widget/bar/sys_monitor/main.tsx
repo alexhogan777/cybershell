@@ -1,5 +1,5 @@
 // Astal
-import { bind, Variable } from 'astal';
+import { bind, Binding, Variable } from 'astal';
 import { Gtk } from 'astal/gtk3';
 
 // Config
@@ -19,11 +19,12 @@ import { BatteryMonitor } from './Battery';
 import { BluetoothMonitor } from './Bluetooth';
 import { NetworkMonitor } from './Network';
 import { Resources } from './Resources';
+import { getLayout } from '../../../utils/get_layout';
 
-export const SysMonitor = ({ monitorInt }: { monitorInt: number }) => {
+export const SysMonitor = ({ vertical }: { vertical: Binding<boolean> }) => {
   return (
     <box
-      vertical
+      vertical={vertical}
       className={`Sys-Monitor`}
       spacing={spacing}
       halign={Gtk.Align.CENTER}

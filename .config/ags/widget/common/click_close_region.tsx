@@ -4,6 +4,8 @@ import { Variable } from 'astal';
 
 // Functions
 import { playSound } from '../../utils/play_sound';
+import Panel from '../../state/panel/panel';
+const panel = Panel.get_default();
 
 // Variables
 const windowTypes = ['Panel'];
@@ -23,12 +25,14 @@ const visibleWindows = Variable<string[]>([]);
 const othersOpen = Variable<string[]>([]);
 
 function closeWindows() {
-  const windows = App.get_windows();
-  const windowsToClose = windows.filter((w) =>
-    windowTypes.map((wt) => w.name.includes(wt)).includes(true)
-  );
-  windowsToClose.forEach((wtc) => wtc.set_visible(false));
-  visibleWindows.set([]);
+  // const windows = App.get_windows();
+  // const windowsToClose = windows.filter((w) =>
+  //   windowTypes.map((wt) => w.name.includes(wt)).includes(true)
+  // );
+  // windowsToClose.forEach((wtc) => wtc.set_visible(false));
+  // visibleWindows.set([]);
+  panel.visible = false;
+  panel.emit('toggled', panel);
 }
 
 export function executeCCR() {

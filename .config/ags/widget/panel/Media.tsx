@@ -21,7 +21,7 @@ import { MaterialIcon } from '../common/MaterialIcon';
 import { PanelSection } from './PanelSection';
 import { XButton } from '../common/XButton';
 
-export const Media = (monitorInt: number) => {
+export const Media = () => {
   function lengthStr(length: number) {
     const min = Math.floor(length / 60);
     const sec = Math.floor(length % 60);
@@ -224,7 +224,7 @@ export const Media = (monitorInt: number) => {
     return <label label='Media' className='title' />;
   };
   return (
-    <PanelSection monitorInt={monitorInt} section='Media' icon='music_note' title={title()}>
+    <PanelSection section='Media' icon='music_note' title={title()}>
       <box vertical className='section-content' spacing={spacing}>
         {bind(mpris, 'players').as((v) => v.map(Player))}
       </box>
