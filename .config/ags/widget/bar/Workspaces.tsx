@@ -19,14 +19,23 @@ const spacing = bind(
 
 // Functions
 import { playSound } from '../../utils/play_sound';
+import focusWorkspace from '../../utils/focusworkspace';
 
 // Variables
 const scratchID = -99;
 
-export const Workspaces = ({ vertical }: { vertical: Binding<boolean> }) => {
+export const Workspaces = ({
+  vertical,
+  monitorInt,
+}: {
+  vertical: Binding<boolean>;
+  monitorInt: number;
+}) => {
   function getChildren() {
     if (config.bar.wsInactive) {
-      let wss = Array.from({ length: config.bar.wsNumber }, (_, i) => i + 1);
+      let wss = Array.from({ length: config.bar.wsNumber }, (_, i) => {
+        return i + 1 + monitorInt * config.bar.wsNumber;
+      });
       if (config.bar.wsScratch) wss = [scratchID, ...wss];
 
       return wss.map(workspacebutton);
@@ -49,7 +58,6 @@ export const Workspaces = ({ vertical }: { vertical: Binding<boolean> }) => {
           playSound('hover');
         }}
         halign={Gtk.Align.CENTER}
-        cursor='pointer'
         setup={(self) => {
           function update() {
             self.toggleClassName('focused', hyprland.get_focused_workspace().id === ws);
@@ -72,7 +80,7 @@ export const Workspaces = ({ vertical }: { vertical: Binding<boolean> }) => {
           self.hook(hyprland, 'event', update);
         }}
       >
-        {ws === scratchID ? 'S' : ws}
+        {ws === scratchID ? 'S' : ws - monitorInt * config.bar.wsNumber}
       </button>
     );
   };
@@ -80,8 +88,8 @@ export const Workspaces = ({ vertical }: { vertical: Binding<boolean> }) => {
   return (
     <eventbox
       onScroll={(_, event) => {
-        if (event.delta_y > 0) hyprland.dispatch('workspace', '+1');
-        if (event.delta_y < 0) hyprland.dispatch('workspace', '-1');
+        if (event.delta_y > 0) focusWorkspace('-i', 1);
+        if (event.delta_y < 0) focusWorkspace('-i', -1);
       }}
     >
       <box

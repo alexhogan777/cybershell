@@ -1,5 +1,5 @@
 {
-  "autoHide": false,
+  "autoHide": true,
   "autoHideDelay": 500,
   "displayMode": "all",
   "displayAnchor": "top",

@@ -36,7 +36,6 @@ export const PanelSection = ({ section, title, icon, child }: PanelSection) => {
   const Bar = () => {
     return (
       <eventbox
-        cursor='pointer'
         onHover={() => {
           playSound('hover');
           className.set('hover');

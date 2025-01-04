@@ -8,12 +8,11 @@ const apps = new Apps.Apps({
   entryMultiplier: 0,
   executableMultiplier: 2,
 });
+import Panel from '../../../state/panel/panel';
+const panel = Panel.get_default();
 
 // Config
 import { userConfig } from '../../../config/user_config';
-
-// Functions
-import { executeCCR } from '../../common/click_close_region';
 
 export interface SearchItem {
   type: 'pinned-app' | 'app' | 'command' | 'web';
@@ -63,8 +62,7 @@ export function updateSearchItems(q: string) {
 
     if (pinned_apps_shown) visibleSearchItems.set([...pinnedApps]);
     if (apps_shown) visibleSearchItems.set([..._apps]);
-    if (actions_shown)
-      visibleSearchItems.set([...visibleSearchItems.get(), command, web]);
+    if (actions_shown) visibleSearchItems.set([...visibleSearchItems.get(), command, web]);
   }
 }
 
@@ -96,21 +94,14 @@ export function executeSelectedSearchItem() {
   if (item) {
     if (item.app) item.app.launch();
     if (item.type === 'command')
-      execAsync([
-        'bash',
-        '-c',
-        `${userConfig.panel.search.terminal} ${query.get()}`,
-      ]).catch(print);
+      execAsync(['bash', '-c', `${userConfig.panel.search.terminal} ${query.get()}`]).catch(print);
 
     if (item.type === 'web')
       execAsync([
         'bash',
         '-c',
-        `xdg-open "${userConfig.panel.search.searchEngine.replace(
-          '%s',
-          query.get()
-        )}"`,
+        `xdg-open "${userConfig.panel.search.searchEngine.replace('%s', query.get())}"`,
       ]).catch(print);
   }
-  executeCCR();
+  panel.togglePanel(panel.monitor, 'keybind');
 }

@@ -7,9 +7,13 @@ const hyprland = Hyprland.get_default();
 const focusedClient = bind(hyprland, 'focusedClient');
 
 export const ActiveClient = () => {
-  return (
-    <box className='active-client' tooltipText={focusedClient.as((v) => v.title)}>
-      <icon icon={focusedClient.as((v) => v.initialClass)} css='font-size: 24px;' expand />
-    </box>
+  return focusedClient.as((v) =>
+    v ? (
+      <box className='active-client' tooltipText={focusedClient.as((v) => v.title)}>
+        <icon icon={focusedClient.as((v) => v.initialClass)} css='font-size: 24px;' expand />
+      </box>
+    ) : (
+      <box />
+    )
   );
 };

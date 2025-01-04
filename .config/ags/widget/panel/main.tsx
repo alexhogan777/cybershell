@@ -19,7 +19,7 @@ const spacing = bind(
 );
 
 // Functions
-import { executeCCR } from '../common/click_close_region';
+// import { executeCCR } from '../common/click_close_region';
 import { getLayout } from '../../utils/get_layout';
 import { changeSearchItemSelection, executeSelectedSearchItem } from './Search/functions';
 
@@ -33,13 +33,14 @@ import { Weather } from './Weather';
 
 export const Panel = (gdkMonitor: Gdk.Monitor) => {
   const monitorInt = App.get_monitors().indexOf(gdkMonitor);
-  const layout = Variable(getLayout(monitorInt)).observe(config.bar, 'updated', () =>
-    getLayout(monitorInt)
-  );
+  const layout = Variable(getLayout(panel.monitor))
+    .observe(panel, 'updated', () => getLayout(panel.monitor))
+    .observe(config.bar, 'updated', () => getLayout(panel.monitor));
 
   function getAnchor() {
     const _layout = layout.get();
     const _anchor = panel.anchor;
+
     if (_layout.direction === 'horizontal') {
       return _anchor | Astal.WindowAnchor.TOP | Astal.WindowAnchor.BOTTOM;
     } else return _layout.anchor;
@@ -47,6 +48,19 @@ export const Panel = (gdkMonitor: Gdk.Monitor) => {
   const anchor = Variable(getAnchor())
     .observe(panel, 'updated', () => getAnchor())
     .observe(config.bar, 'updated', () => getAnchor());
+
+  function getMargin(side: string) {
+    return layout.get().side === side ? 0 : spacing.get();
+  }
+  const marginLeft = Variable(getMargin('right'))
+    .observe(config.appearance, 'updated', () => getMargin('right'))
+    .observe(panel, 'updated', () => getMargin('right'))
+    .observe(config.bar, 'updated', () => getMargin('right'));
+
+  const marginRight = Variable(getMargin('left'))
+    .observe(config.appearance, 'updated', () => getMargin('left'))
+    .observe(panel, 'updated', () => getMargin('left'))
+    .observe(config.bar, 'updated', () => getMargin('left'));
 
   return (
     <window
@@ -58,18 +72,14 @@ export const Panel = (gdkMonitor: Gdk.Monitor) => {
       layer={Astal.Layer.OVERLAY}
       onKeyPressEvent={(_, event) => {
         const keyval = event.get_keyval()[1];
-        if (keyval === 65307) executeCCR();
+        if (keyval === 65307) panel.togglePanel(panel.monitor, 'keybind');
         if (keyval === 65362) changeSearchItemSelection(-1);
         if (keyval === 65364) changeSearchItemSelection(+1);
         if (keyval === 65293) executeSelectedSearchItem();
       }}
       margin={spacing}
-      marginLeft={bind(panel, 'anchor').as((a) =>
-        a === Astal.WindowAnchor.RIGHT ? 0 : spacing.get()
-      )}
-      marginRight={bind(panel, 'anchor').as((a) =>
-        a === Astal.WindowAnchor.LEFT ? 0 : spacing.get()
-      )}
+      marginLeft={bind(marginLeft)}
+      marginRight={bind(marginRight)}
       application={App}
       visible={bind(panel, 'visible')}
       css={`

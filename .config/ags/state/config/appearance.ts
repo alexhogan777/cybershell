@@ -274,35 +274,35 @@ background_opacity ${this.#transparency}`;
     exec(['sass', './style.scss', '/tmp/style.css']);
     App.apply_css('/tmp/style.css');
 
-    // Apply VSCode
-    let codeConf = JSON.parse(readFile(`${HOME}/.config/Code/User/settings.json`));
-    let wbColors = codeConf['workbench.colorCustomizations'];
-    wbColors['selection.background'] = accent;
-    wbColors['input.background'] = surfaceHex;
-    wbColors['dropdown.background'] = surfaceHex;
-    wbColors['list.dropBackground'] = surfaceHex;
-    wbColors['button.foreground'] = text;
-    wbColors['button.background'] = accent;
-    wbColors['badge.foreground'] = text;
-    wbColors['badge.background'] = accent;
-    wbColors['scrollbarSlider.background'] = surfaceHex;
-    wbColors['scrollbarSlider.hoverBackground'] = hoverHex;
-    wbColors['scrollbarSlider.activeBackground'] = accent;
-    wbColors['editor.background'] = `#141414`;
-    wbColors['editor.foreground'] = text;
+    // // Apply VSCode
+    // let codeConf = JSON.parse(readFile(`${HOME}/.config/Code/User/settings.json`));
+    // let wbColors = codeConf['workbench.colorCustomizations'];
+    // wbColors['selection.background'] = accent;
+    // wbColors['input.background'] = surfaceHex;
+    // wbColors['dropdown.background'] = surfaceHex;
+    // wbColors['list.dropBackground'] = surfaceHex;
+    // wbColors['button.foreground'] = text;
+    // wbColors['button.background'] = accent;
+    // wbColors['badge.foreground'] = text;
+    // wbColors['badge.background'] = accent;
+    // wbColors['scrollbarSlider.background'] = surfaceHex;
+    // wbColors['scrollbarSlider.hoverBackground'] = hoverHex;
+    // wbColors['scrollbarSlider.activeBackground'] = accent;
+    // wbColors['editor.background'] = `#141414`;
+    // wbColors['editor.foreground'] = text;
 
-    wbColors['editorCursor.foreground'] = accent;
+    // wbColors['editorCursor.foreground'] = accent;
 
-    wbColors['sideBar.background'] = bgHex;
-    wbColors['sideBar.foreground'] = text;
-    wbColors['sideBarSectionHeader.background'] = surfaceHex;
-    wbColors['activityBar.background'] = surfaceHex;
-    wbColors['activityBar.foreground'] = text;
-    wbColors['activtyBarBadge.background'] = accent;
-    wbColors['activityBarBadge.foreground'] = text;
+    // wbColors['sideBar.background'] = bgHex;
+    // wbColors['sideBar.foreground'] = text;
+    // wbColors['sideBarSectionHeader.background'] = surfaceHex;
+    // wbColors['activityBar.background'] = surfaceHex;
+    // wbColors['activityBar.foreground'] = text;
+    // wbColors['activtyBarBadge.background'] = accent;
+    // wbColors['activityBarBadge.foreground'] = text;
 
-    codeConf['workbench.colorCustomizations'] = wbColors;
-    writeFile(`${HOME}/.config/Code/User/settings.json`, JSON.stringify(codeConf));
+    // codeConf['workbench.colorCustomizations'] = wbColors;
+    // writeFile(`${HOME}/.config/Code/User/settings.json`, JSON.stringify(codeConf));
   }
 
   #transparency = getFromOptions('transparency');

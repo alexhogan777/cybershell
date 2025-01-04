@@ -29,7 +29,6 @@ import {
   getFriendlyNotifTime,
   getFriendlyNotifTitle,
 } from '../../../utils/friendly';
-import { executeCCR } from '../../common/click_close_region';
 
 // Widgets
 import { MaterialIcon } from '../../common/MaterialIcon';
@@ -138,7 +137,7 @@ export const Notification = (notif: Notifd.Notification) => {
           hexpand
           onClick={() => {
             notif.invoke(action.action.id);
-            executeCCR();
+            panel.togglePanel(panel.monitor, 'keybind');
           }}
         >
           {action.icon && <MaterialIcon icon={action.icon} />}
@@ -247,7 +246,7 @@ export const Notification = (notif: Notifd.Notification) => {
                 onClick={() => {
                   playSound('button');
                   notif.invoke('default');
-                  executeCCR();
+                  panel.togglePanel(panel.monitor, 'keybind');
                 }}
               >
                 <box spacing={spacing}>

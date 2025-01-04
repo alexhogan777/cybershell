@@ -8,7 +8,14 @@ import Panel from '../../state/panel/panel';
 const panel = Panel.get_default();
 
 // Variables
-const windowTypes = ['Panel'];
+function getPanelState() {
+  return {
+    visible: panel.visible,
+    monitor: panel.monitor,
+    anchor: panel.anchor,
+  };
+}
+const panelState = Variable(getPanelState());
 
 function openCCRs() {
   const windows = App.get_windows();
@@ -19,25 +26,6 @@ function closeCCRs() {
   const windows = App.get_windows();
   const clickCloseRegions = windows.filter((w) => w.name.includes('Click_Close_Region'));
   clickCloseRegions.forEach((ccr) => ccr.set_visible(false));
-}
-
-const visibleWindows = Variable<string[]>([]);
-const othersOpen = Variable<string[]>([]);
-
-function closeWindows() {
-  // const windows = App.get_windows();
-  // const windowsToClose = windows.filter((w) =>
-  //   windowTypes.map((wt) => w.name.includes(wt)).includes(true)
-  // );
-  // windowsToClose.forEach((wtc) => wtc.set_visible(false));
-  // visibleWindows.set([]);
-  panel.visible = false;
-  panel.emit('toggled', panel);
-}
-
-export function executeCCR() {
-  closeWindows();
-  closeCCRs();
 }
 
 export const ClickCloseRegion = (gdkMonitor: Gdk.Monitor) => {
@@ -58,52 +46,44 @@ export const ClickCloseRegion = (gdkMonitor: Gdk.Monitor) => {
       keymode={Astal.Keymode.NONE}
       visible={false}
       css={'background: transparent;'}
-      setup={(self) =>
-        self.hook(App, 'window-toggled', (self, window: Astal.Window) => {
-          const _visibleWindows = visibleWindows.get();
-          const _othersOpen = othersOpen.get();
+      setup={(self) => {
+        function update() {
+          const _panelState = panelState.get();
+          const shouldProceed = () => {
+            if (panel.visible !== _panelState.visible) return 'visible';
+            if (panel.monitor !== _panelState.monitor) return 'monitor';
+            if (panel.anchor !== _panelState.anchor) return 'anchor';
+            return null;
+          };
 
-          // Is this window on on the same monitor as this ccr?
-          if (window.monitor !== monitorInt) return;
-
-          // Is this window one of the specified types?
-          const thisType = windowTypes.find((wt) => window.name.includes(wt));
-          if (!thisType) return;
-
-          // Is this window visible? (if not, do this)
-          if (!window.visible) {
-            // Is this window not currently closing because
-            // a new window with the same type opened?
-            if (!_othersOpen.includes(window.name)) {
-              playSound('dismiss');
-              executeCCR();
+          if (shouldProceed() === null) return;
+          if (shouldProceed() === 'visible') {
+            if (panel.visible) {
+              playSound('open');
+              openCCRs();
             } else {
-              // if it is, do this
+              playSound('dismiss');
+
+              closeCCRs();
             }
-            return;
+          }
+          if (shouldProceed() === 'monitor' || shouldProceed() === 'anchor') {
+            playSound('open');
           }
 
-          othersOpen.set(
-            // Find open windows with the same type as this one
-            _visibleWindows.filter((vw) => {
-              if (!vw.includes(thisType)) return false;
-              if (vw === window.name) return false;
-              return true;
-            })
-          );
+          panelState.set(getPanelState());
+        }
 
-          // Close open windows with the same type as this one
-          othersOpen.get().forEach((w) => App.get_window(w)?.set_visible(false));
-
-          // Add this window to the list of visible windows
-          visibleWindows.set([..._visibleWindows, window.name]);
-
-          openCCRs();
-          playSound('open');
-        })
-      }
+        self.hook(panel, 'updated', update);
+      }}
     >
-      <eventbox expand onClick={() => executeCCR()} />
+      <eventbox
+        expand
+        onClick={() => {
+          closeCCRs();
+          panel.togglePanel(monitorInt, 'ccr');
+        }}
+      />
     </window>
   );
 };

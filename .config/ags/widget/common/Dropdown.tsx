@@ -49,7 +49,6 @@ export const Dropdown = ({
     return (
       <button
         className='dropdown-option selected'
-        cursor='pointer'
         onClick={(self, event) => {
           if (event.button === Astal.MouseButton.PRIMARY) {
             reveal.set(!reveal.get());
@@ -75,7 +74,6 @@ export const Dropdown = ({
     return (
       <button
         className='dropdown-option'
-        cursor='pointer'
         visible={bind(selected).as((s) => {
           return s !== index;
         })}

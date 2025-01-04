@@ -46,7 +46,6 @@ export const XButton = ({
   return (
     <button
       {...props}
-      cursor='pointer'
       onClick={(self: Gtk.Button, event: Astal.ClickEvent) => {
         playSound('button');
         if (onClick) onClick(self, event);

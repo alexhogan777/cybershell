@@ -10,6 +10,7 @@ const panel = PanelLib.get_default();
 
 // Config
 import Config from './state/config/config';
+const config = Config.get_default();
 
 // Widgets
 import { ClickCloseRegion } from './widget/common/click_close_region';
@@ -18,6 +19,7 @@ import { Bar } from './widget/bar/main';
 import { Panel } from './widget/panel/main';
 import { Popups } from './widget/popups/main';
 import { Desktop } from './widget/desktop/main';
+import focusWorkspace from './utils/focusworkspace';
 
 App.start({
   main() {
@@ -50,6 +52,10 @@ Available Options:
         panel.togglePanel(currentMonitorInt, 'keybind', panel.defaultSection);
         res(`Toggling Panel-${currentMonitorInt}`);
       }
+    }
+    if (command === 'focusworkspace') {
+      focusWorkspace(option, Number(value));
+      res('');
     }
   },
 });

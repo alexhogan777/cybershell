@@ -57,7 +57,6 @@ export default class Panel extends GObject.Object {
   set visible(value) {
     this.#visible = value;
     this.notify('visible');
-    this.emit('updated', this);
     this.emit('toggled', this);
   }
 
@@ -68,7 +67,6 @@ export default class Panel extends GObject.Object {
   set monitor(value) {
     this.#monitor = value;
     this.notify('monitor');
-    this.emit('updated', this);
   }
 
   @property()
@@ -78,7 +76,6 @@ export default class Panel extends GObject.Object {
   set anchor(value) {
     this.#anchor = value;
     this.notify('anchor');
-    this.emit('updated', this);
   }
 
   @property(String)
@@ -187,7 +184,12 @@ export default class Panel extends GObject.Object {
           resetSection(this);
         }
         break;
+      case 'ccr':
+        resetAnchor(this);
+        resetSection(this);
+        closePanel(this);
     }
+    this.emit('updated', this);
   }
 
   constructor() {

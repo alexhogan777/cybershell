@@ -115,8 +115,8 @@ export const Bar = (gdkMonitor: Gdk.Monitor) => {
             }
           });
 
-          self.hook(panel, 'toggled', () => {
-            const value = App.get_window(`Panel-${monitorInt}`)?.visible || false;
+          self.hook(panel, 'updated', () => {
+            const value = panel.visible && panel.monitor === monitorInt;
 
             if (value) {
               hide.stop();
@@ -169,50 +169,43 @@ export const Bar = (gdkMonitor: Gdk.Monitor) => {
       visible={bind(layout).as((l) => l.rendered)}
     >
       <AutoHide>
-        <eventbox
-          onClick={(self: Astal.EventBox, event: Astal.ClickEvent) => {
-            if (event.button === Gdk.BUTTON_SECONDARY) {
-            }
-          }}
-        >
-          <centerbox
-            vertical={vertical}
-            css={bind(padding)}
-            startWidget={
-              <Section
-                halign={vertical.as((v) => !v && Gtk.Align.START)}
-                valign={vertical.as((v) => (v ? Gtk.Align.START : Gtk.Align.CENTER))}
-              >
-                <Search monitorInt={monitorInt} />
-                {Media({ monitorInt: monitorInt })}
-                <Notifications monitorInt={monitorInt} />
-                <SysTray monitorInt={monitorInt} />
-              </Section>
-            }
-            centerWidget={
-              <Section halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
-                <ActiveClient />
-                <Workspaces vertical={vertical} />
-                <Overview monitorInt={monitorInt} />
-              </Section>
-            }
-            endWidget={
-              <centerbox
-                vertical={vertical}
-                endWidget={
-                  <Section
-                    halign={vertical.as((v) => !v && Gtk.Align.END)}
-                    valign={vertical.as((v) => (v ? Gtk.Align.END : Gtk.Align.CENTER))}
-                  >
-                    <Clock monitorInt={monitorInt} layout={layout} vertical={vertical} />
-                    <SysMonitor vertical={vertical} />
-                    <Settings monitorInt={monitorInt} />
-                  </Section>
-                }
-              />
-            }
-          />
-        </eventbox>
+        <centerbox
+          vertical={vertical}
+          css={bind(padding)}
+          startWidget={
+            <Section
+              halign={vertical.as((v) => !v && Gtk.Align.START)}
+              valign={vertical.as((v) => (v ? Gtk.Align.START : Gtk.Align.CENTER))}
+            >
+              <Search monitorInt={monitorInt} />
+              {Media({ monitorInt: monitorInt })}
+              <Notifications monitorInt={monitorInt} />
+              <SysTray monitorInt={monitorInt} />
+            </Section>
+          }
+          centerWidget={
+            <Section halign={Gtk.Align.CENTER} valign={Gtk.Align.CENTER}>
+              <ActiveClient />
+              <Workspaces monitorInt={monitorInt} vertical={vertical} />
+              <Overview monitorInt={monitorInt} />
+            </Section>
+          }
+          endWidget={
+            <centerbox
+              vertical={vertical}
+              endWidget={
+                <Section
+                  halign={vertical.as((v) => !v && Gtk.Align.END)}
+                  valign={vertical.as((v) => (v ? Gtk.Align.END : Gtk.Align.CENTER))}
+                >
+                  <Clock monitorInt={monitorInt} layout={layout} vertical={vertical} />
+                  <SysMonitor vertical={vertical} />
+                  <Settings monitorInt={monitorInt} />
+                </Section>
+              }
+            />
+          }
+        />
       </AutoHide>
     </window>
   );
